@@ -1,0 +1,99 @@
+Hi Nick,
+
+I worked on this, got through my initial confusion. Here are my notes. Maybe you will find them helpful.
+
+They show how to create the simplest notebook widget, following the full MVC, backbone.js, server/browser division of responsibilities.
+
+Based on code and README’s from these three websites:
+
+http://ipywidgets.readthedocs.io/en/latest/examples/Custom%20Widget%20-%20Hello%20World.html
+https://github.com/ipython/ipywidgets
+https://github.com/jupyter/widget-cookiecutter
+
+
+pip install cookiecutter
+cd ~/s/examples/jupyter
+cookiecutter https://github.com/jupyter/widget-cookiecutter.git
+cd ~/s/examples/jupyter/jupyter-widget-example/
+
+/** I had already cloned this **/
+
+
+pip install -e .
+jupyter nbextension install --py --symlink --user ipywidgetexample
+jupyter nbextension enable --py --user ipywidgetexample
+jupyter notebook
+
+within notebook:
+###########################################
+
+from ipywidgetexample import *
+HelloWorld() # displays simple text "Hello World!" in the "widget space" below the input cell
+
+###########################################
+
+--- now change the message, the simplest possible modification
+~/s/examples/jupyter/jupyter-widget-example/ipywidgetexample/example.py
+now reads
+
+@widgets.register('hello.Hello')
+class HelloWorld(widgets.DOMWidget):
+""""""
+_view_name = Unicode('HelloView').tag(sync=True)
+_model_name = Unicode('HelloModel').tag(sync=True)
+_view_module = Unicode('jupyter-widget-example').tag(sync=True)
+_model_module = Unicode('jupyter-widget-example').tag(sync=True)
+value = Unicode('Hello Universe!').tag(sync=True)
+
+--- rebuild
+
+pip install -e .
+jupyter nbextension install --py --symlink --user ipywidgetexample
+jupyter nbextension enable --py --user ipywidgetexample
+jupyter notebook
+
+
+
+
+Notes
+-----------------------------------------------
+Webpack is being used to build the JavaScript widget. You have to go to the /js directory in order to run webpack.
+
+There are three sections in the webpack.config.js
+
+1) Notebook extension: This bundle only contains the part of the JavaScript that is run on load of the notebook. This section generally only performs some configuration for requirejs, and provides the legacy 'load_ipython_extension' function which is required for any notebook extension.
+
+2) Bundle the notebook containing the custom widget views and models: This bundle contains the implementation for the custom widget views and custom widget. It must be an amd module. [AMD: Asynchronous Module Definition]
+
+3) Embeddable clustergrammer_widget bundle: This bundle is generally almost-identical to the notebook bundle containing the custom widget views and models. The only difference is in the configuration of the webpack public path for the static assets. It will be automatically distributed by npcdn to workwith the static widget embedder. [this might be what people are referring to when they say that the widget can be run outside of a notebook like on the homepage for the widgets]. The target bundle is always 'dist/index.js', which is hte path required by the custom widget embedder.
+
+The entries are
+  1) src/extension.js
+  2) src/index.js
+  3) src/embed.js
+
+The outputs are
+  1)  filename: extension.js
+      path: '../clustergrammer_widget/static'
+
+  2)  filename: index.js
+      path: '../clustergrammer_widget/static'
+
+  3) filename: index.js
+      path: '../dist/'
+      publicPath: 'https://npmcdn.com/'
+
+  [npmcdn is a fast global content-delivery network for stuff that is published to npm. Use it to quickly and easily load files using a simple URL ...]
+
+So, I should edit the /src/example.js file which is described as
+
+  var HelloModel = widgets.DOMWidgetModel.extend({})
+
+    Custom Model: Custom widgets models must at least provide default values for model attributes, including '_model_name', '_view_name', '_model_module', and '_view_module', when different fromt the base class.
+
+    When serializing entire widget state for embeding, only values different from the defaults will be specified.
+
+  var HelloView = widegts.DOMWidgetView.extend({})
+    Custom View: Renders the widget model
+
+
