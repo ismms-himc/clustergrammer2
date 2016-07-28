@@ -97,3 +97,6 @@ So, I should edit the /src/example.js file which is described as
     Custom View: Renders the widget model
 
 
+I can update the python scripts by restarting the kernel.
+
+

@@ -27,7 +27,17 @@ var hello_view = widgets.DOMWidgetView.extend({
     },
 
     value_changed: function() {
-        this.el.textContent = this.model.get('value');
+
+        // this.el.textContent = this.model.get('value');
+
+        this.el.textContent = 'something';
+
+        $( this.el ).append( "<p>Test</p>" );
+        console.log(this)
+
+        $(this.el).click(
+            function(){console.log('clicking')}
+        )
     }
 });
 
