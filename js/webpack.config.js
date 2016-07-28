@@ -68,4 +68,5 @@ module.exports = [
         },
         externals: ['jupyter-js-widgets']
     }
+
 ];

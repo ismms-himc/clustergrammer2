@@ -100,3 +100,14 @@ So, I should edit the /src/example.js file which is described as
 I can update the python scripts by restarting the kernel.
 
 
+D3.js
+------
+I installed D3.js as a node module using
+
+  npm install d3@3.5.8
+
+on the command line. Then from within the example.js script I could require d3 using
+
+  var d3 = require('d3')
+
+now I have access to d3 from the console of the IPython notebook.

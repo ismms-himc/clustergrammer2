@@ -1,5 +1,6 @@
 var widgets = require('jupyter-js-widgets');
 var _ = require('underscore');
+var d3 = require('d3');
 
 
 // Custom Model. Custom widgets models must at least provide default values
