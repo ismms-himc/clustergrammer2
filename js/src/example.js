@@ -39,6 +39,10 @@ var hello_view = widgets.DOMWidgetView.extend({
         $(this.el).click(
             function(){console.log('clicking')}
         )
+
+        d3.select(this.el)
+            .classed('widget_viz',true);
+
     }
 });
 
