@@ -14,7 +14,7 @@ var hello_model = widgets.DOMWidgetModel.extend({
         _view_name : 'hello_view',
         _model_module : 'clustergrammer_widget',
         _view_module : 'clustergrammer_widget',
-        value : 'Hello World'
+        value : 'default value'
     })
 });
 
