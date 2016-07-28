@@ -1,4 +1,5 @@
 import ipywidgets as widgets
+import json
 from traitlets import Unicode
 
 
@@ -10,3 +11,8 @@ class HelloWorld(widgets.DOMWidget):
     _view_module = Unicode('clustergrammer_widget').tag(sync=True)
     _model_module = Unicode('clustergrammer_widget').tag(sync=True)
     value = Unicode('updating python by restarting kernel').tag(sync=True)
+
+    #
+    network = {'nodes':'nodes', 'links':'links'}
+    network_string = json.dumps(network)
+    network = Unicode(network_string).tag(sync=True)
