@@ -5,8 +5,8 @@ from traitlets import Unicode
 @widgets.register('hello.Hello')
 class HelloWorld(widgets.DOMWidget):
     """"""
-    _view_name = Unicode('HelloView').tag(sync=True)
-    _model_name = Unicode('HelloModel').tag(sync=True)
+    _view_name = Unicode('hello_view').tag(sync=True)
+    _model_name = Unicode('hello_model').tag(sync=True)
     _view_module = Unicode('clustergrammer_widget').tag(sync=True)
     _model_module = Unicode('clustergrammer_widget').tag(sync=True)
-    value = Unicode('Some new message!').tag(sync=True)
+    value = Unicode('changed view and model names').tag(sync=True)

@@ -8,10 +8,10 @@ var _ = require('underscore');
 //
 // When serialiazing entire widget state for embedding, only values different from the
 // defaults will be specified.
-var HelloModel = widgets.DOMWidgetModel.extend({
+var hello_model = widgets.DOMWidgetModel.extend({
     defaults: _.extend({}, widgets.DOMWidgetModel.prototype.defaults, {
-        _model_name : 'HelloModel',
-        _view_name : 'HelloView',
+        _model_name : 'hello_model',
+        _view_name : 'hello_view',
         _model_module : 'clustergrammer_widget',
         _view_module : 'clustergrammer_widget',
         value : 'Hello World'
@@ -20,7 +20,7 @@ var HelloModel = widgets.DOMWidgetModel.extend({
 
 
 // Custom View. Renders the widget model.
-var HelloView = widgets.DOMWidgetView.extend({
+var hello_view = widgets.DOMWidgetView.extend({
     render: function() {
         this.value_changed();
         this.model.on('change:value', this.value_changed, this);
@@ -33,6 +33,6 @@ var HelloView = widgets.DOMWidgetView.extend({
 
 
 module.exports = {
-    HelloModel : HelloModel,
-    HelloView : HelloView
+    hello_model : hello_model,
+    hello_view : hello_view
 };
