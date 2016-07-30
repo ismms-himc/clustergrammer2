@@ -1,8 +1,9 @@
 var widgets = require('jupyter-js-widgets');
 var _ = require('underscore');
-var d3 = require('d3');
+var d3 = require('d3')
 var new_module = require('./new_module');
 // var $ = require('jquery-ui')
+var Clustergrammer = require('./Clustergrammer');
 
 
 // Custom Model. Custom widgets models must at least provide default values
@@ -32,6 +33,7 @@ var hello_view = widgets.DOMWidgetView.extend({
 
   value_changed: function() {
 
+
     this.el.textContent = this.model.get('value');
 
     var inst_network_string = this.model.get('network');
@@ -42,6 +44,8 @@ var hello_view = widgets.DOMWidgetView.extend({
       function(){
         new_module();
         console.log(inst_network);
+        var cgm = Clustergrammer();
+        debugger
       })
 
     d3.select(this.el)
