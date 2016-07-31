@@ -45,7 +45,7 @@ var hello_view = widgets.DOMWidgetView.extend({
         new_module();
         console.log(inst_network);
         var cgm = Clustergrammer();
-        debugger
+        // debugger
       })
 
     d3.select(this.el)
