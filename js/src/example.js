@@ -3,7 +3,9 @@ var _ = require('underscore');
 var d3 = require('d3')
 var new_module = require('./new_module');
 // var $ = require('jquery-ui')
-var Clustergrammer = require('./Clustergrammer');
+var cgm_mod = require('./Clustergrammer');
+
+cgm_fun = cgm_mod();
 
 
 // Custom Model. Custom widgets models must at least provide default values
@@ -39,6 +41,21 @@ var hello_view = widgets.DOMWidgetView.extend({
         .style('width', '800px')
         .style('height', '500px');
 
+    var inst_network_string = this.model.get('network');
+    inst_network = JSON.parse(inst_network_string);
+
+    // define arguments object
+    var args = {
+        root: '#container-id-1',
+        'network_data': inst_network,
+        'about':'Zoom, scroll, and click buttons to interact with the clustergram.',
+    };
+    // console.log(cgm_fun)
+    // var cgm = cgm_fun(args);
+
+     // console.log('\n\n\nempty container?')
+     // console.log(d3.select('#container-id-1').empty())
+
   },
 
   value_changed: function() {
@@ -49,20 +66,26 @@ var hello_view = widgets.DOMWidgetView.extend({
 
     inst_network = JSON.parse(inst_network_string);
 
+    // define arguments object
+    var args = {
+        root: '#container-id-1',
+        'network_data': inst_network,
+        'about':'Zoom, scroll, and click buttons to interact with the clustergram.',
+    };
+
     $(this.el).click(
       function(){
 
         new_module();
 
         console.log(inst_network);
-
-        var cgm = Clustergrammer();
-
         console.log(this)
 
-        // // append something
-        // d3.select(this).append('div').append('text').text('here')
+        console.log('\n\n\nempty container?')
+        console.log(d3.select('#container-id-1').empty())
 
+        console.log(cgm_fun)
+        var cgm = cgm_fun(args);
 
       })
 

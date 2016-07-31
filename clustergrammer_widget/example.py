@@ -20,14 +20,10 @@ class HelloWorld(widgets.DOMWidget):
 
     net.make_clust()
 
-    # viz_json = net.export_net_json()
-
     print(net.viz.keys())
 
+    network = net.viz
 
-
-    #
-    network = {'nodes':'nodes', 'links':'links'}
     network_string = json.dumps(network)
     network = Unicode(network_string).tag(sync=True)
 
