@@ -38,8 +38,8 @@ var hello_view = widgets.DOMWidgetView.extend({
     d3.select(this.el)
         .append('div')
         .attr('id','container-id-1')
-        .style('width', '800px')
-        .style('height', '500px');
+        .style('width', '1000px')
+        .style('height', '800px');
 
     var inst_network_string = this.model.get('network');
     inst_network = JSON.parse(inst_network_string);
@@ -50,11 +50,9 @@ var hello_view = widgets.DOMWidgetView.extend({
         'network_data': inst_network,
         'about':'Zoom, scroll, and click buttons to interact with the clustergram.',
     };
-    // console.log(cgm_fun)
-    // var cgm = cgm_fun(args);
 
-     // console.log('\n\n\nempty container?')
-     // console.log(d3.select('#container-id-1').empty())
+    console.log('rendering')
+    setTimeout(make_viz, 1000, args);
 
   },
 
@@ -84,19 +82,22 @@ var hello_view = widgets.DOMWidgetView.extend({
         console.log('\n\n\nempty container?')
         console.log(d3.select('#container-id-1').empty())
 
-        console.log(cgm_fun)
-        var cgm = cgm_fun(args);
+        // console.log(cgm_fun)
+        // var cgm = cgm_fun(args);
 
       })
 
     d3.select(this.el)
       .classed('.widget_viz',true);
 
-
-
   }
 });
 
+
+function make_viz(args){
+    console.log(cgm_fun)
+    var cgm = cgm_fun(args);
+}
 
 module.exports = {
   hello_model : hello_model,
