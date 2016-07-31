@@ -27,12 +27,21 @@ var hello_model = widgets.DOMWidgetModel.extend({
 // Custom View. Renders the widget model.
 var hello_view = widgets.DOMWidgetView.extend({
   render: function() {
+
+    console.log('rendering')
+
     this.value_changed();
     this.model.on('change:value', this.value_changed, this);
+
+    d3.select(this.el)
+        .append('div')
+        .attr('id','container-id-1')
+        .style('width', '800px')
+        .style('height', '500px');
+
   },
 
   value_changed: function() {
-
 
     this.el.textContent = this.model.get('value');
 
@@ -42,14 +51,23 @@ var hello_view = widgets.DOMWidgetView.extend({
 
     $(this.el).click(
       function(){
+
         new_module();
+
         console.log(inst_network);
+
         var cgm = Clustergrammer();
-        // debugger
+
+        console.log(this)
+
+        // // append something
+        // d3.select(this).append('div').append('text').text('here')
+
+
       })
 
     d3.select(this.el)
-      .classed('widget_viz',true);
+      .classed('.widget_viz',true);
 
 
 
