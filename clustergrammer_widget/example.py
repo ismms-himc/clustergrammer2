@@ -26,5 +26,3 @@ class HelloWorld(widgets.DOMWidget):
 
     network_string = json.dumps(network)
     network = Unicode(network_string).tag(sync=True)
-
-
