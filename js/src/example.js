@@ -32,21 +32,25 @@ var hello_view = widgets.DOMWidgetView.extend({
 
     console.log('rendering')
 
-    this.value_changed();
-    this.model.on('change:value', this.value_changed, this);
+    // // disabling changing behavior
+    // this.value_changed();
+    // this.model.on('change:value', this.value_changed, this);
+
+    var container_name = this.model.get('value');
 
     d3.select(this.el)
         .append('div')
-        .attr('id','container-id-1')
+        .attr('id', container_name)
         .style('width', '1000px')
         .style('height', '800px');
 
     var inst_network_string = this.model.get('network');
     inst_network = JSON.parse(inst_network_string);
 
+    var container_id = '#'+container_name;
     // define arguments object
     var args = {
-        root: '#container-id-1',
+        root: container_id,
         'network_data': inst_network,
         'about':'Zoom, scroll, and click buttons to interact with the clustergram.',
     };
@@ -64,28 +68,28 @@ var hello_view = widgets.DOMWidgetView.extend({
 
     inst_network = JSON.parse(inst_network_string);
 
-    // define arguments object
-    var args = {
-        root: '#container-id-1',
-        'network_data': inst_network,
-        'about':'Zoom, scroll, and click buttons to interact with the clustergram.',
-    };
+    // // define arguments object
+    // var args = {
+    //     root: '#container-id-1',
+    //     'network_data': inst_network,
+    //     'about':'Zoom, scroll, and click buttons to interact with the clustergram.',
+    // };
 
-    $(this.el).click(
-      function(){
+    // $(this.el).click(
+    //   function(){
 
-        new_module();
+    //     new_module();
 
-        console.log(inst_network);
-        console.log(this)
+    //     console.log(inst_network);
+    //     console.log(this)
 
-        console.log('\n\n\nempty container?')
-        console.log(d3.select('#container-id-1').empty())
+    //     console.log('\n\n\nempty container?')
+    //     console.log(d3.select('#container-id-1').empty())
 
-        // console.log(cgm_fun)
-        // var cgm = cgm_fun(args);
+    //     // console.log(cgm_fun)
+    //     // var cgm = cgm_fun(args);
 
-      })
+    //   })
 
     d3.select(this.el)
       .classed('.widget_viz',true);
