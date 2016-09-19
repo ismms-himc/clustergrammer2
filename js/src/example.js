@@ -5,7 +5,8 @@ var new_module = require('./new_module');
 // var $ = require('jquery-ui')
 var cgm_mod = require('./Clustergrammer');
 
-cgm_fun = cgm_mod();
+// define the clustergrammer function
+var cgm_fun = cgm_mod();
 
 
 // Custom Model. Custom widgets models must at least provide default values
@@ -28,13 +29,23 @@ var hello_model = widgets.DOMWidgetModel.extend({
 
 // Custom View. Renders the widget model.
 var hello_view = widgets.DOMWidgetView.extend({
-  render: function() {
+  render: render_function,
 
-    console.log('rendering')
+  value_changed: function() {
 
-    // // disabling changing behavior
-    // this.value_changed();
-    // this.model.on('change:value', this.value_changed, this);
+    this.el.textContent = this.model.get('value');
+
+    var inst_network_string = this.model.get('network');
+
+    inst_network = JSON.parse(inst_network_string);
+
+    d3.select(this.el)
+      .classed('.widget_viz',true);
+
+  }
+});
+
+function render_function() {
 
     var container_name = this.model.get('value');
 
@@ -52,51 +63,12 @@ var hello_view = widgets.DOMWidgetView.extend({
     var args = {
         root: container_id,
         'network_data': inst_network,
-        'about':'Zoom, scroll, and click buttons to interact with the clustergram.',
+        'about':'Clustergrammer!'
     };
 
-    console.log('rendering')
-    setTimeout(make_viz, 1000, args);
-
-  },
-
-  value_changed: function() {
-
-    this.el.textContent = this.model.get('value');
-
-    var inst_network_string = this.model.get('network');
-
-    inst_network = JSON.parse(inst_network_string);
-
-    // // define arguments object
-    // var args = {
-    //     root: '#container-id-1',
-    //     'network_data': inst_network,
-    //     'about':'Zoom, scroll, and click buttons to interact with the clustergram.',
-    // };
-
-    // $(this.el).click(
-    //   function(){
-
-    //     new_module();
-
-    //     console.log(inst_network);
-    //     console.log(this)
-
-    //     console.log('\n\n\nempty container?')
-    //     console.log(d3.select('#container-id-1').empty())
-
-    //     // console.log(cgm_fun)
-    //     // var cgm = cgm_fun(args);
-
-    //   })
-
-    d3.select(this.el)
-      .classed('.widget_viz',true);
+    setTimeout(make_viz, 10, args);
 
   }
-});
-
 
 function make_viz(args){
     console.log(cgm_fun)
