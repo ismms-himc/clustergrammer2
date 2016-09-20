@@ -10,3 +10,6 @@ clustergrammer_widget/static/
 
 # OS X
 .DS_Store
+
+*.sublime-workspace
+*.sublime-project

@@ -23,6 +23,7 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
+    "d3": "^3.5.8",
     "jupyter-js-widgets": "^1.1.1",
     "underscore": "^1.8.3"
   }
