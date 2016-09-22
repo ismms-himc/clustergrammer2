@@ -3,10 +3,16 @@ var _ = require('underscore');
 var d3 = require('d3')
 var new_module = require('./new_module');
 // var $ = require('jquery-ui')
-var cgm_mod = require('./Clustergrammer');
+var cgm_fun = require('./Clustergrammer');
 
-// define the clustergrammer function
-var cgm_fun = cgm_mod();
+
+var cgm = require('clustergrammer');
+
+console.log(d3)
+console.log(cgm)
+
+// // define the clustergrammer function
+// var cgm_fun = cgm_mod();
 
 
 // Custom Model. Custom widgets models must at least provide default values

@@ -1,6 +1,4 @@
-module.exports = function cgm(){
-
-console.log('loading clustergrammer')
+console.log('manual module.exports loading clustergrammer')
 
 var Clustergrammer =
 /******/ (function(modules) { // webpackBootstrap
@@ -11750,6 +11748,4 @@ var Clustergrammer =
 /******/ ]);
 //# sourceMappingURL=clustergrammer.js.map
 
-return Clustergrammer;
-
-};
+module.exports = Clustergrammer;
