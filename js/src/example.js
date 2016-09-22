@@ -3,13 +3,13 @@ var _ = require('underscore');
 var d3 = require('d3')
 var new_module = require('./new_module');
 // var $ = require('jquery-ui')
-var cgm_fun = require('./Clustergrammer');
+var cgm_fun = require('clustergrammer');
+// var cgm_fun = require('./Clustergrammer');
 
 
-var cgm = require('clustergrammer');
 
-console.log(d3)
-console.log(cgm)
+// console.log(d3)
+// console.log(cgm)
 
 // // define the clustergrammer function
 // var cgm_fun = cgm_mod();
@@ -77,7 +77,6 @@ function render_function() {
   }
 
 function make_viz(args){
-    console.log(cgm_fun)
     var cgm = cgm_fun(args);
 }
 
