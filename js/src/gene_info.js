@@ -51,8 +51,4 @@ function gene_info(gene_symbol){
 
 }
 
-
 module.exports = gene_info;
-
-
-

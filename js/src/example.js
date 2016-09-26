@@ -6,8 +6,10 @@ var new_module = require('./new_module');
 var cgm_fun = require('clustergrammer');
 
 var gene_info = require('./gene_info');
+var Enrichr_request = require('./enrichr_functions');
 
 console.log(gene_info)
+console.log(Enrichr_request)
 
 // Custom Model. Custom widgets models must at least provide default values
 // for model attributes, including `_model_name`, `_view_name`, `_model_module`
@@ -73,6 +75,11 @@ function render_function() {
 
 function make_viz(args){
     var cgm = cgm_fun(args);
+
+    // Enrichr categories
+    //////////////////////
+    enr_obj = Enrichr_request(cgm);
+    enr_obj.enrichr_icon();
 }
 
 module.exports = {
