@@ -10,6 +10,13 @@ git add and git commit
 git push
 git push --tags
 
+
+--------
+my version of pip publishing (http://peterdowns.com/posts/first-time-with-pypi.html)
+--------
+python setup.py register -r pypitest
+python setup.py sdist upload -r pypitest
+
 - To release a new version of clustergrammer_widget on NPM:
 
 # nuke the  `dist` and `node_modules`
