@@ -4,16 +4,10 @@ var d3 = require('d3')
 var new_module = require('./new_module');
 // var $ = require('jquery-ui')
 var cgm_fun = require('clustergrammer');
-// var cgm_fun = require('./Clustergrammer');
 
+var gene_info = require('./gene_info');
 
-
-// console.log(d3)
-// console.log(cgm)
-
-// // define the clustergrammer function
-// var cgm_fun = cgm_mod();
-
+console.log(gene_info)
 
 // Custom Model. Custom widgets models must at least provide default values
 // for model attributes, including `_model_name`, `_view_name`, `_model_module`
@@ -69,7 +63,8 @@ function render_function() {
     var args = {
         root: container_id,
         'network_data': inst_network,
-        'about':'Clustergrammer!'
+        'about':'Clustergrammer!',
+        'row_tip_callback':gene_info
     };
 
     setTimeout(make_viz, 10, args);
