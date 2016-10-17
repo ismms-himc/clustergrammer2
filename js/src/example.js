@@ -23,7 +23,7 @@ var hello_model = widgets.DOMWidgetModel.extend({
     _model_name : 'hello_model',
     _view_module : 'clustergrammer_widget',
     _model_module : 'clustergrammer_widget',
-    value : 'default value',
+    viz_title : 'default value',
     network: ''
   })
 });
@@ -35,7 +35,7 @@ var hello_view = widgets.DOMWidgetView.extend({
 
   value_changed: function() {
 
-    this.el.textContent = this.model.get('value');
+    this.el.textContent = this.model.get('viz_title');
 
     var inst_network_string = this.model.get('network');
 
@@ -49,7 +49,9 @@ var hello_view = widgets.DOMWidgetView.extend({
 
 function render_function() {
 
-    var container_name = this.model.get('value');
+    console.log('in render function')
+
+    var container_name = this.model.get('viz_title');
 
     d3.select(this.el)
         .append('div')

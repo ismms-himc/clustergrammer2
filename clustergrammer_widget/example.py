@@ -10,6 +10,7 @@ class clustergrammer_notebook(widgets.DOMWidget):
     _model_name = Unicode('hello_model').tag(sync=True)
     _view_module = Unicode('clustergrammer_widget').tag(sync=True)
     _model_module = Unicode('clustergrammer_widget').tag(sync=True)
-    value = Unicode('updating python by restarting kernel').tag(sync=True)
+
+    viz_title = Unicode('updating python by restarting kernel').tag(sync=True)
 
     network = Unicode('').tag(sync=True)
