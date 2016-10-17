@@ -8,9 +8,6 @@ var cgm_fun = require('clustergrammer');
 var gene_info = require('./gene_info');
 var Enrichr_request = require('./enrichr_functions');
 
-console.log(gene_info)
-console.log(Enrichr_request)
-
 // Custom Model. Custom widgets models must at least provide default values
 // for model attributes, including `_model_name`, `_view_name`, `_model_module`
 // and `_view_module` when different from the base class.
@@ -49,17 +46,25 @@ var hello_view = widgets.DOMWidgetView.extend({
 
 function render_function() {
 
-    console.log('in render function')
+    // var container_name = this.model.get('viz_title');
 
-    var container_name = this.model.get('viz_title');
+    var viz_number = d3.selectAll('.clustergrammer_notebook')[0].length;
+
+    var container_name = 'cgm_notebook_' + String(viz_number+ 1) ;
+
+    if (d3.selectAll('#'+container_name).empty() == false){
+      container_name = container_name + '_alt';
+    }
 
     d3.select(this.el)
         .append('div')
+        .classed('clustergrammer_notebook', true)
         .attr('id', container_name)
         .style('width', '1000px')
         .style('height', '800px');
 
     var inst_network_string = this.model.get('network');
+
     inst_network = JSON.parse(inst_network_string);
 
     var container_id = '#'+container_name;
