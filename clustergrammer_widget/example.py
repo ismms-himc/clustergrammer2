@@ -4,7 +4,7 @@ from traitlets import Unicode
 from clustergrammer import Network
 
 @widgets.register('hello.Hello')
-class HelloWorld(widgets.DOMWidget):
+class clustergrammer_notebook(widgets.DOMWidget):
     """"""
     _view_name = Unicode('hello_view').tag(sync=True)
     _model_name = Unicode('hello_model').tag(sync=True)
