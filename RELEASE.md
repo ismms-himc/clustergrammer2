@@ -1,4 +1,8 @@
-- To release a new version of clustergrammer_widget on PyPI:
+----------------------------------------------------------------
+----------------------------------------------------------------
+-- To release a new version of clustergrammer_widget on PyPI:
+----------------------------------------------------------------
+----------------------------------------------------------------
 
 Update _version.py (set release version, remove 'dev')
 git add and git commit
@@ -11,13 +15,20 @@ git push
 git push --tags
 
 
---------
-my version of pip publishing (http://peterdowns.com/posts/first-time-with-pypi.html)
---------
+----------------------------------------------------------------
+----------------------------------------------------------------
+-- My version of pip publishing
+-- http://peterdowns.com/posts/--first-time-with-pypi.html
+----------------------------------------------------------------
+----------------------------------------------------------------
 python setup.py register -r pypitest
 python setup.py sdist upload -r pypitest
 
+----------------------------------------------------------------
+----------------------------------------------------------------
 - To release a new version of clustergrammer_widget on NPM:
+----------------------------------------------------------------
+----------------------------------------------------------------
 
 # nuke the  `dist` and `node_modules`
 git clean -fdx
