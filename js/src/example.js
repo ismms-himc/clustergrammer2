@@ -8,6 +8,8 @@ var cgm_fun = require('clustergrammer');
 var gene_info = require('./gene_info');
 var Enrichr_request = require('./enrichr_functions');
 
+require('!style!css!./custom.css');
+
 // Custom Model. Custom widgets models must at least provide default values
 // for model attributes, including `_model_name`, `_view_name`, `_model_module`
 // and `_view_module` when different from the base class.
