@@ -1,7 +1,7 @@
 import ipywidgets as widgets
 import json
 from traitlets import Unicode
-from clustergrammer3 import Network
+from .clustergrammer3 import Network
 
 @widgets.register('hello.Hello')
 class clustergrammer_notebook(widgets.DOMWidget):
