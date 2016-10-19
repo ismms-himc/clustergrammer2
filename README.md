@@ -23,6 +23,12 @@ To install use pip:
 
 Clustergrammer-widget is compatable with Python 2 and 3.
 
+Make sure you enable widgetsnbextension using
+
+```
+$ jupyter nbextension enable -py --sys-prefix widgetsnbextension
+```
+
 # Example Workflow
 Within the Jupyter/IPython notebook the widget can be run using the following commands
 
