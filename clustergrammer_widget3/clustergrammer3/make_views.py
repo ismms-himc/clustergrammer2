@@ -11,10 +11,13 @@ def N_rows(net, df, all_views, dist_type='cosine', rank_type='sum'):
 
     tmp_df = deepcopy(df)
 
-    print('type keep')
-    print(type(inst_keep))
+    check_keep_num = inst_keep
 
-    if inst_keep < len(rows_sorted) or inst_keep == 'all':
+    # convert 'all' to -1 to clean up checking mechanism
+    if check_keep_num == 'all':
+      check_keep_num = -1
+
+    if check_keep_num < len(rows_sorted):
 
       tmp_net = deepcopy(Network())
 
