@@ -3,7 +3,7 @@ def df_filter_row_sum(df, threshold, take_abs=True):
   and remove columns that have a sum below this threshold '''
 
   from copy import deepcopy
-  from __init__ import Network
+  from .__init__ import Network
   net = Network()
 
   if take_abs is True:
@@ -37,7 +37,7 @@ def df_filter_col_sum(df, threshold, take_abs=True):
   and remove rows that have all zero values '''
 
   from copy import deepcopy
-  from __init__ import Network
+  from .__init__ import Network
   net = Network()
 
   if take_abs is True:

@@ -1,5 +1,5 @@
 def df_to_dat(net, df):
-  import categories
+  from . import categories
 
   net.dat['mat'] = df['mat'].values
   net.dat['nodes']['row'] = df['mat'].index.tolist()

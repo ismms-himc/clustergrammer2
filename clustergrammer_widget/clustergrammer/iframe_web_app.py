@@ -1,6 +1,6 @@
 def main(net, filename=None, width=1000, height=800):
   import requests, json
-  from cStringIO import StringIO
+  from io import StringIO
   from IPython.display import IFrame, display
   
   clustergrammer_url = 'http://amp.pharm.mssm.edu/clustergrammer/matrix_upload/'

@@ -7,7 +7,7 @@ def cluster_row_and_col(net, dist_type='cosine', linkage_type='average',
   import scipy
   from copy import deepcopy
   from scipy.spatial.distance import pdist
-  import categories, make_viz, cat_pval
+  from . import categories, make_viz, cat_pval
 
   dm = {}
   for inst_rc in ['row', 'col']:
@@ -18,7 +18,7 @@ def cluster_row_and_col(net, dist_type='cosine', linkage_type='average',
     # save directly to dat structure
     node_info = net.dat['node_info'][inst_rc]
 
-    node_info['ini'] = range( len(net.dat['nodes'][inst_rc]), -1, -1)
+    node_info['ini'] = list(range( len(net.dat['nodes'][inst_rc]), -1, -1))
 
     # cluster
     if run_clustering is True:

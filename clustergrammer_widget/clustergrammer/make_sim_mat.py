@@ -1,7 +1,7 @@
 def main(net, inst_dm, filter_sim, sim_mat_views=['N_row_sum']):
-  from __init__ import Network
+  from .__init__ import Network
   from copy import deepcopy
-  import calc_clust, make_views
+  from . import calc_clust, make_views
 
   sim_dict = {}
 

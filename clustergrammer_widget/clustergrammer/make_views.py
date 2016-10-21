@@ -1,7 +1,7 @@
 def N_rows(net, df, all_views, dist_type='cosine', rank_type='sum'):
   from copy import deepcopy
-  from __init__ import Network
-  import calc_clust, run_filter
+  from .__init__ import Network
+  from . import calc_clust, run_filter
 
   keep_top = ['all', 500, 250, 100, 50, 20, 10]
 
@@ -11,7 +11,13 @@ def N_rows(net, df, all_views, dist_type='cosine', rank_type='sum'):
 
     tmp_df = deepcopy(df)
 
-    if inst_keep < len(rows_sorted) or inst_keep == 'all':
+    check_keep_num = inst_keep
+
+    # convert 'all' to -1 to clean up checking mechanism
+    if check_keep_num == 'all':
+      check_keep_num = -1
+
+    if check_keep_num < len(rows_sorted):
 
       tmp_net = deepcopy(Network())
 
@@ -54,10 +60,10 @@ def N_rows(net, df, all_views, dist_type='cosine', rank_type='sum'):
   return all_views
 
 def pct_rows(net, df, all_views, dist_type, rank_type):
-  from __init__ import Network
+  from .__init__ import Network
   from copy import deepcopy
   import numpy as np
-  import calc_clust, run_filter
+  from . import calc_clust, run_filter
 
   copy_net = deepcopy(net)
 
@@ -67,7 +73,7 @@ def pct_rows(net, df, all_views, dist_type, rank_type):
       cat_key_col[net.dat['nodes']['col'][i]] = \
           net.dat['node_info']['col']['cat'][i]
 
-  all_filt = range(10)
+  all_filt = list(range(10))
   all_filt = [i / float(10) for i in all_filt]
 
   mat = deepcopy(df['mat'])
@@ -86,11 +92,11 @@ def pct_rows(net, df, all_views, dist_type, rank_type):
 
     try:
       try:
-        calc_clust.cluster_row_and_col(tmp_net, dist_type=dist_type, 
+        calc_clust.cluster_row_and_col(tmp_net, dist_type=dist_type,
                                        run_clustering=True)
 
       except:
-        calc_clust.cluster_row_and_col(tmp_net, dist_type=dist_type, 
+        calc_clust.cluster_row_and_col(tmp_net, dist_type=dist_type,
                                        run_clustering=False)
 
       inst_view = {}
@@ -105,4 +111,4 @@ def pct_rows(net, df, all_views, dist_type, rank_type):
     except:
       pass
 
-  return all_views  
+  return all_views

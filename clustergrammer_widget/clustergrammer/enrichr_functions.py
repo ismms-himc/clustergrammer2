@@ -21,7 +21,7 @@ def add_enrichr_cats(df, inst_rc, run_enrichr, num_terms=10):
 
   enr, response_list = get_request(run_enrichr[0], user_list_id, max_terms=20)
 
-  print(type(response_list))
+  print((type(response_list)))
 
   # import pdb; pdb.set_trace()
 
@@ -121,14 +121,14 @@ def clust_from_response(response_list):
   top_terms = {}
   for enr_type in enr_score_types:
     top_terms[enr_type] = {}
-    for num_terms in num_dict.keys():
+    for num_terms in list(num_dict.keys()):
       inst_num = num_dict[num_terms]
       top_terms[enr_type][num_terms] = scores[enr_type].index.tolist()[: inst_num]
 
   # gather the terms that should be kept - they are at the top of the score list
   keep_terms = []
   for inst_enr_score in top_terms:
-    for tmp_num in num_dict.keys():
+    for tmp_num in list(num_dict.keys()):
       keep_terms.extend( top_terms[inst_enr_score][tmp_num] )
 
   keep_terms = list(set(keep_terms))
@@ -274,7 +274,7 @@ def get_request( lib, userListId, max_terms=50 ):
 
   # wait until okay status code is returned
   num_try = 0
-  print('\tEnrichr enrichment get req userListId: '+str(userListId))
+  print(('\tEnrichr enrichment get req userListId: '+str(userListId)))
   while inst_status_code == 400 and num_try < 100:
     num_try = num_try +1
     try:
@@ -296,7 +296,7 @@ def get_request( lib, userListId, max_terms=50 ):
   resp_json = json.loads( get_response.text )
 
   # get the key
-  only_key = resp_json.keys()[0]
+  only_key = list(resp_json.keys())[0]
 
   # get response_list
   response_list = resp_json[only_key]

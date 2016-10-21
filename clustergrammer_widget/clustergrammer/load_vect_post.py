@@ -1,8 +1,8 @@
 def main(real_net, vect_post):
   import numpy as np
   from copy import deepcopy
-  from __init__ import Network
-  import proc_df_labels
+  from .__init__ import Network
+  from . import proc_df_labels
 
   net = deepcopy(Network())
 

@@ -10,8 +10,8 @@ def make_clust(net, dist_type='cosine', run_clustering=True, dendro=True,
   '''
   from copy import deepcopy
   import scipy
-  import calc_clust, run_filter, make_views, make_sim_mat, cat_pval
-  import enrichr_functions as enr_fun
+  from . import calc_clust, run_filter, make_views, make_sim_mat, cat_pval
+  from . import enrichr_functions as enr_fun
 
   df = net.dat_to_df()
 

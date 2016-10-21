@@ -1,7 +1,19 @@
 def load_file(net, filename):
-  import StringIO
+  import io, sys
   f = open(filename, 'r')
-  buff = StringIO.StringIO(f.read())
+
+  file_string = f.read()
+
+  if (sys.version_info > (3, 0)):
+    # python 3
+    ####################
+    file_string = str(file_string)
+  else:
+    # python 2
+    ####################
+    file_string = unicode(file_string)
+
+  buff = io.StringIO(file_string)
   f.close()
 
   if '/' in filename:
@@ -11,14 +23,14 @@ def load_file(net, filename):
 
 def load_tsv_to_net(net, file_buffer, filename=None):
   import pandas as pd
-  import categories
-  import proc_df_labels
+  from . import categories
+  from . import proc_df_labels
 
   lines = file_buffer.getvalue().split('\n')
   num_labels = categories.check_categories(lines)
 
-  row_arr = range(num_labels['row'])
-  col_arr = range(num_labels['col'])
+  row_arr = list(range(num_labels['row']))
+  col_arr = list(range(num_labels['col']))
   tmp_df = {}
 
   # use header if there are col categories
@@ -55,7 +67,7 @@ def load_gmt(filename):
 
 def load_data_to_net(net, inst_net):
   ''' load data into nodes and mat, also convert mat to numpy array'''
-  import data_formats
+  from . import data_formats
   net.dat['nodes'] = inst_net['nodes']
   net.dat['mat'] = inst_net['mat']
   data_formats.mat_to_numpy_arr(net)
