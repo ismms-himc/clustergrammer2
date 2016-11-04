@@ -74,7 +74,7 @@ function render_function() {
     var args = {
         root: container_id,
         'network_data': inst_network,
-        'about':'Clustergrammer!',
+        'about':'Clustergrammer',
         'row_tip_callback':gene_info
     };
 
