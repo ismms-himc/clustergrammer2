@@ -1,7 +1,7 @@
 Clustergrammer-Widget
 ===============================
 
-This is a widget implementation of the interactive heatmap tool Clustergrammer. The front-end visualization is built using D3.js and the back-end is in Python.
+This is a Jupyter/IPython Interactive Widget implementation of the interactive heatmap tool Clustergrammer. The front-end visualization is built using D3.js and the back-end is in Python.
 
 ![demo_screenshot](img/Jupyter_screenshot.png "demo_screenshot.png")
 
