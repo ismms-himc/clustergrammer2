@@ -1,7 +1,7 @@
 Clustergrammer-Widget
 ===============================
 
-This is a [Jupyter/IPython](http://jupyter.org/) [interactive widget](https://github.com/ipython/ipywidgets) implementation of the interactive heatmap tool [Clustergrammer](https://github.com/MaayanLab/clustergrammer). The front-end visualization is built using D3.js and the back-end is in Python.
+This is a [Jupyter/IPython](http://jupyter.org/) [interactive widget](https://github.com/ipython/ipywidgets) implementation of the interactive heatmap tool [Clustergrammer](https://github.com/MaayanLab/clustergrammer). The front-end visualization, [clustergrammer.js](https://github.com/MaayanLab/clustergrammer) is built using D3.js and the back-end, [clustergrammer.py](https://github.com/MaayanLab/clustergrammer-py) is built in Python.
 
 ![demo_screenshot](img/Jupyter_screenshot.png "demo_screenshot.png")
 
@@ -30,6 +30,8 @@ $ jupyter nbextension enable -py --sys-prefix widgetsnbextension
 ```
 
 # Example Workflow
+The Clustergrammer-widget can be used to visualize a matrix of your data in the TSV format described [here](https://github.com/MaayanLab/clustergrammer/tree/working#input-matrix-format).
+
 Within the Jupyter/IPython notebook the widget can be run using the following commands
 
 ```
