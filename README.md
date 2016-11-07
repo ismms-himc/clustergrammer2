@@ -1,7 +1,7 @@
 Clustergrammer-Widget
 ===============================
 
-This is a Jupyter/IPython Interactive Widget implementation of the interactive heatmap tool Clustergrammer. The front-end visualization is built using D3.js and the back-end is in Python.
+This is a [Jupyter/IPython](http://jupyter.org/) [interactive widget](https://github.com/ipython/ipywidgets) implementation of the interactive heatmap tool [Clustergrammer](https://github.com/MaayanLab/clustergrammer). The front-end visualization is built using D3.js and the back-end is in Python.
 
 ![demo_screenshot](img/Jupyter_screenshot.png "demo_screenshot.png")
 
@@ -10,12 +10,10 @@ Installation
 
 To install use pip:
 
-    # python 2
+    # python installation
     $ pip install clustergrammer_widget
 
-    # python 3
-    $ pip3 install clustergrammer_widget
-
+    # enable widget
     $ jupyter nbextension enable --py --sys-prefix clustergrammer_widget
 
 ## Dependencies
