@@ -13,8 +13,11 @@ To install use pip:
     # python installation
     $ pip install clustergrammer_widget
 
+    # enable widgetsnbextension
+    jupyter nbextension enable --py --sys-prefix widgetsnbextension
+
     # enable widget
-    $ jupyter nbextension enable --py --sys-prefix clustergrammer_widget
+    jupyter nbextension enable --py --sys-prefix clustergrammer_widget
 
 ## Dependencies
 * Numpy
@@ -23,11 +26,6 @@ To install use pip:
 
 Clustergrammer-widget is compatable with Python 2 and 3.
 
-Make sure you enable widgetsnbextension using
-
-```
-$ jupyter nbextension enable -py --sys-prefix widgetsnbextension
-```
 
 # Example Workflow
 The Clustergrammer-widget can be used to visualize a matrix of your data in the TSV format described [here](https://github.com/MaayanLab/clustergrammer/tree/working#input-matrix-format).
