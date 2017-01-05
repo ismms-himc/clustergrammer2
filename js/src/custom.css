@@ -10,12 +10,12 @@ body{
   background-color: #fff;
 }
 
-.clust_icon{
+/*.clust_icon{
   float:left;
   width: 33.3333333%;
   padding-left: 15px;
   padding-right: 15px;
-}
+}*/
 
 .viz_medium_text{
   width:99%;
@@ -43,7 +43,7 @@ body{
 
 /* need to move d3-tip into stypes */
 .d3-tip {
-  line-height: 1;
+  line-height: 1.25;
   font-weight: bold;
   padding: 12px;
   background: rgba(0, 0, 0, 0.8);
@@ -95,4 +95,45 @@ body{
   vertical-align: middle;
 }
 
+.modal-backdrop{
+  display: none;
+}
 
+.modal-backdrop.fade{
+  display: none;
+}
+
+.modal-backdrop.in{
+  display: none;
+}
+
+/* sidebar tooltips */
+.sidebar_tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.sidebar_tooltip .sidebar_tooltip_text {
+    visibility: hidden;
+    width: 120px;
+    background: rgba(0, 0, 0, 1);
+    /*opacity: 0.95;*/
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    position: absolute;
+    z-index: 1000;
+    top:100%;
+    /*left:-400%;*/
+    font-size: 15px;
+    /*margin-left: 60px;*/
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.sidebar_tooltip:hover .sidebar_tooltip_text {
+    visibility: visible;
+}
