@@ -8,11 +8,7 @@ var cgm_fun = require('clustergrammer');
 // var gene_info = require('./gene_info');
 var hzome = require('./hzome_functions');
 
-// console.log('!!!!!!!!!!!!!!!!!!!!!!!')
 var Enrichr_request = require('./enrichr_functions');
-
-console.log(Enrichr_request)
-console.log(hzome)
 
 require('!style!css!./custom.css');
 
@@ -101,8 +97,9 @@ function make_viz(args){
 ///////////////////////////////////////////////////////////////
 
 function matrix_update_callback(){
-  console.log('matrix_update_callback')
-  enr_obj.clear_enrichr_results();
+  if (genes_were_found){
+    enr_obj.clear_enrichr_results();
+  }
 }
 
 var genes_were_found = false;
@@ -183,8 +180,6 @@ function check_gene_request(inst_cgm, gene_symbol, check_enrichr_callback){
   var url = base_url + gene_symbol;
 
   if (genes_were_found === false){
-
-    // console.log('making gene request - genes were not found yet')
 
     $.get(url, function(data) {
 
