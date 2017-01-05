@@ -4,6 +4,10 @@
 -- http://peterdowns.com/posts/--first-time-with-pypi.html
 ----------------------------------------------------------------
 ----------------------------------------------------------------
+# Update _version.py (set release version, remove 'dev')
+
+git tag -a X.X.X -m 'comment'
+
 python setup.py register -r pypitest
 python setup.py sdist upload -r pypitest
 
