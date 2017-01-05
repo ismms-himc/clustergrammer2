@@ -5,8 +5,9 @@ var new_module = require('./new_module');
 // var $ = require('jquery-ui')
 var cgm_fun = require('clustergrammer');
 
-var gene_info = require('./gene_info');
-var Enrichr_request = require('./enrichr_functions');
+// var gene_info = require('./gene_info');
+// var Enrichr_request = require('./enrichr_functions');
+var enrichrgram = require('./Enrichrgram');
 
 require('!style!css!./custom.css');
 
@@ -75,7 +76,7 @@ function render_function() {
         root: container_id,
         'network_data': inst_network,
         'about':'Clustergrammer',
-        'row_tip_callback':gene_info
+        // 'row_tip_callback':gene_info
     };
 
     setTimeout(make_viz, 10, args);
@@ -85,10 +86,10 @@ function render_function() {
 function make_viz(args){
     var cgm = cgm_fun(args);
 
-    // Enrichr categories
-    //////////////////////
-    enr_obj = Enrichr_request(cgm);
-    enr_obj.enrichr_icon();
+    // // Enrichr categories
+    // //////////////////////
+    // enr_obj = Enrichr_request(cgm);
+    // enr_obj.enrichr_icon();
 }
 
 module.exports = {
