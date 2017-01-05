@@ -6,8 +6,14 @@ var new_module = require('./new_module');
 var cgm_fun = require('clustergrammer');
 
 // var gene_info = require('./gene_info');
-// var Enrichr_request = require('./enrichr_functions');
-var enrichrgram = require('./Enrichrgram');
+var hzome = require('./hzome_functions');
+
+// console.log('!!!!!!!!!!!!!!!!!!!!!!!')
+var Enrichr_request = require('./enrichr_functions');
+console.log(Enrichr_request)
+
+
+console.log(hzome)
 
 require('!style!css!./custom.css');
 
@@ -90,6 +96,102 @@ function make_viz(args){
     // //////////////////////
     // enr_obj = Enrichr_request(cgm);
     // enr_obj.enrichr_icon();
+}
+
+var genes_were_found = false;
+function check_setup_enrichr(inst_cgm){
+
+  var all_rows = inst_cgm.params.network_data.row_nodes_names;
+  var max_num_genes = 20;
+
+  if (all_rows.length > 20){
+    all_rows = all_rows.slice(0,20);
+  }
+
+  var wait_unit = 500;
+  var wait_time = 0;
+  // check each gene using Harmonizome
+  _.each(all_rows, function(inst_name){
+
+    // check_gene_request(inst_cgm, inst_name, run_ini_enrichr);
+    setTimeout(check_gene_request, wait_time, inst_cgm, inst_name, run_ini_enrichr);
+
+    wait_time = wait_time + wait_unit;
+
+  });
+
+}
+
+function run_ini_enrichr(inst_cgm, inst_name){
+
+  if (genes_were_found){
+
+    if (d3.select('.enrichr_logo').empty()){
+
+      // set up Enrichr category import
+      enr_obj = Enrichr_request(inst_cgm);
+      enr_obj.enrichr_icon();
+
+      // set up Enrichr export in dendro modal
+      //////////////////////////////////////////
+
+      // only display for rows
+      var enrichr_section = d3.selectAll('.dendro_info')
+        .select('.modal-body')
+        .append('div')
+        .classed('enrichr_export_section', true)
+        .style('margin-top', '10px')
+        .style('display','none');
+
+      enrichr_section
+        .append('text')
+        .text('Send genes to ');
+
+      enrichr_section
+        .append('a')
+        .html('Enrichr')
+        .on('click', function(){
+
+          var group_string = d3.select('.dendro_text input').attr('value');
+
+          // replace all instances of commas with new line
+          var gene_list = group_string.replace(/, /g, '\n');
+
+          var enrichr_info = {list: gene_list, description: 'Clustergrammer gene-cluster list' , popup: true};
+
+          // defined globally - will improve
+          enrich(enrichr_info);
+
+        });
+
+    }
+
+  }
+
+}
+
+function check_gene_request(inst_cgm, gene_symbol, check_enrichr_callback){
+
+  var base_url = 'https://amp.pharm.mssm.edu/Harmonizome/api/1.0/gene/';
+  var url = base_url + gene_symbol;
+
+  if (genes_were_found === false){
+
+    // console.log('making gene request - genes were not found yet')
+
+    $.get(url, function(data) {
+
+      data = JSON.parse(data);
+
+      if (data.name != undefined){
+        genes_were_found = true;
+      }
+
+      check_enrichr_callback(inst_cgm, gene_symbol);
+
+    });
+  }
+
 }
 
 module.exports = {

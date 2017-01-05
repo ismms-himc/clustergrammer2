@@ -1,3 +1,5 @@
+
+
 function Enrichr_request(inst_cgm){
 
   function enrichr_icon(){
@@ -5,24 +7,66 @@ function Enrichr_request(inst_cgm){
     var low_opacity = 0.7;
     var high_opacity = 1.0;
     var icon_size = 42;
+    var d3_tip_custom = inst_cgm.d3_tip_custom();
 
-    d3.select('.viz_svg').append("svg:image")
+    // var enrichr_description = 'Perform enrichment analysis on your gene-list <br>'+
+    //                           'using Enrichr to find biological information that is unique to your list.'
+    var enrichr_description = 'Perform enrichment analysis, using Enrichr, to find biological <br>'+
+                              'information specific to your set (or subset) of genes. <br><br>' +
+                              'Select a subset of genes for analysis by cropping the matrix.'
+    // d3-tooltip
+    var enr_tip = d3_tip_custom()
+      .attr('class', function(){
+        var root_tip_selector = inst_cgm.params.viz.root_tips.replace('.','');
+        var class_string = root_tip_selector + '_enr_tip d3-tip';
+        return class_string;
+      })
+      .direction('se')
+      .offset([-10,-5])
+      .html(function(d){
+        return enrichr_description;
+      });
+
+    var enr_logo = d3.select('.viz_svg').append("svg:image")
      .attr('x', 50)
      .attr('y', 2)
      .attr('width', icon_size)
      .attr('height', icon_size)
-     .attr("xlink:href", "http://amp.pharm.mssm.edu/Enrichr/images/enrichr-icon.png")
+     .attr("xlink:href", "https://amp.pharm.mssm.edu/Enrichr/images/enrichr-icon.png")
      .style('opacity', low_opacity)
      .classed('enrichr_logo', true)
+     .attr('id', function(){
+      var inst_id = 'enrichr_menu_button_' + inst_cgm.params.root.replace('#','');
+      return inst_id;
+     })
      .on('click', function(){
        toggle_enrichr_menu();
      })
      .on('mouseover', function(){
-       d3.select(this).style('opacity', high_opacity);
+
+      var is_showing = d3.select(inst_cgm.params.root+' .enrichr_menu')
+                         .classed('showing');
+
+      if (is_showing === false){
+        // show tooltip
+        d3.selectAll( inst_cgm.params.viz.root_tips + '_enr_tip')
+          .style('opacity', 1)
+          .style('display', 'block');
+
+         enr_tip.show();
+      }
+
      })
      .on('mouseout', function(){
-       d3.select(this).style('opacity', low_opacity);
-     });
+
+      // hide tooltip
+      d3.selectAll( inst_cgm.params.viz.root_tips + '_enr_tip')
+        .style('opacity', 0)
+        .style('display', 'block');
+
+       enr_tip.hide();
+     })
+     .call(enr_tip);
 
     var enr_menu = d3.select(inst_cgm.params.root+' .viz_svg')
       .append('g')
@@ -50,6 +94,29 @@ function Enrichr_request(inst_cgm){
       .style('cursor', 'default')
       .text('Choose Enrichr Library');
 
+    // clear results button
+    enr_menu
+      .append('text')
+      .classed('enr_menu_clear', true)
+      .attr('transform', 'translate(375, 30)')
+      .attr('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif')
+      .style('font-size','18px')
+      .style('font-weight', 800)
+      .style('cursor', 'default')
+      .text('Clear Results')
+      .style('fill', 'red')
+      .style('opacity', 0.75)
+      .style('display', 'none')
+      .on('click', function(){
+
+
+        // reset enrichr menu
+        toggle_enrichr_menu();
+
+        clear_enrichr_results();
+
+      })
+
     var lib_section = enr_menu
       .append('g')
       .attr('transform', 'translate(20,60)')
@@ -66,9 +133,52 @@ function Enrichr_request(inst_cgm){
       'GO_Biological_Process_2015',
       'GO_Cellular_Component_2015',
       'Reactome_2015',
-      'PPI_Hub_Proteins'
+      'MGI_Mammalian_Phenotype_Level_4'
       ];
-    var vertical_space = 35;
+
+    var vertical_space = 30;
+
+    enr_menu
+      .append('rect')
+      .classed('enr_menu_line', true)
+      .attr('height', '2px')
+      .attr('width', '460px')
+      .style('stroke-width', '3px')
+      .style('opacity', 0.3)
+      .style('fill','black')
+      .attr('transform', 'translate(20, 380)');
+
+    var enr_export_container = enr_menu
+      .append('g')
+      .classed('enr_export_container', true)
+      .attr('transform', 'translate(20, 410)');
+
+    enr_export_container
+      .append('text')
+      .style('font-size','16px')
+      .attr('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif')
+      .style('cursor', 'default')
+      .text('Export gene list to ');
+
+    enr_export_container
+      .append('text')
+      .style('font-size','16px')
+      .attr('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif')
+      .style('cursor', 'default')
+      .text('Enrichr')
+      .style('fill','#337ab7')
+      .attr('transform', 'translate(135, 0)')
+      .on('click', function(){
+
+        // get gene list and send to Enrichr
+        var gene_list = inst_cgm.params.network_data.row_nodes_names.join('\n');
+
+        var enrichr_info = {list: gene_list, description: 'Clustergrammer gene list' , popup: true};
+
+        // defined globally - will improve
+        enrich(enrichr_info);
+
+      })
 
     var lib_groups = lib_section
       .selectAll('g')
@@ -93,7 +203,7 @@ function Enrichr_request(inst_cgm){
     lib_groups
       .append('text')
       .attr('transform', 'translate(25,0)')
-      .style('font-size','18px')
+      .style('font-size','16px')
       .attr('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif')
       .style('cursor', 'default')
       .text(function(d){
@@ -113,6 +223,12 @@ function Enrichr_request(inst_cgm){
           .select('circle')
           .style('fill','red')
 
+        // turn on clear sign
+        d3.select(inst_cgm.params.root+' .enr_menu_clear')
+          .transition()
+          .delay(1000)
+          .style('display', 'block');
+
         // request enrichment results from Enrichr
         enr_obj.enrichr_rows(d, update_viz_callback, 10);
 
@@ -124,11 +240,34 @@ function Enrichr_request(inst_cgm){
 
   }
 
+  function clear_enrichr_results(){
+
+    d3.select(inst_cgm.params.root+ ' .enr_menu_clear')
+      .style('display', 'none');
+
+    // unselect library
+    d3.select(inst_cgm.params.root+' .enr_lib_section')
+      .selectAll('g')
+      .select('circle')
+      .style('fill','white');
+
+    // clear categories
+    inst_cgm.reset_cats();
+
+    // remove title and bars
+    d3.select(inst_cgm.params.root+' .enr_title').remove();
+    d3.selectAll(inst_cgm.params.root+' .enrichr_bars').remove();
+
+  }
+
   function toggle_enrichr_menu(){
 
     var enr_menu = d3.select(inst_cgm.params.root+' .enrichr_menu');
 
     if (enr_menu.classed('showing') === false){
+
+      // show menu
+      ///////////////////////
       enr_menu
         .classed('showing', true)
         .style('display', 'block');
@@ -138,10 +277,17 @@ function Enrichr_request(inst_cgm){
         .transition()
         .style('opacity',1)
 
-    d3.selectAll('.row_cat_super').style('display','none');
+      d3.selectAll('.row_cat_super').style('display','none');
+
+      // hide tooltip
+      d3.selectAll( inst_cgm.params.viz.root_tips + '_enr_tip')
+        .style('opacity', 0)
+        .style('display', 'block');
 
     } else {
 
+      // hide menu
+      ///////////////////////
       setTimeout(function(){enr_menu.style('display', 'none');}, 1000)
 
       d3.select(inst_cgm.params.root+' .enrichr_menu')
@@ -158,6 +304,7 @@ function Enrichr_request(inst_cgm){
   function get_enr_with_list(gene_list, library, callback_function){
 
     enr_obj.library = library;
+    enr_obj.gene_list = gene_list;
 
     enr_obj.post_list(gene_list, function(){
 
@@ -184,7 +331,7 @@ function Enrichr_request(inst_cgm){
     var settings = {
      "async": true,
      "crossDomain": true,
-     "url": "http://amp.pharm.mssm.edu/Enrichr/addList",
+     "url": "https://amp.pharm.mssm.edu/Enrichr/addList",
      "method": "POST",
      "processData": false,
      "contentType": false,
@@ -216,7 +363,7 @@ function Enrichr_request(inst_cgm){
     if (enr_obj.user_list_id !== null){
       var form = new FormData();
 
-      var base_url = 'http://amp.pharm.mssm.edu/Enrichr/enrich?';
+      var base_url = 'https://amp.pharm.mssm.edu/Enrichr/enrich?';
       var library_string = 'backgroundType=' + String(library);
       var list_id_string = 'userListId=' + String(enr_obj.user_list_id);
 
@@ -296,6 +443,10 @@ function Enrichr_request(inst_cgm){
       inst_data = {};
       inst_data['cat_title'] = inst_term[1];
       inst_data['cats'] = [];
+      inst_data['pval'] = inst_term[2];
+
+      // keep the combined score
+      inst_data['combined_score'] = inst_term[4]
 
       cat_details = {};
       cat_details.cat_name = 'true';
@@ -365,6 +516,43 @@ function Enrichr_request(inst_cgm){
       .style('font-size', '15px')
       .attr('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif');
 
+    var extra_y_room = 1.25;
+    var unit_length = extra_y_room * inst_cgm.params.viz.cat_room.symbol_width;
+    var bar_width = unit_length * 0.9;
+
+    // Enrichr bars
+    ///////////////////////////////
+
+    d3.selectAll(inst_cgm.params.root+' .enrichr_bars').remove();
+
+    var bar_height = inst_cgm.params.viz.clust.margin.top - 35;
+    var max_score = enr_obj.cat_data[0].combined_score;
+    var bar_scale = d3.scale.linear()
+                      .domain([0, max_score])
+                      .range([0, bar_height]);
+
+    d3.select(inst_cgm.params.root+' .row_cat_label_bar_container')
+      .selectAll()
+      .data(inst_cgm.params.viz.all_cats.row)
+      .enter()
+      .append('rect')
+      .classed('enrichr_bars', true)
+      .style('height', bar_width +'px')
+      .style('fill', 'red')
+      .style('width', function(d){
+
+        var enr_index = d.split('-')[1];
+        var inst_comb_score = enr_obj.cat_data[enr_index].combined_score;
+        var bar_lenth = bar_scale(inst_comb_score);
+        var bar_length_string = bar_lenth + 'px'
+        return bar_length_string;
+      })
+      .style('opacity', 0.4)
+      .attr('transform', function(d){
+        var inst_y = unit_length * (parseInt( d.split('-')[1], 10 ) -0.75 );
+        return 'translate(0,'+inst_y+')';
+      })
+
   }
 
   function make_enr_wait_circle(){
@@ -393,6 +581,7 @@ function Enrichr_request(inst_cgm){
   enr_obj.cat_data = null;
   enr_obj.get_tries = 0;
   enr_obj.library = null;
+  enr_obj.gene_list = null;
 
   enr_obj.enrichr_icon = enrichr_icon;
   enr_obj.post_list = post_list;
@@ -400,6 +589,8 @@ function Enrichr_request(inst_cgm){
   enr_obj.get_enr_with_list = get_enr_with_list;
   enr_obj.enrichr_rows = enrichr_rows;
   enr_obj.enr_data_to_cats = enr_data_to_cats;
+  enr_obj.update_viz_callback = update_viz_callback;
+  enr_obj.clear_enrichr_results = clear_enrichr_results;
 
   return enr_obj;
 
