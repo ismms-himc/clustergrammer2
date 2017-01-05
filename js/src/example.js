@@ -10,9 +10,8 @@ var hzome = require('./hzome_functions');
 
 // console.log('!!!!!!!!!!!!!!!!!!!!!!!')
 var Enrichr_request = require('./enrichr_functions');
+
 console.log(Enrichr_request)
-
-
 console.log(hzome)
 
 require('!style!css!./custom.css');
@@ -83,6 +82,8 @@ function render_function() {
         'network_data': inst_network,
         'about':'Clustergrammer',
         // 'row_tip_callback':gene_info
+        'row_tip_callback':hzome.gene_info,
+        'matrix_update_callback':matrix_update_callback,
     };
 
     setTimeout(make_viz, 10, args);
@@ -92,10 +93,16 @@ function render_function() {
 function make_viz(args){
     var cgm = cgm_fun(args);
 
-    // // Enrichr categories
-    // //////////////////////
-    // enr_obj = Enrichr_request(cgm);
-    // enr_obj.enrichr_icon();
+    check_setup_enrichr(cgm);
+
+}
+
+// Enrichrgram specific functions
+///////////////////////////////////////////////////////////////
+
+function matrix_update_callback(){
+  console.log('matrix_update_callback')
+  enr_obj.clear_enrichr_results();
 }
 
 var genes_were_found = false;
