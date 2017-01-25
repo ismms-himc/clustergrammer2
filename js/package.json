@@ -1,6 +1,6 @@
 {
   "name": "clustergrammer_widget",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "clustergrammer_widget",
   "author": "Nicolas Fernandez",
   "main": "src/index.js",
