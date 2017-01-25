@@ -1,4 +1,5 @@
 var version = require('./package.json').version;
+var webpack = require("webpack");
 
 // Custom webpack loaders are generally the same for all webpack bundles, hence
 // stored in a separate local variable.
@@ -66,7 +67,10 @@ module.exports = [
         module: {
             loaders: loaders
         },
-        externals: ['jupyter-js-widgets']
+        externals: ['jupyter-js-widgets'],
+        plugins:[
+            new webpack.ProvidePlugin({ _: "underscore" })
+        ]
     }
 
 ];

@@ -1,6 +1,6 @@
 {
   "name": "clustergrammer_widget",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "clustergrammer_widget",
   "author": "Nicolas Fernandez",
   "main": "src/index.js",
@@ -24,7 +24,7 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
-    "clustergrammer": "v1.11.6",
+    "clustergrammer": "v1.11.7",
     "d3": "^3.5.8",
     "jupyter-js-widgets": "^1.1.1",
     "underscore": "^1.8.3"
