@@ -24,7 +24,7 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
-    "clustergrammer": "v1.11.7",
+    "clustergrammer": "v1.11.8",
     "d3": "^3.5.8",
     "jupyter-js-widgets": "^1.1.1",
     "underscore": "^1.8.3"
