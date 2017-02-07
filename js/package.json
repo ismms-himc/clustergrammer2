@@ -1,8 +1,9 @@
 {
   "name": "clustergrammer_widget",
-  "version": "v1.0.0",
+  "version": "v1.0.1",
   "description": "clustergrammer_widget",
   "author": "Nicolas Fernandez",
+  "license": "MIT",
   "main": "src/index.js",
   "repository": {
     "type": "git",
@@ -24,7 +25,7 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
-    "clustergrammer": "v1.11.8",
+    "clustergrammer": "v1.12.1",
     "d3": "^3.5.8",
     "jupyter-js-widgets": "^1.1.1",
     "underscore": "^1.8.3"
