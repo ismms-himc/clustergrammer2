@@ -69,8 +69,7 @@ function render_function() {
 
     inst_network = JSON.parse(inst_network_string);
 
-    var about_string = "<img src=" + url + " style='width:135px; margin-left:-17px'>";
-    // var about_string = 'Clustergrammer!!!'
+    var about_string = "<a href='https://github.com/MaayanLab/clustergrammer-widget' target='_blank' ><img src=" + url + " style='width:130px; margin-left:-15px'></a>";
 
     var container_id = '#'+container_name;
     // define arguments object
