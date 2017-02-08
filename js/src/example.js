@@ -1,10 +1,8 @@
 var widgets = require('jupyter-js-widgets');
 var _ = require('underscore');
 var d3 = require('d3')
-var new_module = require('./new_module');
-// var $ = require('jquery-ui')
 var cgm_fun = require('clustergrammer');
-var hzome = require('./hzome_functions');
+var ini_hzome = require('./hzome_functions');
 var Enrichr_request = require('./enrichr_functions');
 var url = require("file-loader!./clustergrammer_logo.png");
 
@@ -71,7 +69,10 @@ function render_function() {
 
     inst_network = JSON.parse(inst_network_string);
 
-    var about_string = "<a href='https://github.com/MaayanLab/clustergrammer-widget' target='_blank' ><img src=" + url + " style='width:127px; margin-left:-10px'></a>";
+    var about_string = "<a href='https://github.com/MaayanLab/clustergrammer-widget' target='_blank' ><img src=" + url + " style='width:129px; margin-left:-10px'></a>";
+
+
+    var hzome = ini_hzome();
 
     var container_id = '#'+container_name;
     // define arguments object
@@ -79,7 +80,6 @@ function render_function() {
         root: container_id,
         'network_data': inst_network,
         'about':about_string,
-        // 'row_tip_callback':gene_info
         'row_tip_callback':hzome.gene_info,
         'matrix_update_callback':matrix_update_callback,
         'sidebar_width':135,
@@ -87,19 +87,27 @@ function render_function() {
 
     setTimeout(make_viz, 10, args);
 
+
   }
 
 function make_viz(args){
-    var cgm = cgm_fun(args);
 
-    check_setup_enrichr(cgm);
+
+  var cgm = cgm_fun(args);
+
+  check_setup_enrichr(cgm);
+
+  console.log('************************')
+  console.log(cgm)
 
 }
+
 
 // Enrichrgram specific functions
 ///////////////////////////////////////////////////////////////
 
 function matrix_update_callback(){
+
   if (genes_were_found){
     enr_obj.clear_enrichr_results();
   }

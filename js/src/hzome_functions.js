@@ -1,19 +1,20 @@
-function ini_hzome(){
+function ini_hzome(root_id){
 
   // save gene data to global variable
   gene_data = {};
 
-  function get_mouseover(gene_symbol){
+  function get_mouseover(root_tip, gene_symbol){
 
-    if ( d3.select('.row_tip').classed(gene_symbol) ){
-
-      get_request(gene_symbol);
-
+    // not sure if this is necessary
+    if ( d3.select(root_tip + '_row_tip').classed(gene_symbol) ){
+     get_request(root_tip, gene_symbol);
     }
+
+   // get_request(root_tip, gene_symbol);
 
   }
 
-  function get_request(gene_symbol){
+  function get_request(root_tip, gene_symbol){
 
     var base_url = 'https://amp.pharm.mssm.edu/Harmonizome/api/1.0/gene/';
     var url = base_url + gene_symbol;
@@ -27,17 +28,18 @@ function ini_hzome(){
       gene_data[gene_symbol].name = data.name;
       gene_data[gene_symbol].description = data.description;
 
-      set_tooltip(data, gene_symbol);
+      set_tooltip(data, root_tip, gene_symbol);
 
       return data;
 
     });
   }
 
-  function set_tooltip(data, gene_symbol){
+  function set_tooltip(data, root_tip, gene_symbol){
 
     if (data.name != undefined){
-      d3.selectAll('.row_tip')
+
+      d3.selectAll(root_tip + '_row_tip')
         .html(function(){
             var sym_name = gene_symbol + ': ' + data.name;
             var full_html = '<p>' + sym_name + '</p>' +  '<p>' +
@@ -48,20 +50,22 @@ function ini_hzome(){
   }
 
 
-  function gene_info(gene_info){
+  function gene_info(root_tip, gene_info){
+
+    console.log('gene_info')
 
     var gene_symbol = gene_info.name;
 
     if (_.has(gene_data, gene_symbol)){
       var inst_data = gene_data[gene_symbol];
-      set_tooltip(inst_data, gene_symbol);
+      set_tooltip(inst_data, root_tip, gene_symbol);
     } else{
-      setTimeout(get_mouseover, 250, gene_symbol);
+      setTimeout(get_mouseover, 250, root_tip, gene_symbol);
     }
 
   }
 
-  var hzome = {}
+  hzome = {}
 
   hzome.gene_info = gene_info;
   hzome.gene_data = gene_data;
@@ -72,6 +76,4 @@ function ini_hzome(){
 
 }
 
-var hzome = ini_hzome();
-
-module.exports = hzome;
+module.exports = ini_hzome;
