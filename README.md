@@ -8,15 +8,10 @@ This is a [Jupyter/IPython](http://jupyter.org/) [interactive widget](https://gi
 Installation
 ------------
 
-To install use pip:
+The interactive widget can be installed and enabled using the following commands:
 
-    # python installation
-    $ pip install clustergrammer_widget
-
-    # enable widgetsnbextension
+    pip install clustergrammer_widget
     jupyter nbextension enable --py --sys-prefix widgetsnbextension
-
-    # enable widget
     jupyter nbextension enable --py --sys-prefix clustergrammer_widget
 
 ## Dependencies
