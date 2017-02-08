@@ -58,18 +58,20 @@ function render_function() {
       container_name = container_name + '_alt';
     }
 
+    // widget-subarea appears to be limited to a width of ~960px in nbviewer
+
     d3.select(this.el)
         .append('div')
         .classed('clustergrammer_widget', true)
         .attr('id', container_name)
-        .style('width', '1000px')
+        .style('width', '975px')
         .style('height', '800px');
 
     var inst_network_string = this.model.get('network');
 
     inst_network = JSON.parse(inst_network_string);
 
-    var about_string = "<a href='https://github.com/MaayanLab/clustergrammer-widget' target='_blank' ><img src=" + url + " style='width:120px; margin-left:-10px'></a>";
+    var about_string = "<a href='https://github.com/MaayanLab/clustergrammer-widget' target='_blank' ><img src=" + url + " style='width:127px; margin-left:-10px'></a>";
 
     var container_id = '#'+container_name;
     // define arguments object
