@@ -14,4 +14,3 @@ class clustergrammer_widget(widgets.DOMWidget):
     viz_title = Unicode('updating python by restarting kernel').tag(sync=True)
 
     network = Unicode('').tag(sync=True)
-
