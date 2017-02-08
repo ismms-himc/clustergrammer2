@@ -43,7 +43,7 @@ net.load_file('rc_two_cats.txt')
 net.make_clust()
 
 # view the results as a widget
-clustergrammer_notebook(network = net.export_net_json())
+clustergrammer_widget(network = net.export_net_json())
 ```
 
 Development Installation

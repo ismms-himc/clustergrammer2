@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "css-loader": "^0.25.0",
+    "file-loader": "^0.10.0",
     "json-loader": "^0.5.4",
     "webpack": "^1.12.14"
   },

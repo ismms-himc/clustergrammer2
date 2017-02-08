@@ -52,7 +52,7 @@ function render_function() {
 
     // var container_name = this.model.get('viz_title');
 
-    var viz_number = d3.selectAll('.clustergrammer_notebook')[0].length;
+    var viz_number = d3.selectAll('.clustergrammer_widget')[0].length;
 
     var container_name = 'cgm_notebook_' + String(viz_number+ 1) ;
 
@@ -62,7 +62,7 @@ function render_function() {
 
     d3.select(this.el)
         .append('div')
-        .classed('clustergrammer_notebook', true)
+        .classed('clustergrammer_widget', true)
         .attr('id', container_name)
         .style('width', '1000px')
         .style('height', '800px');
@@ -71,12 +71,15 @@ function render_function() {
 
     inst_network = JSON.parse(inst_network_string);
 
+    // var about_string = "<img src='clustergrammer_logo.png' style='width:100px'>";
+    var about_string = 'Clustergrammer!!!'
+
     var container_id = '#'+container_name;
     // define arguments object
     var args = {
         root: container_id,
         'network_data': inst_network,
-        'about':'Clustergrammer',
+        'about':about_string,
         // 'row_tip_callback':gene_info
         'row_tip_callback':hzome.gene_info,
         'matrix_update_callback':matrix_update_callback,
