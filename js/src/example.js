@@ -97,8 +97,9 @@ function make_viz(args){
 
   check_setup_enrichr(cgm);
 
-  console.log('************************')
-  console.log(cgm)
+  // hack to get logo to have normal width
+  d3.select(cgm.root+' .about_section')
+    .style('width','150px');
 
 }
 
