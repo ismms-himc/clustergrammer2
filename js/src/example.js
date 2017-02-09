@@ -69,7 +69,7 @@ function render_function() {
 
     inst_network = JSON.parse(inst_network_string);
 
-    var about_string = "<a href='https://github.com/MaayanLab/clustergrammer-widget' target='_blank' ><img src=" + url + " style='width:129px; margin-left:-10px'></a>";
+    var about_string = "<a href='https://github.com/MaayanLab/clustergrammer-widget' target='_blank' ><img src=" + url + " style='width:130px; margin-left:-5px'></a>";
 
 
     var hzome = ini_hzome();
@@ -92,14 +92,9 @@ function render_function() {
 
 function make_viz(args){
 
-
   var cgm = cgm_fun(args);
 
   check_setup_enrichr(cgm);
-
-  // hack to get logo to have normal width
-  d3.select(cgm.root+' .about_section')
-    .style('width','150px');
 
 }
 
