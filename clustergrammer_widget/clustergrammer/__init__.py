@@ -1,6 +1,7 @@
 # define a class for networks
 class Network(object):
   '''
+  version 1.2.0
   Networks have two states:
 
   1) the data state, where they are stored as a matrix and nodes
@@ -16,12 +17,26 @@ class Network(object):
     from . import initialize_net
     initialize_net.main(self)
 
+  def reset(self):
+    '''
+    function for user to reset network
+    '''
+    from . import initialize_net
+    initialize_net.main(self)
+
   def load_file(self, filename):
     '''
     load file to network, currently supporting only tsv
     '''
     from . import load_data
     load_data.load_file(self, filename)
+
+  def load_stdin(self):
+    '''
+    load stdin tsv formatted string
+    '''
+    from . import load_data
+    load_data.load_stdin(self)
 
   def load_tsv_to_net(self, file_buffer, filename=None):
     '''
@@ -55,7 +70,11 @@ class Network(object):
     The main function run by the user to make their clustergram.
     views is later referred to as requested_views.
     '''
+    from . import initialize_net
     from . import make_clust_fun
+
+    initialize_net.viz(self)
+
     make_clust_fun.make_clust(self, dist_type=dist_type, run_clustering=run_clustering,
                                    dendro=dendro,
                                    requested_views=views,
@@ -80,13 +99,34 @@ class Network(object):
     '''
     Expose this to user for their optional use
     '''
-    self.dat['mat_orig'] = deepcopy(self.dat['mat'])
+    # self.dat['mat_orig'] = deepcopy(self.dat['mat'])
     import numpy as np
     self.dat['mat'][np.isnan(self.dat['mat'])] = 0
 
+  def load_df(self, df):
+    '''
+    Upload pandas datafraeme
+    '''
+    from copy import deepcopy
+
+    self.__init__()
+
+    from . import data_formats
+    df_dict = {}
+    df_dict['mat'] = deepcopy(df)
+    data_formats.df_to_dat(self, df_dict)
+
+  def export_df(self):
+    '''
+    export dataframe from network
+    '''
+    from . import data_formats
+    df_dict = data_formats.dat_to_df(self)
+    return df_dict['mat']
+
   def df_to_dat(self, df):
     '''
-    Convert from pandas dataframe to clustergrammers dat format
+    Convert from pandas dataframe to clustergrammers dat format (will be deprecated)
     '''
     from . import data_formats
     data_formats.df_to_dat(self, df)
@@ -99,8 +139,18 @@ class Network(object):
     return data_formats.dat_to_df(self)
 
   def export_net_json(self, net_type='viz', indent='no-indent'):
+    '''
+    export dat or viz json
+    '''
     from . import export_data
     return export_data.export_net_json(self, net_type, indent)
+
+  def widget(self):
+    '''
+    export viz json, for use with clustergrammer_widget
+    '''
+    from . import export_data
+    return export_data.export_net_json(self, 'viz', 'no-indent')
 
   def write_json_to_file(self, net_type, filename, indent='no-indent'):
     from . import export_data

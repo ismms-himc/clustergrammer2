@@ -62,7 +62,7 @@ def viz_json(net, dendro=True):
       inst_dict = {}
       inst_dict['source'] = i
       inst_dict['target'] = j
-      inst_dict['value'] = net.dat['mat'][i, j]
+      inst_dict['value'] = float(net.dat['mat'][i, j])
 
       if 'mat_up' in net.dat:
         inst_dict['value_up'] = net.dat['mat_up'][i, j]

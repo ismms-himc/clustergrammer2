@@ -18,6 +18,13 @@ def main(self):
   self.viz = {}
   self.viz['row_nodes'] = []
   self.viz['col_nodes'] = []
-  self.viz['links'] = []  
+  self.viz['links'] = []
 
   self.sim = {}
+
+def viz(self):
+
+  self.viz = {}
+  self.viz['row_nodes'] = []
+  self.viz['col_nodes'] = []
+  self.viz['links'] = []

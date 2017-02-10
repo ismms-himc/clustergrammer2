@@ -5,8 +5,11 @@ def export_net_json(net, net_type, indent='no-indent'):
 
   if net_type == 'dat':
     exp_dict = deepcopy(net.dat)
+
     if type(exp_dict['mat']) is not list:
       exp_dict['mat'] = exp_dict['mat'].tolist()
+      if 'mat_orig' in exp_dict:
+        exp_dict['mat_orig'] = exp_dict['mat_orig'].tolist()
 
   elif net_type == 'viz':
     exp_dict = net.viz
@@ -23,15 +26,15 @@ def export_net_json(net, net_type, indent='no-indent'):
   else:
     exp_json = json.dumps(exp_dict)
 
-  return exp_json  
+  return exp_json
 
 def write_matrix_to_tsv(net, filename=None, df=None):
   '''
-  This will export the matrix in net.dat or a dataframe (optional df in 
-  arguments) as a tsv file. Row/column categories will be saved as tuples in 
-  tsv, which can be read back into the network object. 
+  This will export the matrix in net.dat or a dataframe (optional df in
+  arguments) as a tsv file. Row/column categories will be saved as tuples in
+  tsv, which can be read back into the network object.
   '''
-  import pandas as pd 
+  import pandas as pd
 
   if df is None:
     df = net.dat_to_df()
@@ -44,7 +47,7 @@ def write_json_to_file(net, net_type, filename, indent='no-indent'):
 
   fw = open(filename, 'w')
   fw.write(exp_json)
-  fw.close()  
+  fw.close()
 
 def save_dict_to_json(inst_dict, filename, indent='no-indent'):
   import json

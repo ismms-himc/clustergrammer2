@@ -79,7 +79,7 @@ def calc_cat_clust_order(net, inst_rc):
       tmp_name = 'dict_' + inst_name_cat.replace('-', '_')
       dict_cat = net.dat['node_info'][inst_rc][tmp_name]
 
-      unordered_cats = deepcopy(dict_cat.keys())
+      unordered_cats = dict_cat.keys()
 
       ordered_cats = order_categories(unordered_cats)
 
@@ -93,53 +93,58 @@ def calc_cat_clust_order(net, inst_rc):
 
         tmp_names_list.extend(inst_nodes)
 
-        cat_net = deepcopy(Network())
+      #   cat_net = deepcopy(Network())
 
-        cat_net.dat['mat'] = deepcopy(net.dat['mat'])
-        cat_net.dat['nodes'] = deepcopy(net.dat['nodes'])
+      #   cat_net.dat['mat'] = deepcopy(net.dat['mat'])
+      #   cat_net.dat['nodes'] = deepcopy(net.dat['nodes'])
 
-        cat_df = cat_net.dat_to_df()
+      #   cat_df = cat_net.dat_to_df()
 
-        sub_df = {}
-        if inst_rc == 'col':
-          sub_df['mat'] = cat_df['mat'][inst_nodes]
-        elif inst_rc == 'row':
-          # need to transpose df
-          cat_df['mat'] = cat_df['mat'].transpose()
-          sub_df['mat'] = cat_df['mat'][inst_nodes]
-          sub_df['mat'] = sub_df['mat'].transpose()
+      #   sub_df = {}
+      #   if inst_rc == 'col':
+      #     sub_df['mat'] = cat_df['mat'][inst_nodes]
+      #   elif inst_rc == 'row':
+      #     # need to transpose df
+      #     cat_df['mat'] = cat_df['mat'].transpose()
+      #     sub_df['mat'] = cat_df['mat'][inst_nodes]
+      #     sub_df['mat'] = sub_df['mat'].transpose()
 
-        # filter matrix before clustering
-        ###################################
-        threshold = 0.0001
-        sub_df = run_filter.df_filter_row_sum(sub_df, threshold)
-        sub_df = run_filter.df_filter_col_sum(sub_df, threshold)
+      #   # filter matrix before clustering
+      #   ###################################
+      #   threshold = 0.0001
+      #   sub_df = run_filter.df_filter_row_sum(sub_df, threshold)
+      #   sub_df = run_filter.df_filter_col_sum(sub_df, threshold)
 
-        # load back to dat
-        cat_net.df_to_dat(sub_df)
+      #   # load back to dat
+      #   cat_net.df_to_dat(sub_df)
 
-        cat_mat_shape = cat_net.dat['mat'].shape
+      #   cat_mat_shape = cat_net.dat['mat'].shape
 
-        try:
-          if cat_mat_shape[0]>1 and cat_mat_shape[1] > 1:
+      #   print('***************')
+      #   try:
+      #     if cat_mat_shape[0]>1 and cat_mat_shape[1] > 1 and all_are_numbers == False:
 
-            calc_clust.cluster_row_and_col(cat_net, 'cos')
-            inst_cat_order = cat_net.dat['node_info'][inst_rc]['clust']
-          else:
-            inst_cat_order = list(range(len(cat_net.dat['nodes'][inst_rc])))
+      #       calc_clust.cluster_row_and_col(cat_net, 'cos')
+      #       inst_cat_order = cat_net.dat['node_info'][inst_rc]['clust']
+      #     else:
+      #       inst_cat_order = list(range(len(cat_net.dat['nodes'][inst_rc])))
 
-        except:
-          inst_cat_order = list(range(len(cat_net.dat['nodes'][inst_rc])))
+      #   except:
+      #     inst_cat_order = list(range(len(cat_net.dat['nodes'][inst_rc])))
 
 
-        prev_order_len = len(all_cat_orders)
+      #   prev_order_len = len(all_cat_orders)
 
-        # add prev order length to the current order number
-        inst_cat_order = [i + prev_order_len for i in inst_cat_order]
-        all_cat_orders.extend(inst_cat_order)
+      #   # add prev order length to the current order number
+      #   inst_cat_order = [i + prev_order_len for i in inst_cat_order]
+      #   all_cat_orders.extend(inst_cat_order)
 
-      names_clust_list = [x for (y, x) in sorted(zip(all_cat_orders,
-                          tmp_names_list))]
+      # # generate ordered list of row/col names, which will be used to
+      # # assign the order to specific nodes
+      # names_clust_list = [x for (y, x) in sorted(zip(all_cat_orders,
+      #                     tmp_names_list))]
+
+      names_clust_list = tmp_names_list
 
       # calc category-cluster order
       final_order = []
@@ -154,6 +159,7 @@ def calc_cat_clust_order(net, inst_rc):
       inst_index_cat = inst_name_cat.replace('-', '_') + '_index'
 
       net.dat['node_info'][inst_rc][inst_index_cat] = final_order
+
 
 def order_categories(unordered_cats):
   '''
@@ -219,11 +225,11 @@ def remove_titles(cats):
       all_have_titles = False
 
   if all_have_titles:
-    no_titles = deepcopy(cats)
+    no_titles = cats
     no_titles = [i.split(': ')[1] for i in no_titles]
 
   else:
-    no_titles = deepcopy(cats)
+    no_titles = cats
 
   return no_titles
 

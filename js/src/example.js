@@ -46,49 +46,44 @@ var hello_view = widgets.DOMWidgetView.extend({
 
 function render_function() {
 
-    // var container_name = this.model.get('viz_title');
-
-    var viz_number = d3.selectAll('.clustergrammer_widget')[0].length;
-
-    var container_name = 'cgm_notebook_' + String(viz_number+ 1) ;
-
-    if (d3.selectAll('#'+container_name).empty() == false){
-      container_name = container_name + '_alt';
-    }
-
-    // widget-subarea appears to be limited to a width of ~960px in nbviewer
-
-    d3.select(this.el)
-        .append('div')
-        .classed('clustergrammer_widget', true)
-        .attr('id', container_name)
-        .style('width', '975px')
-        .style('height', '800px');
-
-    var inst_network_string = this.model.get('network');
-
-    inst_network = JSON.parse(inst_network_string);
-
-    var about_string = "<a href='https://github.com/MaayanLab/clustergrammer-widget' target='_blank' ><img src=" + url + " style='width:130px; margin-left:-5px'></a>";
-
-
-    var hzome = ini_hzome();
-
-    var container_id = '#'+container_name;
-    // define arguments object
-    var args = {
-        root: container_id,
-        'network_data': inst_network,
-        'about':about_string,
-        'row_tip_callback':hzome.gene_info,
-        'matrix_update_callback':matrix_update_callback,
-        'sidebar_width':135,
-    };
-
-    setTimeout(make_viz, 10, args);
-
-
+  // generate unique id for each visualization
+  var viz_number = String(Math.round(Math.random()*10000));
+  var container_name = 'cgm_notebook_' + String(viz_number) ;
+  if (d3.select('#'+container_name).empty() === false){
+    var backup_number = String(Math.round(Math.random()*10000));
+    container_name = container_name + backup_number;
   }
+
+  // widget-subarea appears to be limited to a width of ~960px in nbviewer
+  d3.select(this.el)
+      .append('div')
+      .classed('clustergrammer_widget', true)
+      .attr('id', container_name)
+      .style('width', '975px')
+      .style('height', '800px');
+
+  var inst_network_string = this.model.get('network');
+
+  inst_network = JSON.parse(inst_network_string);
+
+  var about_string = "<a href='https://github.com/MaayanLab/clustergrammer-widget' target='_blank' ><img src=" + url + " style='width:130px; margin-left:-5px'></a>";
+
+  var hzome = ini_hzome();
+
+  var container_id = '#'+container_name;
+  // define arguments object
+  var args = {
+      root: container_id,
+      'network_data': inst_network,
+      'about':about_string,
+      'row_tip_callback':hzome.gene_info,
+      'matrix_update_callback':matrix_update_callback,
+      'sidebar_width':135,
+  };
+
+  setTimeout(make_viz, 10, args);
+
+}
 
 function make_viz(args){
 
