@@ -89,7 +89,7 @@ function make_viz(args){
 
   var cgm = cgm_fun(args);
 
-  check_setup_enrichr(cgm);
+  // check_setup_enrichr(cgm);
 
 }
 
