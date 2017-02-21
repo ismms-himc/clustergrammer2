@@ -1,6 +1,7 @@
 
+function Enrichrgram(inst_cgm){
 
-function Enrichr_request(inst_cgm){
+  var inst_root = inst_cgm.params.root;
 
   function enrichr_icon(){
 
@@ -13,7 +14,7 @@ function Enrichr_request(inst_cgm){
     //                           'using Enrichr to find biological information that is unique to your list.'
     var enrichr_description = 'Perform enrichment analysis, using Enrichr, to find biological <br>'+
                               'information specific to your set (or subset) of genes. <br><br>' +
-                              'Select a subset of genes for analysis by cropping the matrix.'
+                              'Select a subset of genes for analysis by cropping the matrix using: the brush-cropping tool in the sidebar, or the crop buttons on the dendrogram.'
     // d3-tooltip
     var enr_tip = d3_tip_custom()
       .attr('class', function(){
@@ -27,7 +28,7 @@ function Enrichr_request(inst_cgm){
         return enrichr_description;
       });
 
-    var enr_logo = d3.select('.viz_svg').append("svg:image")
+    var enr_logo = d3.select(inst_root+' .viz_svg').append("svg:image")
      .attr('x', 50)
      .attr('y', 2)
      .attr('width', icon_size)
@@ -113,7 +114,8 @@ function Enrichr_request(inst_cgm){
         // reset enrichr menu
         toggle_enrichr_menu();
 
-        clear_enrichr_results();
+        // clear enrichr results and run resizing
+        clear_enrichr_results(true);
 
       })
 
@@ -240,7 +242,7 @@ function Enrichr_request(inst_cgm){
 
   }
 
-  function clear_enrichr_results(){
+  function clear_enrichr_results(run_resize_viz){
 
     d3.select(inst_cgm.params.root+ ' .enr_menu_clear')
       .style('display', 'none');
@@ -252,7 +254,7 @@ function Enrichr_request(inst_cgm){
       .style('fill','white');
 
     // clear categories
-    inst_cgm.reset_cats();
+    inst_cgm.reset_cats(run_resize_viz);
 
     // remove title and bars
     d3.select(inst_cgm.params.root+' .enr_title').remove();
@@ -556,7 +558,7 @@ function Enrichr_request(inst_cgm){
   }
 
   function make_enr_wait_circle(){
-    var pos_x = 71;
+    var pos_x = 72;
     var pos_y = 25;
 
      var click_circle = d3.select(inst_cgm.params.root+' .viz_svg')
@@ -564,7 +566,7 @@ function Enrichr_request(inst_cgm){
         .classed('enr_wait_circle', true)
         .attr('cx',pos_x)
         .attr('cy',pos_y)
-        .attr('r',22)
+        .attr('r',23)
         .style('stroke','#666666')
         .style('stroke-width','3px')
         .style('fill','white')
@@ -596,4 +598,4 @@ function Enrichr_request(inst_cgm){
 
 }
 
-module.exports = Enrichr_request;
+module.exports = Enrichrgram;
