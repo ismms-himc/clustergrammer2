@@ -153,7 +153,7 @@ function run_ini_enrichr(inst_cgm, inst_name){
         .append('div')
         .classed('enrichr_export_section', true)
         .style('margin-top', '10px')
-        .style('display','none');
+        // .style('display','none');
 
       enrichr_section
         .append('text')
