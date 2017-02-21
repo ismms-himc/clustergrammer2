@@ -99,8 +99,8 @@ function make_viz(args){
 
 function matrix_update_callback(){
 
-  if (genes_were_found){
-    enr_obj.clear_enrichr_results();
+  if (genes_were_found[this.root]){
+    enr_obj[this.root].clear_enrichr_results();
   }
 }
 
@@ -123,8 +123,6 @@ function check_setup_enrichr(inst_cgm){
 
   // check each gene using Harmonizome
   _.each(all_rows, function(inst_name){
-
-    console.log(inst_name)
 
     setTimeout(check_gene_request, wait_time, inst_cgm, inst_name, run_ini_enrichr);
 
