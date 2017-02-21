@@ -48,5 +48,5 @@ For a development installation (requires npm),
     $ git clone https://github.com/maayanlab/clustergrammer-widget.git
     $ cd clustergrammer-widget
     $ pip install -e .
-    $ jupyter nbextension install --py --symlink --user clustergrammer-widget
-    $ jupyter nbextension enable --py --user clustergrammer-widget
+    $ jupyter nbextension install --py --symlink --user clustergrammer_widget
+    $ jupyter nbextension enable --py --user clustergrammer_widget
