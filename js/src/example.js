@@ -66,7 +66,7 @@ function render_function() {
 
   inst_network = JSON.parse(inst_network_string);
 
-  var about_string = "<a href='http://clustergrammer.readthedocs.io/clustergrammer_widget.html' target='_blank' ><img src=" + url + " style='width:130px; margin-left:-5px' alt='clustergrammer'></a>";
+  var about_string = "<a href='http://clustergrammer.readthedocs.io/clustergrammer_widget.html' target='_blank' ><img src='http://amp.pharm.mssm.edu/clustergrammer/static/img/clustergrammer_logo.png' style='width:130px; margin-left:-5px' alt='clustergrammer'></a>";
 
   var hzome = ini_hzome();
 
