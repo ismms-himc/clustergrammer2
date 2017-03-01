@@ -303,7 +303,18 @@ function Enrichrgram(inst_cgm){
 
   }
 
-  function get_enr_with_list(gene_list, library, callback_function){
+  function get_enr_with_list(ini_gene_list, library, callback_function){
+
+    // clean gene list
+    var gene_list = []
+    _.each(ini_gene_list, function(gene_symbol){
+      if (gene_symbol.indexOf(' ') > 0){
+        gene_symbol = gene_symbol.split(' ')[0];
+      } else if (gene_symbol.indexOf('_') > 0){
+        gene_symbol = gene_symbol.split('_')[0];
+      }
+      gene_list.push(gene_symbol)
+    })
 
     enr_obj.library = library;
     enr_obj.gene_list = gene_list;
