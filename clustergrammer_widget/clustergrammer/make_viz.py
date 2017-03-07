@@ -1,4 +1,4 @@
-def viz_json(net, dendro=True):
+def viz_json(net, dendro=True, links=False):
   ''' make the dictionary for the clustergram.js visualization '''
   from . import calc_clust
   import numpy as np
@@ -56,29 +56,41 @@ def viz_json(net, dendro=True):
 
       net.viz[inst_rc + '_nodes'].append(inst_dict)
 
-  for i in range(len(net.dat['nodes']['row'])):
-    for j in range(len(net.dat['nodes']['col'])):
+  mat_types = ['mat', 'mat_orig', 'mat_info', 'mat_hl', 'mat_up', 'mat_dn']
 
-      inst_dict = {}
-      inst_dict['source'] = i
-      inst_dict['target'] = j
-      inst_dict['value'] = float(net.dat['mat'][i, j])
+  # save data as links or mat
+  ###########################
+  if links is True:
+    for i in range(len(net.dat['nodes']['row'])):
+      for j in range(len(net.dat['nodes']['col'])):
 
-      if 'mat_up' in net.dat:
-        inst_dict['value_up'] = net.dat['mat_up'][i, j]
-        inst_dict['value_dn'] = net.dat['mat_dn'][i, j]
+        inst_dict = {}
+        inst_dict['source'] = i
+        inst_dict['target'] = j
+        inst_dict['value'] = float(net.dat['mat'][i, j])
 
-      if 'mat_orig' in net.dat:
-        inst_dict['value_orig'] = net.dat['mat_orig'][i, j]
+        if 'mat_up' in net.dat:
+          inst_dict['value_up'] = net.dat['mat_up'][i, j]
+          inst_dict['value_dn'] = net.dat['mat_dn'][i, j]
 
-        if np.isnan(inst_dict['value_orig']):
-          inst_dict['value_orig'] = 'NaN'
+        if 'mat_orig' in net.dat:
+          inst_dict['value_orig'] = net.dat['mat_orig'][i, j]
+
+          if np.isnan(inst_dict['value_orig']):
+            inst_dict['value_orig'] = 'NaN'
 
 
-      if 'mat_info' in net.dat:
-        inst_dict['info'] = net.dat['mat_info'][str((i, j))]
+        if 'mat_info' in net.dat:
+          inst_dict['info'] = net.dat['mat_info'][str((i, j))]
 
-      if 'mat_hl' in net.dat:
-        inst_dict['highlight'] = net.dat['mat_hl'][i, j]
+        if 'mat_hl' in net.dat:
+          inst_dict['highlight'] = net.dat['mat_hl'][i, j]
 
-      net.viz['links'].append(inst_dict)
+        net.viz['links'].append(inst_dict)
+
+  else:
+    for inst_mat in mat_types:
+      if inst_mat in net.dat:
+        net.viz[inst_mat] = net.dat[inst_mat].tolist()
+
+

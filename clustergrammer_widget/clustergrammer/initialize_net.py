@@ -19,6 +19,7 @@ def main(self):
   self.viz['row_nodes'] = []
   self.viz['col_nodes'] = []
   self.viz['links'] = []
+  self.viz['mat'] = []
 
   self.sim = {}
 
@@ -28,3 +29,4 @@ def viz(self):
   self.viz['row_nodes'] = []
   self.viz['col_nodes'] = []
   self.viz['links'] = []
+  self.viz['mat'] = []
