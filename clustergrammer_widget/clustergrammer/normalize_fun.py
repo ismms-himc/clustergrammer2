@@ -3,12 +3,14 @@ import numpy as np
 from copy import deepcopy
 
 def run_norm(net, df=None, norm_type='zscore', axis='row', keep_orig=False):
-  ''' 
-  A dataframe (more accurately a dictionary of dataframes, e.g. mat, 
+  '''
+  A dataframe (more accurately a dictionary of dataframes, e.g. mat,
   mat_up...) can be passed to run_norm and a normalization will be run (
-  e.g. zscore) on either the rows or columns 
+  e.g. zscore) on either the rows or columns
   '''
 
+  # df here is actually a dictionary of several dataframes, 'mat', 'mat_orig',
+  # etc
   if df is None:
     df = net.dat_to_df()
 
@@ -22,7 +24,7 @@ def run_norm(net, df=None, norm_type='zscore', axis='row', keep_orig=False):
 
 def qn_df(df, axis='row', keep_orig=False):
   '''
-  do quantile normalization of a dataframe dictionary, does not write to net 
+  do quantile normalization of a dataframe dictionary, does not write to net
   '''
   df_qn = {}
 
@@ -35,22 +37,22 @@ def qn_df(df, axis='row', keep_orig=False):
 
     missing_values = inst_df.isnull().values.any()
 
-    # make mask of missing values 
+    # make mask of missing values
     if missing_values:
 
-      # get nan mask 
+      # get nan mask
       missing_mask = pd.isnull(inst_df)
 
-      # tmp fill in na with zero, will not affect qn 
+      # tmp fill in na with zero, will not affect qn
       inst_df = inst_df.fillna(value=0)
 
-    # calc common distribution 
+    # calc common distribution
     common_dist = calc_common_dist(inst_df)
 
-    # swap in common distribution 
+    # swap in common distribution
     inst_df = swap_in_common_dist(inst_df, common_dist)
 
-    # swap back in missing values 
+    # swap back in missing values
     if missing_values:
       inst_df = inst_df.mask(missing_mask, other=np.nan)
 
@@ -69,10 +71,10 @@ def swap_in_common_dist(df, common_dist):
   qn_arr = np.array([])
   orig_rows = df.index.tolist()
 
-  # loop through each column 
+  # loop through each column
   for inst_col in col_names:
 
-    # get the sorted list of row names for the given column 
+    # get the sorted list of row names for the given column
     tmp_series = deepcopy(df[inst_col])
     tmp_series = tmp_series.sort_values(ascending=False)
     sorted_names = tmp_series.index.tolist()
@@ -100,14 +102,14 @@ def calc_common_dist(df):
   calculate a common distribution (for col qn only) that will be used to qn
   '''
 
-  # axis is col 
+  # axis is col
   tmp_arr = np.array([])
 
   col_names = df.columns.tolist()
 
   for inst_col in col_names:
 
-    # sort column 
+    # sort column
     tmp_vect = df[inst_col].sort_values(ascending=False).values
 
     # stacking rows vertically (will transpose)
@@ -123,12 +125,12 @@ def calc_common_dist(df):
   return common_dist
 
 def zscore_df(df, axis='row', keep_orig=False):
-  '''  
+  '''
   take the zscore of a dataframe dictionary, does not write to net (self)
-  ''' 
+  '''
   df_z = {}
 
-  for mat_type in df: 
+  for mat_type in df:
     if keep_orig and mat_type == 'mat':
       mat_orig = deepcopy(df[mat_type])
 

@@ -1,6 +1,12 @@
-def load_file(net, filename):
-  import io, sys
+import io, sys
+import StringIO
+import json
+import pandas as pd
+from . import categories
+from . import proc_df_labels
+from . import data_formats
 
+def load_file(net, filename):
   # reset network when loaing file, prevents errors when loading new file
   net.__init__()
 
@@ -26,9 +32,6 @@ def load_file(net, filename):
   net.load_tsv_to_net(buff, filename)
 
 def load_stdin(net):
-  import sys
-  import StringIO
-
   data = ''
 
   for line in sys.stdin:
@@ -39,10 +42,6 @@ def load_stdin(net):
   net.load_tsv_to_net(data)
 
 def load_tsv_to_net(net, file_buffer, filename=None):
-  import pandas as pd
-  from . import categories
-  from . import proc_df_labels
-
   lines = file_buffer.getvalue().split('\n')
   num_labels = categories.check_categories(lines)
 
@@ -63,7 +62,6 @@ def load_tsv_to_net(net, file_buffer, filename=None):
   net.dat['filename'] = filename
 
 def load_json_to_dict(filename):
-  import json
   f = open(filename, 'r')
   inst_dict = json.load(f)
   f.close()
@@ -84,7 +82,6 @@ def load_gmt(filename):
 
 def load_data_to_net(net, inst_net):
   ''' load data into nodes and mat, also convert mat to numpy array'''
-  from . import data_formats
   net.dat['nodes'] = inst_net['nodes']
   net.dat['mat'] = inst_net['mat']
   data_formats.mat_to_numpy_arr(net)
