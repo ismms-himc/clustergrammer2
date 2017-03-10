@@ -72,7 +72,7 @@ def grab_df_subset(df, keep_rows='all', keep_cols='all'):
     df = df[keep_cols]
   if keep_rows != 'all':
     df = df.ix[keep_rows]
-  return df  
+  return df
 
 def get_sorted_rows(df, rank_type='sum'):
   from copy import deepcopy
@@ -87,7 +87,7 @@ def get_sorted_rows(df, rank_type='sum'):
 
   tmp_sum = tmp_sum.abs()
   tmp_sum.sort_values(inplace=True, ascending=False)
-  rows_sorted = tmp_sum.index.values.tolist()  
+  rows_sorted = tmp_sum.index.values.tolist()
 
   return rows_sorted
 
@@ -104,7 +104,7 @@ def filter_N_top(inst_rc, df, N_top, rank_type='sum'):
   df['mat'] = df['mat'].ix[keep_rows]
   if 'mat_up' in df:
     df['mat_up'] = df['mat_up'].ix[keep_rows]
-    df['mat_dn'] = df['mat_dn'].ix[keep_rows]  
+    df['mat_dn'] = df['mat_dn'].ix[keep_rows]
 
   if 'mat_orig' in df:
     df['mat_orig'] = df['mat_orig'].ix[keep_rows]
@@ -116,10 +116,10 @@ def filter_N_top(inst_rc, df, N_top, rank_type='sum'):
   return df
 
 def filter_threshold(df, inst_rc, threshold, num_occur=1):
-  ''' 
-  Filter a network's rows or cols based on num_occur values being above a 
-  threshold (in absolute_value) 
-  ''' 
+  '''
+  Filter a network's rows or cols based on num_occur values being above a
+  threshold (in absolute_value)
+  '''
   from copy import deepcopy
 
   inst_df = deepcopy(df['mat'])
@@ -131,7 +131,7 @@ def filter_threshold(df, inst_rc, threshold, num_occur=1):
 
   ini_rows = inst_df.index.values.tolist()
 
-  inst_df[inst_df < threshold] = 0  
+  inst_df[inst_df < threshold] = 0
   inst_df[inst_df >= threshold] = 1
 
   tmp_sum = inst_df.sum(axis=1)
@@ -149,7 +149,7 @@ def filter_threshold(df, inst_rc, threshold, num_occur=1):
         df['mat_dn'] = grab_df_subset(df['mat_dn'], keep_rows=keep_names)
 
       if 'mat_orig' in df:
-        df['mat_orig'] = grab_df_subset(df['mat_orig'], keep_rows=keep_names)  
+        df['mat_orig'] = grab_df_subset(df['mat_orig'], keep_rows=keep_names)
 
   elif inst_rc == 'col':
     inst_df = inst_df.transpose()
@@ -167,3 +167,30 @@ def filter_threshold(df, inst_rc, threshold, num_occur=1):
       df['mat_orig'] = grab_df_subset(df['mat_orig'], inst_rows, inst_cols)
 
   return df
+
+def filter_cat(net, axis, cat_index, cat_name):
+
+  try:
+    df = net.export_df()
+
+    # DataFrame filtering will be run always be run on columns if the user
+    # wants to filter rows, transpose the matrix before and after
+    if axis == 'row':
+      df = df.transpose()
+
+    all_names = df.columns.tolist()
+
+    found_names = [i for i in all_names if i[cat_index] == cat_name]
+
+    if len(found_names) > 0:
+      df = df[found_names]
+
+      if axis == 'row':
+        df = df.transpose()
+    else:
+      print('no ' + axis + 's were found with this category and filtering was not run')
+
+  except:
+    print('category filtering did not run\n check that your category filtering is set up correctly')
+
+  net.load_df(df)

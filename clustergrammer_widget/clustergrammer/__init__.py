@@ -17,7 +17,7 @@ from . import downsample_fun
 
 class Network(object):
   '''
-  version 1.4.1
+  version 1.5.0
 
   Clustergrammer.py takes a matrix as input (either from a file of a Pandas DataFrame), normalizes/filters, hierarchically clusters, and produces the :ref:`visualization_json` for :ref:`clustergrammer_js`.
 
@@ -195,6 +195,12 @@ class Network(object):
       num_occur)
 
     self.df_to_dat(inst_df)
+
+  def filter_cat(self, axis, cat_index, cat_name):
+    '''
+    Filter the matrix based on their category. cat_index is the index of the category, the first category has index=1.
+    '''
+    run_filter.filter_cat(self, axis, cat_index, cat_name)
 
   def clip(self, lower=None, upper=None):
     '''
