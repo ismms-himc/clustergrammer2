@@ -17,7 +17,7 @@ from . import downsample_fun
 
 class Network(object):
   '''
-  version 1.5.1
+  version 1.6.0
 
   Clustergrammer.py takes a matrix as input (either from a file of a Pandas DataFrame), normalizes/filters, hierarchically clusters, and produces the :ref:`visualization_json` for :ref:`clustergrammer_js`.
 
@@ -117,7 +117,8 @@ class Network(object):
 
     df_dict = {}
     df_dict['mat'] = deepcopy(df)
-    data_formats.df_to_dat(self, df_dict)
+    # always define category colors if applicable when loading a df
+    data_formats.df_to_dat(self, df_dict, define_cat_colors=True)
 
   def export_df(self):
     '''
@@ -126,11 +127,28 @@ class Network(object):
     df_dict = data_formats.dat_to_df(self)
     return df_dict['mat']
 
-  def df_to_dat(self, df):
+  def df_to_dat(self, df, define_cat_colors=False):
     '''
     Load Pandas DataFrame (will be deprecated).
     '''
-    data_formats.df_to_dat(self, df)
+    data_formats.df_to_dat(self, df, define_cat_colors)
+
+  def set_cat_color(self, axis, cat_index, cat_name, inst_color):
+
+    if axis == 0:
+      axis = 'row'
+    if axis == 1:
+      axis = 'col'
+
+    # try:
+    # process cat_index
+    cat_index = cat_index - 1
+    cat_index = 'cat-' + str(cat_index)
+
+    self.viz['cat_colors'][axis][cat_index][cat_name] = inst_color
+
+    # except:
+    #   print('there was an error setting the category color')
 
   def dat_to_df(self):
     '''
@@ -222,6 +240,25 @@ class Network(object):
     '''
 
     downsample_fun.main(self, df, ds_type, axis, num_samples)
+
+  def random_sample(self, num_samples, df=None, replace=False, weights=None, random_state=100, axis='row'):
+    '''
+    Return random sample of matrix.
+    '''
+
+    if df is None:
+      df = self.dat_to_df()
+
+    if axis == 'row':
+      axis = 0
+    if axis == 'col':
+      axis = 1
+
+    df = self.export_df()
+    df = df.sample(n=num_samples, replace=replace, weights=weights, random_state=random_state,  axis=axis)
+
+    self.load_df(df)
+
 
   def Iframe_web_app(self, filename=None, width=1000, height=800):
 

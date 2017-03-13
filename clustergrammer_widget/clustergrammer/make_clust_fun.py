@@ -59,4 +59,11 @@ def make_clust(net, dist_type='cosine', run_clustering=True, dendro=True,
     net.sim['row'] = sim_net['row'].viz
     net.sim['col'] = sim_net['col'].viz
 
+    # keep track of cat_colors
+    net.sim['row']['cat_colors']['row'] = net.viz['cat_colors']['row']
+    net.sim['row']['cat_colors']['col'] = net.viz['cat_colors']['row']
+
+    net.sim['col']['cat_colors']['col'] = net.viz['cat_colors']['col']
+    net.sim['col']['cat_colors']['row'] = net.viz['cat_colors']['col']
+
   net.viz['views'] = all_views

@@ -1,4 +1,7 @@
-def df_to_dat(net, df):
+def df_to_dat(net, df, define_cat_colors=False):
+  '''
+  This is always run when data is loaded.
+  '''
   from . import categories
 
   net.dat['mat'] = df['mat'].values
@@ -28,7 +31,7 @@ def df_to_dat(net, df):
   if 'mat_orig' in df:
     net.dat['mat_orig'] = df['mat_orig'].values
 
-  categories.dict_cat(net)
+  categories.dict_cat(net, define_cat_colors=define_cat_colors)
 
 def dat_to_df(net):
   import pandas as pd
@@ -53,10 +56,10 @@ def dat_to_df(net):
       columns=nodes['col'], index=nodes['row'])
 
   if 'mat_orig' in net.dat:
-    df['mat_orig'] = pd.DataFrame(data=net.dat['mat_orig'], 
+    df['mat_orig'] = pd.DataFrame(data=net.dat['mat_orig'],
       columns=nodes['col'], index=nodes['row'])
 
-  return df  
+  return df
 
 def mat_to_numpy_arr(self):
   ''' convert list to numpy array - numpy arrays can not be saved as json '''

@@ -58,7 +58,7 @@ def load_tsv_to_net(net, file_buffer, filename=None):
 
   tmp_df = proc_df_labels.main(tmp_df)
 
-  net.df_to_dat(tmp_df)
+  net.df_to_dat(tmp_df, True)
   net.dat['filename'] = filename
 
 def load_json_to_dict(filename):

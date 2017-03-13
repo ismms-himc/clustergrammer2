@@ -21,12 +21,26 @@ def main(self):
   self.viz['links'] = []
   self.viz['mat'] = []
 
+  self.viz['cat_colors'] = {}
+  self.viz['cat_colors']['row'] = {}
+  self.viz['cat_colors']['col'] = {}
+
   self.sim = {}
 
-def viz(self):
+def viz(self, reset_cat_colors=False):
+
+  # keep track of old cat_colors
+  old_cat_colors = self.viz['cat_colors']
 
   self.viz = {}
   self.viz['row_nodes'] = []
   self.viz['col_nodes'] = []
   self.viz['links'] = []
   self.viz['mat'] = []
+
+  if reset_cat_colors == True:
+    self.viz['cat_colors'] = {}
+    self.viz['cat_colors']['row'] = {}
+    self.viz['cat_colors']['col'] = {}
+  else:
+    self.viz['cat_colors'] = old_cat_colors
