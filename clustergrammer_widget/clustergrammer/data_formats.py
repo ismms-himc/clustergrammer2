@@ -1,8 +1,13 @@
+from . import make_unique_labels
+
 def df_to_dat(net, df, define_cat_colors=False):
   '''
   This is always run when data is loaded.
   '''
   from . import categories
+
+  # check if df has unique values
+  df['mat'] = make_unique_labels.main(net, df['mat'])
 
   net.dat['mat'] = df['mat'].values
   net.dat['nodes']['row'] = df['mat'].index.tolist()

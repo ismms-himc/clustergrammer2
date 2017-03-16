@@ -325,7 +325,6 @@ def get_cat_color(cat_num):
   return inst_color
 
 def dendro_cats(net, axis, dendro_level):
-  print('dendro_cats')
 
   if axis == 0:
     axis = 'row'

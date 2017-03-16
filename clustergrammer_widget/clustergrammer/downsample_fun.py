@@ -11,9 +11,11 @@ def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100):
 
   # run downsampling
   random_state = 1000
-  ds_df, cluster_data = run_kmeans_mini_batch(df, num_samples, axis, random_state)
+  ds_df, ds_data = run_kmeans_mini_batch(df, num_samples, axis, random_state)
 
   net.load_df(ds_df)
+
+  return ds_data
 
 def run_kmeans_mini_batch(df, num_samples=100, axis='row', random_state=1000):
 
