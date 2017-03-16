@@ -14,10 +14,11 @@ from . import enrichr_functions as enr_fun
 from . import iframe_web_app
 from . import run_filter
 from . import downsample_fun
+from . import categories
 
 class Network(object):
   '''
-  version 1.6.1
+  version 1.7.0
 
   Clustergrammer.py takes a matrix as input (either from a file of a Pandas DataFrame), normalizes/filters, hierarchically clusters, and produces the :ref:`visualization_json` for :ref:`clustergrammer_js`.
 
@@ -259,6 +260,13 @@ class Network(object):
 
     self.load_df(df)
 
+  def dendro_cats(self, axis, dendro_level):
+    '''
+    Generate categories from dendrogram groups/clusters. The dendrogram has 11
+    levels to choose from 0 -> 10. Dendro_level can be given as an integer or
+    string.
+    '''
+    categories.dendro_cats(self, axis, dendro_level)
 
   def Iframe_web_app(self, filename=None, width=1000, height=800):
 

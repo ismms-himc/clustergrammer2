@@ -323,3 +323,44 @@ def get_cat_color(cat_num):
   inst_color = all_colors[cat_num % len(all_colors)]
 
   return inst_color
+
+def dendro_cats(net, axis, dendro_level):
+  print('dendro_cats')
+
+  if axis == 0:
+    axis = 'row'
+  if axis == 1:
+    axis = 'col'
+
+  dendro_level = str(dendro_level)
+  dendro_level_name = dendro_level
+  if len(dendro_level) == 1:
+    dendro_level = '0' + dendro_level
+
+  df = net.export_df()
+
+  if axis == 'row':
+    old_names = df.index.tolist()
+  elif axis == 'col':
+    old_names = df.columns.tolist()
+
+  if 'group' in net.dat['node_info'][axis]:
+    inst_groups = net.dat['node_info'][axis]['group'][dendro_level]
+
+    new_names = []
+    for i in range(len(old_names)):
+      inst_name = old_names[i]
+      group_cat = 'Group '+ str(dendro_level_name) +': cat-' + str(inst_groups[i])
+      inst_name = inst_name + (group_cat,)
+      new_names.append(inst_name)
+
+    if axis == 'row':
+      df.index = new_names
+    elif axis == 'col':
+      df.columns = new_names
+
+    net.load_df(df)
+
+  else:
+    print('please cluster, using make_clust, to define dendrogram groups before running')
+
