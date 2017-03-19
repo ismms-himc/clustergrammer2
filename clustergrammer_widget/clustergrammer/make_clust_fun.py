@@ -51,19 +51,33 @@ def make_clust(net, dist_type='cosine', run_clustering=True, dendro=True,
     all_views = make_views.pct_rows(net, send_df, all_views,
                                     dist_type=dist_type, rank_type='var')
 
-  if sim_mat is True:
-    print('make similarity matrices of rows and columns, add to viz data structure')
-    sim_net = make_sim_mat.main(net, inst_dm, filter_sim, sim_mat_views)
+  which_sim = []
+
+  if sim_mat == True:
+    which_sim = ['row', 'col']
+  elif sim_mat == 'row':
+    which_sim = ['row']
+  elif sim_mat == 'col':
+    which_sim = ['col']
+
+  if sim_mat is not False:
+    sim_net = make_sim_mat.main(net, inst_dm, which_sim, filter_sim, sim_mat_views)
 
     net.sim = {}
-    net.sim['row'] = sim_net['row'].viz
-    net.sim['col'] = sim_net['col'].viz
 
-    # keep track of cat_colors
-    net.sim['row']['cat_colors']['row'] = net.viz['cat_colors']['row']
-    net.sim['row']['cat_colors']['col'] = net.viz['cat_colors']['row']
+    for inst_rc in which_sim:
+      net.sim[inst_rc] = sim_net[inst_rc].viz
 
-    net.sim['col']['cat_colors']['col'] = net.viz['cat_colors']['col']
-    net.sim['col']['cat_colors']['row'] = net.viz['cat_colors']['col']
+      if inst_rc == 'row':
+        other_rc = 'col'
+      elif inst_rc == 'col':
+        other_rc = 'row'
+
+      # keep track of cat_colors
+      net.sim[inst_rc]['cat_colors'][inst_rc] = net.viz['cat_colors'][inst_rc]
+      net.sim[inst_rc]['cat_colors'][other_rc] = net.viz['cat_colors'][inst_rc]
+
+  else:
+    net.sim = {}
 
   net.viz['views'] = all_views
