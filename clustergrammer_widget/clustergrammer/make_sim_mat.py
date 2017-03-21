@@ -3,6 +3,8 @@ def main(net, inst_dm, which_sim, filter_sim, sim_mat_views=['N_row_sum']):
   from copy import deepcopy
   from . import calc_clust, make_views
 
+  print('in make_sim_mat, which_sim: ' + str(which_sim))
+
   sim_dict = {}
 
   for inst_rc in which_sim:

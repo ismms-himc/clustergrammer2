@@ -190,7 +190,54 @@ def filter_cat(net, axis, cat_index, cat_name):
     else:
       print('no ' + axis + 's were found with this category and filtering was not run')
 
+    net.load_df(df)
+
   except:
     print('category filtering did not run\n check that your category filtering is set up correctly')
 
-  net.load_df(df)
+
+def filter_names(net, axis, names):
+
+  print('filter_names')
+  print(names)
+
+  try:
+
+    df = net.export_df()
+
+    # Dataframe filtering will always be run on the columns. If the user wants to filter rows, then it will transpose back and forth.
+
+    if axis == 'row':
+      df = df.transpose()
+
+    all_names = df.columns.tolist()
+
+    found_names = []
+    for inst_name in all_names:
+
+      if type(inst_name) is tuple:
+        check_name = inst_name[0]
+      else:
+        check_name = inst_name
+
+      if ': ' in check_name:
+        check_name = check_name.split(': ')[1]
+
+      if check_name in names:
+        found_names.append(inst_name)
+
+    if len(found_names) > 0:
+      df = df[found_names]
+
+      if axis == 'row':
+        df = df.transpose()
+
+      net.load_df(df)
+
+    else:
+      print('no ' + axis + 's were found with these names')
+
+  except:
+    print('error in filtering names')
+
+  print(found_names)

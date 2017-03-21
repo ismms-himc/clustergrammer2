@@ -18,7 +18,7 @@ from . import categories
 
 class Network(object):
   '''
-  version 1.8.0
+  version 1.10.0
 
   Clustergrammer.py takes a matrix as input (either from a file of a Pandas DataFrame), normalizes/filters, hierarchically clusters, and produces the :ref:`visualization_json` for :ref:`clustergrammer_js`.
 
@@ -141,15 +141,15 @@ class Network(object):
     if axis == 1:
       axis = 'col'
 
-    # try:
-    # process cat_index
-    cat_index = cat_index - 1
-    cat_index = 'cat-' + str(cat_index)
+    try:
+      # process cat_index
+      cat_index = cat_index - 1
+      cat_index = 'cat-' + str(cat_index)
 
-    self.viz['cat_colors'][axis][cat_index][cat_name] = inst_color
+      self.viz['cat_colors'][axis][cat_index][cat_name] = inst_color
 
-    # except:
-    #   print('there was an error setting the category color')
+    except:
+      print('there was an error setting the category color')
 
   def dat_to_df(self):
     '''
@@ -221,6 +221,12 @@ class Network(object):
     '''
     run_filter.filter_cat(self, axis, cat_index, cat_name)
 
+  def filter_names(self, axis, names):
+    '''
+    Filter the visualization using row/column names. The function takes, axis ('row'/'col') and names, a list of strings.
+    '''
+    run_filter.filter_names(self, axis, names)
+
   def clip(self, lower=None, upper=None):
     '''
     Trim values at input thresholds using pandas function
@@ -242,8 +248,6 @@ class Network(object):
 
     return downsample_fun.main(self, df, ds_type, axis, num_samples)
 
-
-
   def random_sample(self, num_samples, df=None, replace=False, weights=None, random_state=100, axis='row'):
     '''
     Return random sample of matrix.
@@ -261,6 +265,38 @@ class Network(object):
     df = df.sample(n=num_samples, replace=replace, weights=weights, random_state=random_state,  axis=axis)
 
     self.load_df(df)
+
+  def add_cats(self, axis, cat_data):
+    '''
+    Add categories to rows or columns using cat_data array of objects. Each object in cat_data is a dictionary with one key (category title) and value (rows/column names) that have this category. Categories will be added onto the existing categories and will be added in the order of the objects in the array.
+
+    Example ``cat_data``::
+
+
+        [
+          {
+            "title": "First Category",
+            "cats": {
+              "true": [
+                "ROS1",
+                "AAK1"
+              ]
+            }
+          },
+          {
+            "title": "Second Category",
+            "cats": {
+              "something": [
+                "PDK4"
+              ]
+            }
+          }
+        ]
+
+
+    '''
+    for inst_data in cat_data:
+      categories.add_cats(self, axis, inst_data)
 
   def dendro_cats(self, axis, dendro_level):
     '''
