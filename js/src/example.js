@@ -32,14 +32,14 @@ var hello_view = widgets.DOMWidgetView.extend({
 
   value_changed: function() {
 
-    this.el.textContent = this.model.get('viz_title');
+    // this.el.textContent = this.model.get('viz_title');
 
-    var inst_network_string = this.model.get('network');
+    // var inst_network_string = this.model.get('network');
 
-    inst_network = JSON.parse(inst_network_string);
+    // inst_network = JSON.parse(inst_network_string);
 
-    d3.select(this.el)
-      .classed('.widget_viz',true);
+    // d3.select(this.el)
+    //   .classed('.widget_viz',true);
 
   }
 });
@@ -70,6 +70,9 @@ function render_function() {
 
   var hzome = ini_hzome();
 
+  // cgm_model needs to be global
+  cgm_model = this;
+
   var container_id = '#'+container_name;
   // define arguments object
   var args = {
@@ -82,6 +85,9 @@ function render_function() {
   };
 
   setTimeout(make_viz, 10, args);
+
+  // working on two-way communication
+
 
 }
 
@@ -98,6 +104,12 @@ function make_viz(args){
 ///////////////////////////////////////////////////////////////
 
 function matrix_update_callback(){
+
+  console.log('update matrix info ')
+
+  cgm_model.model.set("string_mat", 'matrix-string');
+  // this.string_mat = 'matrix-string'
+  cgm_model.touch();
 
   if (genes_were_found[this.root]){
     enr_obj[this.root].clear_enrichr_results();
