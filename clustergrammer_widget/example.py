@@ -17,5 +17,13 @@ class clustergrammer_widget(widgets.DOMWidget, Network):
 
     network = Unicode('').tag(sync=True)
 
-    def export_df(self):
+    def widget_df(self):
       print('exporting current dataframe')
+
+    def cluster(self):
+      '''
+      Cluster the matrix and assign the visualization JSON to network for front
+      end rendering.
+      '''
+      self.make_clust()
+      self.network = self.widget()
