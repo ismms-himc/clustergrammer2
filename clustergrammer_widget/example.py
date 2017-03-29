@@ -15,14 +15,19 @@ class clustergrammer_widget(widgets.DOMWidget, Network):
     _view_module = Unicode('clustergrammer_widget').tag(sync=True)
     _model_module = Unicode('clustergrammer_widget').tag(sync=True)
 
-    string_mat = Unicode('').tag(sync=True)
+    mat_string = Unicode('').tag(sync=True)
 
     viz_title = Unicode('updating python by restarting kernel').tag(sync=True)
 
     network = Unicode('').tag(sync=True)
 
     def widget_df(self):
-      print('exporting current dataframe')
+      df_string = self.mat_string
+
+      self.load_file_as_string(df_string)
+      df = self.export_df()
+
+      return df
 
     def cluster(self, dist_type='cosine', run_clustering=True,
                  dendro=True, views=['N_row_sum', 'N_row_var'],

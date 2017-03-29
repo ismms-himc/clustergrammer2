@@ -85,13 +85,11 @@ function render_function() {
       'about':about_string,
       'row_tip_callback':hzome.gene_info,
       'matrix_update_callback':matrix_update_callback,
+      'cat_update_callback': cat_update_callback,
       'sidebar_width':135,
   };
 
   setTimeout(make_viz, 10, args);
-
-  // working on two-way communication
-
 
 }
 
@@ -101,11 +99,9 @@ function make_viz(args){
 
   check_setup_enrichr(cgm);
 
-}
+  setTimeout(update_matrix_string, 1500);
 
-// function widget_df(){
-//   console.log('WIDGET_DF being run on front-end by back-end')
-// }
+}
 
 
 // Enrichrgram specific functions
@@ -113,21 +109,26 @@ function make_viz(args){
 
 function matrix_update_callback(){
 
-  console.log('update matrix info ')
+  console.log('matrix_update_callback')
 
-  var inst_mat_string = cgm.export_matrix_string();
-
-  // var inst_mat_string = 'new matrix string'
-
-  console.log(cgm_model)
-
-  // update model with matrix string
-  cgm_model.model.set("string_mat", inst_mat_string);
-  cgm_model.touch();
+  // wait to update matrix string until updating has finished
+  setTimeout(update_matrix_string, 1500);
 
   if (genes_were_found[this.root]){
     enr_obj[this.root].clear_enrichr_results();
   }
+}
+
+function cat_update_callback(){
+  setTimeout(update_matrix_string, 1500);
+}
+
+function update_matrix_string(){
+  // update model with matrix string
+  console.log('update matrix string')
+  var inst_mat_string = cgm.export_matrix_string();
+  cgm_model.model.set("mat_string", inst_mat_string);
+  cgm_model.touch();
 }
 
 genes_were_found = {};

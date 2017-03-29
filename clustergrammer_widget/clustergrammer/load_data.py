@@ -18,6 +18,11 @@ def load_file(net, filename):
   f = open(filename, 'r')
 
   file_string = f.read()
+  f.close()
+
+  load_file_as_string(net, file_string, filename)
+
+def load_file_as_string(net, file_string, filename=''):
 
   if (sys.version_info > (3, 0)):
     # python 3
@@ -29,7 +34,6 @@ def load_file(net, filename):
     file_string = unicode(file_string)
 
   buff = io.StringIO(file_string)
-  f.close()
 
   if '/' in filename:
     filename = filename.split('/')[-1]

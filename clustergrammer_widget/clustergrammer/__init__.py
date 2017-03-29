@@ -46,6 +46,13 @@ class Network(object):
     '''
     load_data.load_file(self, filename)
 
+  def load_file_as_string(self, file_string, filename=''):
+    '''
+    Load file as a string.
+    '''
+    load_data.load_file_as_string(self, file_string, filename=filename)
+
+
   def load_stdin(self):
     '''
     Load stdin TSV-formatted string.
