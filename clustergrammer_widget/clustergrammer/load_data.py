@@ -10,7 +10,10 @@ from . import make_unique_labels
 def load_file(net, filename):
   # reset network when loaing file, prevents errors when loading new file
   # have persistent categories
-  net.__init__()
+
+  # trying to improve re-initialization
+  # net.__init__()
+  net.reset()
 
   f = open(filename, 'r')
 
