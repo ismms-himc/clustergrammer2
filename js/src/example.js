@@ -30,6 +30,10 @@ var hello_model = widgets.DOMWidgetModel.extend({
 var hello_view = widgets.DOMWidgetView.extend({
   render: render_function,
 
+  widget_df: function(){
+    console.log('WIDGET_DF!!!');
+  },
+
   value_changed: function() {
 
     // this.el.textContent = this.model.get('viz_title');
@@ -93,11 +97,15 @@ function render_function() {
 
 function make_viz(args){
 
-  var cgm = cgm_fun(args);
+  cgm = cgm_fun(args);
 
   check_setup_enrichr(cgm);
 
 }
+
+// function widget_df(){
+//   console.log('WIDGET_DF being run on front-end by back-end')
+// }
 
 
 // Enrichrgram specific functions
@@ -107,8 +115,14 @@ function matrix_update_callback(){
 
   console.log('update matrix info ')
 
-  cgm_model.model.set("string_mat", 'matrix-string');
-  // this.string_mat = 'matrix-string'
+  var inst_mat_string = cgm.export_matrix_string();
+
+  // var inst_mat_string = 'new matrix string'
+
+  console.log(cgm_model)
+
+  // update model with matrix string
+  cgm_model.model.set("string_mat", inst_mat_string);
   cgm_model.touch();
 
   if (genes_were_found[this.root]){
