@@ -114,7 +114,7 @@ class Network(object):
     '''
     Load Pandas DataFrame.
     '''
-    self.__init__()
+    # self.__init__()
 
     df_dict = {}
     df_dict['mat'] = deepcopy(df)
