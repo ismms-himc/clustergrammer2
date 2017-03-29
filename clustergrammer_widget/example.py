@@ -5,7 +5,11 @@ from clustergrammer import Network
 
 @widgets.register('hello.Hello')
 class clustergrammer_widget(widgets.DOMWidget, Network):
-    """"""
+    """
+    Clustergrammer-Widget generates an interactive heatmap in the Jupyter
+    notebook. Clustergrammer-Widget inherits from Clustergrammer.py which can
+    be used to load data, filter, normalize, and cluster.
+    """
     _view_name = Unicode('hello_view').tag(sync=True)
     _model_name = Unicode('hello_model').tag(sync=True)
     _view_module = Unicode('clustergrammer_widget').tag(sync=True)
