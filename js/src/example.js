@@ -30,9 +30,9 @@ var hello_model = widgets.DOMWidgetModel.extend({
 var hello_view = widgets.DOMWidgetView.extend({
   render: render_function,
 
-  widget_df: function(){
-    console.log('WIDGET_DF!!!');
-  },
+  // widget_df: function(){
+  //   console.log('WIDGET_DF!!!');
+  // },
 
   value_changed: function() {
 
@@ -125,7 +125,6 @@ function cat_update_callback(){
 
 function update_matrix_string(){
   // update model with matrix string
-  console.log('update matrix string')
   var inst_mat_string = cgm.export_matrix_string();
   cgm_model.model.set("mat_string", inst_mat_string);
   cgm_model.touch();
