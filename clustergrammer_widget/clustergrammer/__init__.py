@@ -31,8 +31,8 @@ class Network(object):
   the network that will be used as input to clustergram.js.
   '''
 
-  def __init__(self):
-    initialize_net.main(self)
+  def __init__(self, widget=None):
+    initialize_net.main(self, widget)
 
   def reset(self):
     '''
@@ -171,11 +171,22 @@ class Network(object):
     '''
     return export_data.export_net_json(self, net_type, indent)
 
+  def export_to_widget(self, which_viz='viz'):
+    '''
+    Export viz JSON, for use with clustergrammer_widget. Formerly method was
+    named widget.
+    '''
+
+    return export_data.export_net_json(self, which_viz, 'no-indent')
+
   def widget(self, which_viz='viz'):
     '''
-    Export viz JSON, for use with clustergrammer_widget.
+    Generate a widget visualization using the widget. The export_to_widget
+    method passes the visualization JSON to the instantiated widget, which is
+    returned and visualized on the front-end.
     '''
-    return export_data.export_net_json(self, which_viz, 'no-indent')
+
+    return self.widget_class(network = self.export_to_widget(which_viz))
 
   def write_json_to_file(self, net_type, filename, indent='no-indent'):
     '''

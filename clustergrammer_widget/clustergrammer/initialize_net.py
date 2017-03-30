@@ -1,4 +1,5 @@
-def main(self):
+def main(self, widget=None):
+
   self.dat = {}
   self.dat['nodes'] = {}
   self.dat['nodes']['row'] = []
@@ -22,6 +23,11 @@ def main(self):
   else:
     found_cats = True
     inst_cat_colors = self.viz['cat_colors']
+
+  # add widget if necessary
+  if widget != None:
+    print('add widget class')
+    self.widget_class = widget
 
   self.viz = {}
   self.viz['row_nodes'] = []
