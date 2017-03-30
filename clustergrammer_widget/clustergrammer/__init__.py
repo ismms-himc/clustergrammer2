@@ -177,6 +177,7 @@ class Network(object):
     named widget.
     '''
 
+
     return export_data.export_net_json(self, which_viz, 'no-indent')
 
   def widget(self, which_viz='viz'):
@@ -185,8 +186,28 @@ class Network(object):
     method passes the visualization JSON to the instantiated widget, which is
     returned and visualized on the front-end.
     '''
+    self.widget_instance = self.widget_class(network = self.export_to_widget(which_viz))
 
-    return self.widget_class(network = self.export_to_widget(which_viz))
+    return self.widget_instance
+
+  def widget_df(self):
+    '''
+    Export a DataFrame from the front-end visualization. For instance, a user
+    can filter to show only a single cluster using the dendrogram and then
+    get a dataframe of this cluster using the widget_df method.
+    '''
+
+    tmp_net = deepcopy(Network())
+
+    print(tmp_net)
+
+    df_string = self.widget_instance.mat_string
+
+    tmp_net.load_file_as_string(df_string)
+
+    df = self.export_df()
+
+    return df
 
   def write_json_to_file(self, net_type, filename, indent='no-indent'):
     '''
