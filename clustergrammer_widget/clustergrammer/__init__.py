@@ -85,6 +85,25 @@ class Network(object):
                  linkage_type='average', sim_mat=False, filter_sim=0.1,
                  calc_cat_pval=False, run_enrichr=None):
     '''
+    ... Will be deprecated, renaming method cluster ...
+    The main function performs hierarchical clustering, optionally generates filtered views (e.g. row-filtered views), and generates the :``visualization_json``.
+    '''
+    initialize_net.viz(self)
+
+    make_clust_fun.make_clust(self, dist_type=dist_type, run_clustering=run_clustering,
+                                   dendro=dendro,
+                                   requested_views=views,
+                                   linkage_type=linkage_type,
+                                   sim_mat=sim_mat,
+                                   filter_sim=filter_sim,
+                                   calc_cat_pval=calc_cat_pval,
+                                   run_enrichr=run_enrichr)
+
+  def cluster(self, dist_type='cosine', run_clustering=True,
+                 dendro=True, views=['N_row_sum', 'N_row_var'],
+                 linkage_type='average', sim_mat=False, filter_sim=0.1,
+                 calc_cat_pval=False, run_enrichr=None):
+    '''
     The main function performs hierarchical clustering, optionally generates filtered views (e.g. row-filtered views), and generates the :``visualization_json``.
     '''
     initialize_net.viz(self)
@@ -171,24 +190,28 @@ class Network(object):
     '''
     return export_data.export_net_json(self, net_type, indent)
 
-  def export_to_widget(self, which_viz='viz'):
+  def export_viz_to_widget(self, which_viz='viz'):
     '''
     Export viz JSON, for use with clustergrammer_widget. Formerly method was
     named widget.
     '''
 
-
     return export_data.export_net_json(self, which_viz, 'no-indent')
 
   def widget(self, which_viz='viz'):
     '''
-    Generate a widget visualization using the widget. The export_to_widget
+    Generate a widget visualization using the widget. The export_viz_to_widget
     method passes the visualization JSON to the instantiated widget, which is
     returned and visualized on the front-end.
     '''
-    self.widget_instance = self.widget_class(network = self.export_to_widget(which_viz))
+    if hasattr(self, 'widget_class') == True:
+      self.widget_instance = self.widget_class(network = self.export_viz_to_widget(which_viz))
 
-    return self.widget_instance
+      return self.widget_instance
+    else:
+      print('Can not make widget because Network has no attribute widget_class')
+      print('Please instantiate Network with clustergrammer_widget using: Network(clustergrammer_widget)')
+
 
   def widget_df(self):
     '''
@@ -197,17 +220,25 @@ class Network(object):
     get a dataframe of this cluster using the widget_df method.
     '''
 
-    tmp_net = deepcopy(Network())
+    if hasattr(self, 'widget_instance') == True:
+      tmp_net = deepcopy(Network())
 
-    print(tmp_net)
+      df_string = self.widget_instance.mat_string
 
-    df_string = self.widget_instance.mat_string
+      tmp_net.load_file_as_string(df_string)
 
-    tmp_net.load_file_as_string(df_string)
+      df = tmp_net.export_df()
 
-    df = tmp_net.export_df()
+      return df
 
-    return df
+    else:
+      if hasattr(self, 'widget_class') == True:
+        print('Please make the widget before exporting the widget DataFrame.')
+        print('Do this using the widget method: net.widget()')
+
+      else:
+        print('Can not make widget because Network has no attribute widget_class')
+        print('Please instantiate Network with clustergrammer_widget using: Network(clustergrammer_widget)')
 
   def write_json_to_file(self, net_type, filename, indent='no-indent'):
     '''

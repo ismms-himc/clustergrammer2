@@ -26,7 +26,6 @@ def main(self, widget=None):
 
   # add widget if necessary
   if widget != None:
-    print('add widget class')
     self.widget_class = widget
 
   self.viz = {}
