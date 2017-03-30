@@ -205,7 +205,7 @@ class Network(object):
 
     tmp_net.load_file_as_string(df_string)
 
-    df = self.export_df()
+    df = tmp_net.export_df()
 
     return df
 
