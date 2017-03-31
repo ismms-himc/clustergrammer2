@@ -30,15 +30,14 @@ Within the Jupyter/IPython notebook the widget can be run using the following co
 ```
 # import the widget
 from clustergrammer_widget import *
-from copy import deepcopy
 
 # load data into new network instance and cluster
-net = deepcopy(Network())
+net = Network(clustergrammer_widget)
 net.load_file('rc_two_cats.txt')
-net.make_clust()
+net.cluster()
 
 # view the results as a widget
-clustergrammer_widget(network = net.export_net_json())
+net.widget()
 ```
 
 Development Installation
