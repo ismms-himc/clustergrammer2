@@ -1,11 +1,16 @@
 import io, sys
-import StringIO
+# import StringIO
 import json
 import pandas as pd
 from . import categories
 from . import proc_df_labels
 from . import data_formats
 from . import make_unique_labels
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 def load_file(net, filename):
   # reset network when loaing file, prevents errors when loading new file
