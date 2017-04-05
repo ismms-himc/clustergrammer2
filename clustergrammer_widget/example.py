@@ -1,11 +1,9 @@
 import ipywidgets as widgets
 import json
 from traitlets import Unicode
+
 # from clustergrammer import Network
 from . import clustergrammer
-
-# print(clustergrammer.Network)
-# from clustergrammer import Network
 
 Network = clustergrammer.Network
 

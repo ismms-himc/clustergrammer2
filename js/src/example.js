@@ -28,20 +28,14 @@ var hello_model = widgets.DOMWidgetModel.extend({
 
 // Custom View. Renders the widget model.
 var hello_view = widgets.DOMWidgetView.extend({
-  render: render_function,
 
-  // widget_df: function(){
-  //   console.log('WIDGET_DF!!!');
-  // },
+  render: render_function,
 
   value_changed: function() {
 
     // this.el.textContent = this.model.get('viz_title');
-
     // var inst_network_string = this.model.get('network');
-
     // inst_network = JSON.parse(inst_network_string);
-
     // d3.select(this.el)
     //   .classed('.widget_viz',true);
 
@@ -138,13 +132,13 @@ function check_setup_enrichr(inst_cgm){
   genes_were_found[inst_cgm.params.root] = false;
 
   var all_rows = inst_cgm.params.network_data.row_nodes_names;
-  var max_num_genes = 20;
+  var max_num_genes = 3;
 
-  if (all_rows.length > 20){
-    all_rows = all_rows.slice(0,20);
+  if (all_rows.length > max_num_genes){
+    all_rows = all_rows.slice(0, max_num_genes);
   }
 
-  var wait_unit = 500;
+  var wait_unit = 1000;
   var wait_time = 0;
 
   // check each gene using Harmonizome
