@@ -2,7 +2,7 @@ def make_clust(net, dist_type='cosine', run_clustering=True, dendro=True,
                           requested_views=['pct_row_sum', 'N_row_sum'],
                           linkage_type='average', sim_mat=False, filter_sim=0.1,
                           calc_cat_pval=False, sim_mat_views=['N_row_sum'],
-                          run_enrichr=None, enrichrgram=False):
+                          run_enrichr=None, enrichrgram=None):
   '''
   This will calculate multiple views of a clustergram by filtering the
   data and clustering after each filtering. This filtering will keep the top
@@ -82,5 +82,6 @@ def make_clust(net, dist_type='cosine', run_clustering=True, dendro=True,
 
   net.viz['views'] = all_views
 
-  # toggle enrichrgram functionality from back-end
-  net.viz['enrichrgram'] = enrichrgram
+  if enrichrgram != None:
+    # toggle enrichrgram functionality from back-end
+    net.viz['enrichrgram'] = enrichrgram
