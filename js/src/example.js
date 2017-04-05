@@ -257,21 +257,29 @@ function check_gene_request(inst_cgm, gene_symbol, run_ini_enrichr){
     // make sure value is non-numeric
     if (isNaN(gene_symbol)){
 
-      $.get(url, function(data) {
+      var tmp = $.get(url, function(data) {
 
-        data = JSON.parse(data);
+                  data = JSON.parse(data);
 
-        if (data.name != undefined){
-          genes_were_found[inst_cgm.params.root] = true;
-        }
+                  if (data.name != undefined){
+                    genes_were_found[inst_cgm.params.root] = true;
+                  }
 
-        run_ini_enrichr(inst_cgm, gene_symbol);
+                  run_ini_enrichr(inst_cgm, gene_symbol);
 
-      });
+                });
+
+      // tmp.abort()
+      setTimeout(abort_request, 1000, tmp);
 
     }
   }
 
+}
+
+function abort_request(inst_request){
+  console.log('ABORTING REQUEST');
+  inst_request.abort();
 }
 
 module.exports = {
