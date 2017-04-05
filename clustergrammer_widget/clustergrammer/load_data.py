@@ -1,5 +1,4 @@
 import io, sys
-# import StringIO
 import json
 import pandas as pd
 from . import categories

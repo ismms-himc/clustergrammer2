@@ -1,8 +1,13 @@
 def main(net, filename=None, width=1000, height=800):
   import requests, json
-  from io import StringIO
+  # from io import StringIO
   from IPython.display import IFrame, display
-  
+
+  try:
+      from StringIO import StringIO
+  except ImportError:
+      from io import StringIO
+
   clustergrammer_url = 'http://amp.pharm.mssm.edu/clustergrammer/matrix_upload/'
 
   if filename is None:
