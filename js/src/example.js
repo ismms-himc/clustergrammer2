@@ -98,11 +98,6 @@ function make_viz(args){
 
   check_setup_enrichr(cgm);
 
-  // // manually initiate Enrichrgram
-  // genes_were_found[cgm.params.root] = true;
-  // run_ini_enrichr(cgm);
-  // console.log('RUN INI ENRICHR')
-
   console.log('DO NOT UPDATE MATRIX STRING WHEN MAKING VIZ')
 
 }
