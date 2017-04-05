@@ -223,15 +223,21 @@ class Network(object):
     '''
 
     if hasattr(self, 'widget_instance') == True:
-      tmp_net = deepcopy(Network())
 
-      df_string = self.widget_instance.mat_string
+      if self.widget_instance.mat_string != '':
 
-      tmp_net.load_file_as_string(df_string)
+        tmp_net = deepcopy(Network())
 
-      df = tmp_net.export_df()
+        df_string = self.widget_instance.mat_string
 
-      return df
+        tmp_net.load_file_as_string(df_string)
+
+        df = tmp_net.export_df()
+
+        return df
+
+      else:
+        return self.export_df()
 
     else:
       if hasattr(self, 'widget_class') == True:

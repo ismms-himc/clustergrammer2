@@ -103,8 +103,7 @@ function make_viz(args){
   // run_ini_enrichr(cgm);
   // console.log('RUN INI ENRICHR')
 
-
-  setTimeout(update_matrix_string, 1500);
+  console.log('DO NOT UPDATE MATRIX STRING WHEN MAKING VIZ')
 
 }
 
