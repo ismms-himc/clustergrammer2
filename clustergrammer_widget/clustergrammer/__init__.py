@@ -18,7 +18,7 @@ from . import categories
 
 class Network(object):
   '''
-  version 1.12.1
+  version 1.12.2
 
   Clustergrammer.py takes a matrix as input (either from a file of a Pandas DataFrame), normalizes/filters, hierarchically clusters, and produces the :ref:`visualization_json` for :ref:`clustergrammer_js`.
 
@@ -82,7 +82,7 @@ class Network(object):
   def cluster(self, dist_type='cosine', run_clustering=True,
                  dendro=True, views=['N_row_sum', 'N_row_var'],
                  linkage_type='average', sim_mat=False, filter_sim=0.1,
-                 calc_cat_pval=False, run_enrichr=None):
+                 calc_cat_pval=False, run_enrichr=None, enrichrgram=False):
     '''
     The main function performs hierarchical clustering, optionally generates filtered views (e.g. row-filtered views), and generates the :``visualization_json``.
     '''
@@ -95,12 +95,13 @@ class Network(object):
                                    sim_mat=sim_mat,
                                    filter_sim=filter_sim,
                                    calc_cat_pval=calc_cat_pval,
-                                   run_enrichr=run_enrichr)
+                                   run_enrichr=run_enrichr,
+                                   enrichrgram=enrichrgram)
 
   def make_clust(self, dist_type='cosine', run_clustering=True,
                  dendro=True, views=['N_row_sum', 'N_row_var'],
                  linkage_type='average', sim_mat=False, filter_sim=0.1,
-                 calc_cat_pval=False, run_enrichr=None):
+                 calc_cat_pval=False, run_enrichr=None, enrichrgram=False):
     '''
     ... Will be deprecated, renaming method cluster ...
     The main function performs hierarchical clustering, optionally generates filtered views (e.g. row-filtered views), and generates the :``visualization_json``.
@@ -115,7 +116,8 @@ class Network(object):
                                    sim_mat=sim_mat,
                                    filter_sim=filter_sim,
                                    calc_cat_pval=calc_cat_pval,
-                                   run_enrichr=run_enrichr)
+                                   run_enrichr=run_enrichr,
+                                   enrichrgram=enrichrgram)
 
   def produce_view(self, requested_view=None):
     '''
