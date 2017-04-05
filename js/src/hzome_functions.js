@@ -14,8 +14,6 @@ function ini_hzome(root_id){
 
   function get_request(root_tip, ini_gene_symbol){
 
-    console.log('here~~~~~~~')
-
     var gene_symbol;
     if (ini_gene_symbol.indexOf(' ') > 0){
       gene_symbol = ini_gene_symbol.split(' ')[0];

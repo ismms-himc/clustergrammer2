@@ -44,6 +44,9 @@ var hello_view = widgets.DOMWidgetView.extend({
   }
 });
 
+genes_were_found = {};
+enr_obj = {};
+
 function render_function() {
 
   // generate unique id for each visualization
@@ -93,7 +96,12 @@ function make_viz(args){
 
   cgm = cgm_fun(args);
 
-  check_setup_enrichr(cgm);
+  // check_setup_enrichr(cgm);
+
+  genes_were_found[cgm.params.root] = true;
+  run_ini_enrichr(cgm);
+
+  console.log('RUN INI ENRICHR')
 
   setTimeout(update_matrix_string, 1500);
 
@@ -126,8 +134,6 @@ function update_matrix_string(){
   cgm_model.touch();
 }
 
-genes_were_found = {};
-enr_obj = {};
 
 function check_setup_enrichr(inst_cgm){
 
@@ -154,9 +160,10 @@ function check_setup_enrichr(inst_cgm){
 
 }
 
-function run_ini_enrichr(inst_cgm, inst_name){
+function run_ini_enrichr(inst_cgm){
 
   var inst_root = inst_cgm.params.root;
+  console.log(inst_root)
 
   if (genes_were_found[inst_root]){
 
@@ -265,7 +272,7 @@ function check_gene_request(inst_cgm, gene_symbol, run_ini_enrichr){
                     genes_were_found[inst_cgm.params.root] = true;
                   }
 
-                  run_ini_enrichr(inst_cgm, gene_symbol);
+                  run_ini_enrichr(inst_cgm);
 
                 });
 
