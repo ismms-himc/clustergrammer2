@@ -6,7 +6,7 @@ var ini_hzome = require('./hzome_functions');
 var Enrichrgram = require('./Enrichrgram');
 var url = require("file-loader!./clustergrammer_logo.png");
 
-// version 1.9.3
+// version 1.9.4
 
 require('!style!css!./custom.css');
 
@@ -96,12 +96,13 @@ function make_viz(args){
 
   cgm = cgm_fun(args);
 
-  // check_setup_enrichr(cgm);
+  check_setup_enrichr(cgm);
 
-  genes_were_found[cgm.params.root] = true;
-  run_ini_enrichr(cgm);
+  // // manually initiate Enrichrgram
+  // genes_were_found[cgm.params.root] = true;
+  // run_ini_enrichr(cgm);
+  // console.log('RUN INI ENRICHR')
 
-  console.log('RUN INI ENRICHR')
 
   setTimeout(update_matrix_string, 1500);
 
