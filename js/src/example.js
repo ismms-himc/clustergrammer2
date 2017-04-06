@@ -44,9 +44,6 @@ var hello_view = widgets.DOMWidgetView.extend({
   }
 });
 
-genes_were_found = {};
-enr_obj = {};
-
 function render_function() {
 
   // generate unique id for each visualization
@@ -136,6 +133,9 @@ function update_matrix_string(){
 }
 
 
+var genes_were_found = {};
+enr_obj = {};
+
 function check_setup_enrichr(inst_cgm){
 
   var has_enrichrgram = _.has(inst_cgm.params.network_data, 'enrichrgram');
@@ -167,15 +167,11 @@ function check_setup_enrichr(inst_cgm){
       wait_time = wait_time + wait_unit;
     });
 
-    console.log('use Hzome')
-
   } else if (make_enrichrgram) {
 
     // make enrichrgram without checking with Hzome
     /////////////////////////////////////////////////
     run_ini_enrichr(inst_cgm);
-
-    console.log('skip Hzome')
   }
 
 }
@@ -240,6 +236,40 @@ function run_ini_enrichr(inst_cgm){
 
 }
 
+function check_gene_request(inst_cgm, gene_symbol, run_ini_enrichr){
+
+  if (gene_symbol.indexOf(' ') > 0){
+    gene_symbol = gene_symbol.split(' ')[0];
+  } else if (gene_symbol.indexOf('_') > 0){
+    gene_symbol = gene_symbol.split('_')[0];
+  }
+
+
+  var base_url = 'https://amp.pharm.mssm.edu/Harmonizome/api/1.0/gene/';
+  var url = base_url + gene_symbol;
+
+  if (genes_were_found[inst_cgm.params.root] === false){
+
+    // make sure value is non-numeric
+    if (isNaN(gene_symbol)){
+
+      $.get(url, function(data) {
+
+        data = JSON.parse(data);
+
+        if (data.name != undefined){
+          genes_were_found[inst_cgm.params.root] = true;
+        }
+
+        run_ini_enrichr(inst_cgm, gene_symbol);
+
+      });
+
+    }
+  }
+
+}
+
 function send_to_Enrichr(options) { // http://amp.pharm.mssm.edu/Enrichr/#help
     var defaultOptions = {
     description: "",
@@ -275,42 +305,6 @@ function send_to_Enrichr(options) { // http://amp.pharm.mssm.edu/Enrichr/#help
   document.body.appendChild(form);
   form.submit();
   document.body.removeChild(form);
-}
-
-function check_gene_request(inst_cgm, gene_symbol, run_ini_enrichr){
-
-  if (gene_symbol.indexOf(' ') > 0){
-    gene_symbol = gene_symbol.split(' ')[0];
-  } else if (gene_symbol.indexOf('_') > 0){
-    gene_symbol = gene_symbol.split('_')[0];
-  }
-
-  var base_url = 'https://amp.pharm.mssm.edu/Harmonizome/api/1.0/gene/';
-  var url = base_url + gene_symbol;
-
-  if (genes_were_found[inst_cgm.params.root] === false){
-
-    // make sure value is non-numeric
-    if (isNaN(gene_symbol)){
-
-      var tmp = $.get(url, function(data) {
-
-                  data = JSON.parse(data);
-
-                  if (data.name != undefined){
-                    genes_were_found[inst_cgm.params.root] = true;
-                  }
-
-                  run_ini_enrichr(inst_cgm);
-
-                });
-
-      // tmp.abort()
-      setTimeout(abort_request, 1000, tmp);
-
-    }
-  }
-
 }
 
 function abort_request(inst_request){

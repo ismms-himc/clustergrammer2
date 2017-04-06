@@ -1,4 +1,3 @@
-
 function Enrichrgram(inst_cgm){
 
   var inst_root = inst_cgm.params.root;
@@ -23,6 +22,7 @@ function Enrichrgram(inst_cgm){
         return class_string;
       })
       .direction('se')
+      .style('display', 'none')
       .offset([-10,-5])
       .html(function(d){
         return enrichr_description;
@@ -79,8 +79,8 @@ function Enrichrgram(inst_cgm){
     enr_menu
       .append('rect')
       .classed('enr_menu_background', true)
-      .style('width', 500)
-      .style('height', 425)
+      .style('width', 475)
+      .style('height', 500)
       .style('opacity', 0.95)
       .style('fill', 'white')
       .style('stroke', '#A3A3A3')
@@ -99,7 +99,7 @@ function Enrichrgram(inst_cgm){
     enr_menu
       .append('text')
       .classed('enr_menu_clear', true)
-      .attr('transform', 'translate(375, 30)')
+      .attr('transform', 'translate(345, 30)')
       .attr('font-family', '"Helvetica Neue", Helvetica, Arial, sans-serif')
       .style('font-size','18px')
       .style('font-weight', 800)
@@ -123,10 +123,12 @@ function Enrichrgram(inst_cgm){
       .append('g')
       .attr('transform', 'translate(20,60)')
       .style('width', 460)
-      .style('height', 330)
+      .style('height', 370)
       .classed('enr_lib_section','true');
 
-    var possible_libraries = ['ChEA_2015','KEA_2015',
+    var possible_libraries = [
+      'ChEA_2016',
+      'KEA_2015',
       'ENCODE_TF_ChIP-seq_2015',
       'ENCODE_Histone_Modifications_2015',
       'Disease_Perturbations_from_GEO_up',
@@ -134,8 +136,11 @@ function Enrichrgram(inst_cgm){
       'GO_Molecular_Function_2015',
       'GO_Biological_Process_2015',
       'GO_Cellular_Component_2015',
-      'Reactome_2015',
-      'MGI_Mammalian_Phenotype_Level_4'
+      'Reactome_2016',
+      'KEGG_2016',
+      'MGI_Mammalian_Phenotype_Level_4',
+      'LINCS_L1000_Chem_Pert_up',
+      'LINCS_L1000_Chem_Pert_down',
       ];
 
     var vertical_space = 30;
@@ -144,16 +149,16 @@ function Enrichrgram(inst_cgm){
       .append('rect')
       .classed('enr_menu_line', true)
       .attr('height', '2px')
-      .attr('width', '460px')
+      .attr('width', '435px')
       .style('stroke-width', '3px')
       .style('opacity', 0.3)
       .style('fill','black')
-      .attr('transform', 'translate(20, 380)');
+      .attr('transform', 'translate(20, 465)');
 
     var enr_export_container = enr_menu
       .append('g')
       .classed('enr_export_container', true)
-      .attr('transform', 'translate(20, 410)');
+      .attr('transform', 'translate(20, 487)');
 
     enr_export_container
       .append('text')
@@ -284,7 +289,7 @@ function Enrichrgram(inst_cgm){
       // hide tooltip
       d3.selectAll( inst_cgm.params.viz.root_tips + '_enr_tip')
         .style('opacity', 0)
-        .style('display', 'block');
+        .style('display', 'none');
 
     } else {
 
@@ -509,8 +514,6 @@ function Enrichrgram(inst_cgm){
 
         var trans = d3.select(inst_cgm.params.root+' .row_cat_label_container')
                       .attr('transform').split('(')[1].split(')')[0];
-
-        // debugger;
         x_offset = Number(trans.split(',')[0]) - 10;
 
         return 'translate('+ String(x_offset)+', 0)';
