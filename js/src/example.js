@@ -6,7 +6,7 @@ var ini_hzome = require('./hzome_functions');
 var Enrichrgram = require('./Enrichrgram');
 var url = require("file-loader!./clustergrammer_logo.png");
 
-// version 1.9.7
+// version 1.9.8
 
 require('!style!css!./custom.css');
 
@@ -118,6 +118,7 @@ function matrix_update_callback(){
   if (genes_were_found[this.root]){
     enr_obj[this.root].clear_enrichr_results();
   }
+
 }
 
 function cat_update_callback(){
@@ -172,6 +173,8 @@ function check_setup_enrichr(inst_cgm){
     // make enrichrgram without checking with Hzome
     /////////////////////////////////////////////////
     run_ini_enrichr(inst_cgm);
+
+    genes_were_found[inst_cgm.params.root] = true;
   }
 
 }
