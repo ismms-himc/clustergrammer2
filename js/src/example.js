@@ -110,8 +110,13 @@ function matrix_update_callback(){
 
   console.log('matrix_update_callback')
 
-  // wait to update matrix string until updating has finished
-  setTimeout(update_matrix_string, 1500);
+  // hack to prevent matrix update string from running in nbviewer
+  console.log(window.location.href)
+  var inst_url = window.location.href;
+  if (inst_url.indexOf('nbviewer.jupyter.org') == -1){
+    // wait to update matrix string until updating has finished
+    setTimeout(update_matrix_string, 1500);
+  }
 
   if (genes_were_found[this.root]){
     enr_obj[this.root].clear_enrichr_results();
@@ -123,6 +128,7 @@ function cat_update_callback(){
 }
 
 function update_matrix_string(){
+  console.log('update matrix string')
   // update model with matrix string
   var inst_mat_string = cgm.export_matrix_string();
   cgm_model.model.set("mat_string", inst_mat_string);
