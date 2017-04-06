@@ -99,6 +99,12 @@ function make_viz(args){
 
 }
 
+// hack to prevent matrix update string from running in nbviewer
+var inst_url = window.location.href;
+var in_nbviewer = false;
+if (inst_url.indexOf('nbviewer.jupyter.org') > 0){
+  in_nbviewer = true;
+}
 
 // Enrichrgram specific functions
 ///////////////////////////////////////////////////////////////
@@ -107,10 +113,7 @@ function matrix_update_callback(){
 
   console.log('matrix_update_callback')
 
-  // hack to prevent matrix update string from running in nbviewer
-  console.log(window.location.href)
-  var inst_url = window.location.href;
-  if (inst_url.indexOf('nbviewer.jupyter.org') == -1){
+  if (in_nbviewer === false){
     // wait to update matrix string until updating has finished
     setTimeout(update_matrix_string, 1500);
   }
@@ -122,11 +125,13 @@ function matrix_update_callback(){
 }
 
 function cat_update_callback(){
-  setTimeout(update_matrix_string, 1500);
+  if (in_nbviewer === false){
+    setTimeout(update_matrix_string, 1500);
+  }
 }
 
 function update_matrix_string(){
-  console.log('update matrix string')
+  console.log('*** update matrix string')
   // update model with matrix string
   var inst_mat_string = cgm.export_matrix_string();
   cgm_model.model.set("mat_string", inst_mat_string);
