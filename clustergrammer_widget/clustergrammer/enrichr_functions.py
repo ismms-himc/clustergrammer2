@@ -54,8 +54,16 @@ def add_enrichr_cats(df, inst_rc, run_enrichr, num_terms=10):
 
     for inst_info in cat_list:
 
-      gene_name = inst_info[0].split(': ')[-1]
+      # strip titles
+      gene_name = inst_info[0]
+
+      if ': ' in gene_name:
+        gene_name = gene_name.split(': ')[1]
+
+      # strip extra information (e.g. PTMs)
       gene_name = gene_name.split('_')[0]
+      gene_name = gene_name.split(' ')[0]
+      gene_name = gene_name.split('-')[0]
 
       if gene_name in inst_list:
         inst_info.append(inst_term+': True'+ pval_string)
