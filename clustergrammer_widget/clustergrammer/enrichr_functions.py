@@ -19,6 +19,8 @@ def add_enrichr_cats(df, inst_rc, run_enrichr, num_terms=10):
 
   # strip extra information (e.g. PTMs)
   gene_list = [inst_gene.split('_')[0] for inst_gene in gene_list]
+  gene_list = [inst_gene.split(' ')[0] for inst_gene in gene_list]
+  gene_list = [inst_gene.split('-')[0] for inst_gene in gene_list]
 
   user_list_id = post_request(gene_list)
 
