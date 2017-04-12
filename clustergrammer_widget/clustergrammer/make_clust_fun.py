@@ -19,11 +19,16 @@ def make_clust(net, dist_type='cosine', run_clustering=True, dendro=True,
   df = run_filter.df_filter_row_sum(df, threshold)
   df = run_filter.df_filter_col_sum(df, threshold)
 
+  # default setting
+  define_cat_colors = False
+
   if run_enrichr is not None:
     df = enr_fun.add_enrichr_cats(df, 'row', run_enrichr)
 
+    define_cat_colors = True
+
   # calculate initial view with no row filtering
-  net.df_to_dat(df)
+  net.df_to_dat(df, define_cat_colors=True)
 
 
   inst_dm = calc_clust.cluster_row_and_col(net, dist_type=dist_type,
@@ -85,3 +90,10 @@ def make_clust(net, dist_type='cosine', run_clustering=True, dendro=True,
   if enrichrgram != None:
     # toggle enrichrgram functionality from back-end
     net.viz['enrichrgram'] = enrichrgram
+
+  if 'enrichrgram_lib' in net.dat:
+    net.viz['enrichrgram'] = True
+    net.viz['enrichrgram_lib'] = net.dat['enrichrgram_lib']
+
+  if 'row_cat_bars' in net.dat:
+    net.viz['row_cat_bars'] = net.dat['row_cat_bars']

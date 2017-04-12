@@ -18,7 +18,7 @@ from . import categories
 
 class Network(object):
   '''
-  version 1.12.4
+  version 1.13.0
 
   Clustergrammer.py takes a matrix as input (either from a file of a Pandas DataFrame), normalizes/filters, hierarchically clusters, and produces the :ref:`visualization_json` for :ref:`clustergrammer_js`.
 
@@ -391,17 +391,13 @@ class Network(object):
 
     return link
 
-  def enrichr(self, req_type, gene_list=None, lib=None, list_id=None,
-    max_terms=None):
-    '''
-    Under development; get enrichment results from Enrichr and add them to
-    clustergram.
-    '''
-    if req_type == 'post':
-      return enr_fun.post_request(gene_list)
+  def enrichrgram(self, lib, axis='row'):
+    df = self.export_df()
+    df, bar_info = enr_fun.add_enrichr_cats(df, axis, lib)
+    self.load_df(df)
 
-    if req_type == 'get':
-      return enr_fun.get_request(lib, list_id, max_terms)
+    self.dat['enrichrgram_lib'] = lib
+    self.dat['row_cat_bars'] = bar_info
 
   @staticmethod
   def load_gmt(filename):

@@ -1,8 +1,7 @@
 def add_enrichr_cats(df, inst_rc, run_enrichr, num_terms=10):
   from copy import deepcopy
-  print('add enrichr categories to genes')
 
-  tmp_gene_list = deepcopy(df['mat'].index.tolist())
+  tmp_gene_list = deepcopy(df.index.tolist())
 
   gene_list = []
   if type(tmp_gene_list[0]) is tuple:
@@ -17,13 +16,7 @@ def add_enrichr_cats(df, inst_rc, run_enrichr, num_terms=10):
 
   user_list_id = post_request(gene_list)
 
-  print(user_list_id)
-
-  enr, response_list = get_request(run_enrichr[0], user_list_id, max_terms=20)
-
-  print((type(response_list)))
-
-  # import pdb; pdb.set_trace()
+  enr, response_list = get_request(run_enrichr, user_list_id, max_terms=20)
 
   # p-value, adjusted pvalue, z-score, combined score, genes
   # 1: Term
@@ -33,35 +26,35 @@ def add_enrichr_cats(df, inst_rc, run_enrichr, num_terms=10):
   # 5: Genes
   # 6: pval_bh
 
+  bar_info = []
   cat_list = []
   for inst_gene in gene_list:
     cat_list.append([inst_gene])
 
   for inst_enr in response_list[0:num_terms]:
     inst_term = inst_enr[1]
+    inst_pval = inst_enr[2]
+    inst_cs = inst_enr[4]
     inst_list = inst_enr[5]
+
+    pval_string = '<p> Pval ' + str(inst_pval) + '</p>'
+
+    bar_info.append(inst_cs)
 
     for inst_info in cat_list:
 
       gene_name = inst_info[0].split(': ')[-1]
 
-      print(gene_name)
-
-
       if gene_name in inst_list:
-        inst_info.append(inst_term+': '+inst_term)
+        inst_info.append(inst_term+': True'+ pval_string)
       else:
-        inst_info.append(inst_term+': Not '+inst_term)
+        inst_info.append(inst_term+': False'+pval_string)
 
   cat_list = [tuple(x) for x in cat_list]
 
-  # df = deepcopy(net.dat_to_df())
-  df['mat'].index = cat_list
-  # net.df_to_dat(df)
+  df.index = cat_list
 
-  # net.dat['nodes'][inst_rc] = cat_list
-
-  return df
+  return df, bar_info
 
 def clust_from_response(response_list):
   from clustergrammer import Network
@@ -71,9 +64,9 @@ def clust_from_response(response_list):
   import math
   from copy import deepcopy
 
-  print('----------------------')
-  print('enrichr_clust_from_response')
-  print('----------------------')
+  # print('----------------------')
+  # print('enrichr_clust_from_response')
+  # print('----------------------')
 
   ini_enr = transfer_to_enr_dict( response_list )
 
@@ -256,7 +249,7 @@ def post_request(input_genes, meta=''):
 
 # make the get request to enrichr using the requests library
 # this is done after submitting post request with the input gene list
-def get_request( lib, userListId, max_terms=50 ):
+def get_request(lib, userListId, max_terms=50 ):
   import requests
   import json
 
@@ -274,7 +267,9 @@ def get_request( lib, userListId, max_terms=50 ):
 
   # wait until okay status code is returned
   num_try = 0
-  print(('\tEnrichr enrichment get req userListId: '+str(userListId)))
+
+  # print(('\tEnrichr enrichment get req userListId: '+str(userListId)))
+
   while inst_status_code == 400 and num_try < 100:
     num_try = num_try +1
     try:

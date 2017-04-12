@@ -101,7 +101,8 @@ def dict_cat(net, define_cat_colors=False):
           if ': ' in check_name:
             check_name = check_name.split(': ')[1]
 
-          if check_name == 'False' or check_name == 'false':
+          # if check_name == 'False' or check_name == 'false':
+          if 'False' in check_name or 'false' in check_name:
             inst_color = '#eee'
 
           if 'Not ' in check_name:
