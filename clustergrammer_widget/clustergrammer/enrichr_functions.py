@@ -10,9 +10,15 @@ def add_enrichr_cats(df, inst_rc, run_enrichr, num_terms=10):
   else:
     gene_list = tmp_gene_list
 
+  orig_gene_list = deepcopy(gene_list)
+
   # set up for non-tuple case first
   if ': ' in  gene_list[0]:
+    # strip titles
     gene_list = [inst_gene.split(': ')[1] for inst_gene in gene_list]
+
+  # strip extra information (e.g. PTMs)
+  gene_list = [inst_gene.split('_')[0] for inst_gene in gene_list]
 
   user_list_id = post_request(gene_list)
 
@@ -26,9 +32,12 @@ def add_enrichr_cats(df, inst_rc, run_enrichr, num_terms=10):
   # 5: Genes
   # 6: pval_bh
 
+  # while generating categories store as list of lists, then convert to list of
+  # tuples
+
   bar_info = []
   cat_list = []
-  for inst_gene in gene_list:
+  for inst_gene in orig_gene_list:
     cat_list.append([inst_gene])
 
   for inst_enr in response_list[0:num_terms]:
@@ -44,6 +53,7 @@ def add_enrichr_cats(df, inst_rc, run_enrichr, num_terms=10):
     for inst_info in cat_list:
 
       gene_name = inst_info[0].split(': ')[-1]
+      gene_name = gene_name.split('_')[0]
 
       if gene_name in inst_list:
         inst_info.append(inst_term+': True'+ pval_string)
