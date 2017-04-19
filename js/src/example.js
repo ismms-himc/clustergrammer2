@@ -6,7 +6,7 @@ var ini_hzome = require('./hzome_functions');
 var Enrichrgram = require('./Enrichrgram');
 var url = require("file-loader!./clustergrammer_logo.png");
 
-// version 1.10.4
+// version 1.10.5
 
 require('!style!css!./custom.css');
 
