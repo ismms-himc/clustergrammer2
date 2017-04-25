@@ -212,7 +212,7 @@ function run_ini_enrichr(inst_cgm){
         .append('div')
         .classed('enrichr_export_section', true)
         .style('margin-top', '10px')
-        .style('display','none');
+        // .style('display','none');
 
       enrichr_section
         .append('text')
@@ -234,7 +234,7 @@ function run_ini_enrichr(inst_cgm){
           var enrichr_info = {list: gene_list, description: 'Clustergrammer gene-cluster list' , popup: true};
 
           // defined globally - will improve
-          enrich(enrichr_info);
+          send_to_Enrichr(enrichr_info);
 
         });
 
