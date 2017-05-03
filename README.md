@@ -7,16 +7,14 @@ Please refer to the [Clustergrammer-Widget](http://clustergrammer.readthedocs.io
 
 [![demo_screenshot](img/jupyter_widget_nbviewer.png "demo_screenshot.png")](http://nbviewer.jupyter.org/github/MaayanLab/clustergrammer-widget/blob/master/Running_clustergrammer_widget.ipynb)
 
-Installation
-------------
-
+# Installation
 The interactive widget can be installed and enabled using the following commands:
 
     pip install clustergrammer_widget
     jupyter nbextension enable --py --sys-prefix widgetsnbextension
     jupyter nbextension enable --py --sys-prefix clustergrammer_widget
 
-## Dependencies
+# Dependencies
 * Numpy
 * Scipy
 * Pandas
@@ -42,8 +40,19 @@ net.cluster()
 net.widget()
 ```
 
-Development Installation
-------------------------
+# Case Studies and Examples
+The Clustergrammer-Widget has been applied to a wide variety of biological and non-biological data. Refer to the Jupyter notebook examples below and [Case Studies and Examples](http://clustergrammer.readthedocs.io/case_studies.html) for more information:
+
+- [Running Clustergrammer Widget](http://nbviewer.jupyter.org/github/MaayanLab/clustergrammer-widget/blob/master/Running_clustergrammer_widget.ipynb)
+- [DataFrame Example](http://nbviewer.jupyter.org/github/MaayanLab/clustergrammer-widget/blob/master/DataFrame_Example.ipynb)
+- [CCLE Jupyter Notebook](http://nbviewer.jupyter.org/github/MaayanLab/CCLE_Clustergrammer/blob/master/notebooks/Clustergrammer_CCLE_Notebook.ipynb)
+- [Lung Cancer PTM and Gene Expression Regulation](http://nbviewer.jupyter.org/github/MaayanLab/CST_Lung_Cancer_Viz/blob/master/notebooks/CST_Data_Viz.ipynb)
+- [Single-Cell CyTOF Data](http://nbviewer.jupyter.org/github/MaayanLab/Cytof_Plasma_PMA/blob/master/notebooks/Plasma_vs_PMA_Phosphorylation.ipynb)
+- [MNIST Notebook](http://nbviewer.jupyter.org/github/MaayanLab/MNIST_heatmaps/blob/master/notebooks/MNIST_Notebook.ipynb#Visualize-Downsampled-Version-of-MNIST)
+- [USDA Nutrient Dataset](http://nbviewer.jupyter.org/github/MaayanLab/USDA_Nutrients_Viz/blob/master/USDA_Nutrients.ipynb)
+- [Iris Dataset](http://nbviewer.jupyter.org/github/MaayanLab/iris_clustergrammer_visualization/blob/master/Iris%20Dataset.ipynb)
+
+# Development Installation
 For a development installation (requires npm),
 
     $ git clone https://github.com/maayanlab/clustergrammer-widget.git
