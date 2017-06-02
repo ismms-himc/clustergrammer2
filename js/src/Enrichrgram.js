@@ -555,9 +555,9 @@ function Enrichrgram(inst_cgm){
       .enter()
       .append('rect')
       .classed('enrichr_bars', true)
-      .style('height', bar_width +'px')
-      .style('fill', 'red')
-      .style('width', function(d){
+      .attr('height', bar_width +'px')
+      .attr('fill', 'red')
+      .attr('width', function(d){
 
         var enr_index = d.split('-')[1];
         var inst_comb_score = enr_obj.cat_data[enr_index].combined_score;
@@ -565,7 +565,7 @@ function Enrichrgram(inst_cgm){
         var bar_length_string = bar_lenth + 'px'
         return bar_length_string;
       })
-      .style('opacity', 0.4)
+      .attr('opacity', 0.4)
       .attr('transform', function(d){
         var inst_y = unit_length * (parseInt( d.split('-')[1], 10 ) -0.75 );
         return 'translate(0,'+inst_y+')';

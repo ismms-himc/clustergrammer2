@@ -4,13 +4,14 @@ from sklearn.cluster import MiniBatchKMeans
 # string used to format titles
 super_string = ': '
 
-def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100):
+def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100, random_state=1000):
 
   if df is None:
     df = net.export_df()
 
-  # run downsampling
-  random_state = 1000
+  # # run downsampling
+  # random_state = 1000
+
   ds_df, ds_data = run_kmeans_mini_batch(df, num_samples, axis, random_state)
 
   net.load_df(ds_df)
