@@ -5,7 +5,7 @@ from traitlets import Unicode
 from . import clustergrammer
 Network = clustergrammer.Network
 
-# version 1.11.0
+# version 1.11.1
 
 @widgets.register('hello.Hello')
 class clustergrammer_widget(widgets.DOMWidget):
