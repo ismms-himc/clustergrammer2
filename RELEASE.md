@@ -8,7 +8,10 @@
 
 git tag -a X.X.X -m 'comment'
 
+## registering has been deprecated
+(see https://packaging.python.org/guides/migrating-to-pypi-org/#uploading)
 python setup.py register -r pypitest
+
 python setup.py sdist upload -r pypitest
 
 # to keep track of tags in GitHub
