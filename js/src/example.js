@@ -7,6 +7,9 @@ var Enrichrgram = require('./Enrichrgram');
 var url = require("file-loader!./clustergrammer_logo.png");
 
 // version 0.1.0
+console.log('**************************')
+console.log('clustergrammer_gl')
+console.log('**************************')
 
 require('!style!css!./custom.css');
 
@@ -95,7 +98,8 @@ function make_viz(args){
 
   check_setup_enrichr(cgm);
 
-  console.log('DO NOT UPDATE MATRIX STRING WHEN MAKING VIZ')
+
+  console.log('DO NOT UPDATE MATRIX STRING WHEN MAKING VIZ -- clustergrammer_gl')
 
 }
 
