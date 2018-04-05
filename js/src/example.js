@@ -82,7 +82,7 @@ function render_function() {
   // define arguments object
   var args = {
       root: container_id,
-      'network_data': inst_network,
+      'network': inst_network,
       'about':about_string,
       'row_tip_callback':hzome.gene_info,
       'matrix_update_callback':matrix_update_callback,
@@ -96,7 +96,13 @@ function render_function() {
 
 function make_viz(args){
 
-  cgm = cgm_fun(args);
+      // args = {};
+      // args.network = network;
+      // Clustergrammer2(args);
+
+
+  // cgm = cgm_fun(args);
+  cgm = cgm_fun2(args);
 
   check_setup_enrichr(cgm);
 
