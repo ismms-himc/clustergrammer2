@@ -6,6 +6,6 @@ def _jupyter_nbextension_paths():
     return [{
         'section': 'notebook',
         'src': 'static',
-        'dest': 'clustergrammer_widget',
-        'require': 'clustergrammer_widget/extension'
+        'dest': 'clustergrammer_gl',
+        'require': 'clustergrammer_gl/extension'
     }]

@@ -1,4 +1,4 @@
-clustergrammer_widget
+clustergrammer_gl
 
 Package Install
 ---------------
@@ -7,5 +7,5 @@ Package Install
 - [node](http://nodejs.org/)
 
 ```bash
-npm install --save clustergrammer_widget
+npm install --save clustergrammer_gl
 ```

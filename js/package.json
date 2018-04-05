@@ -1,13 +1,13 @@
 {
-  "name": "clustergrammer_widget",
+  "name": "clustergrammer_gl",
   "version": "1.13.3",
-  "description": "clustergrammer_widget",
+  "description": "clustergrammer_gl",
   "author": "Nicolas Fernandez",
   "license": "MIT",
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/maayanlab/clustergrammer_widget.git"
+    "url": "https://github.com/maayanlab/clustergrammer_gl.git"
   },
   "keywords": [
     "jupyter",

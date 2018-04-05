@@ -20,7 +20,7 @@ module.exports = [
         entry: './src/extension.js',
         output: {
             filename: 'extension.js',
-            path: '../clustergrammer_widget/static',
+            path: '../clustergrammer_gl/static',
             libraryTarget: 'amd'
         }
     },
@@ -33,7 +33,7 @@ module.exports = [
         entry: './src/index.js',
         output: {
             filename: 'index.js',
-            path: '../clustergrammer_widget/static',
+            path: '../clustergrammer_gl/static',
             libraryTarget: 'amd'
         },
         devtool: 'source-map',
@@ -42,7 +42,7 @@ module.exports = [
         },
         externals: ['jupyter-js-widgets']
     },
-    {// Embeddable clustergrammer_widget bundle
+    {// Embeddable clustergrammer_gl bundle
      //
      // This bundle is generally almost identical to the notebook bundle
      // containing the custom widget views and models.
@@ -61,7 +61,7 @@ module.exports = [
             filename: 'index.js',
             path: './dist/',
             libraryTarget: 'amd',
-            publicPath: 'https://npmcdn.com/clustergrammer_widget@' + version + '/dist/'
+            publicPath: 'https://npmcdn.com/clustergrammer_gl@' + version + '/dist/'
         },
         devtool: 'source-map',
         module: {

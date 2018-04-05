@@ -1,1 +1,1 @@
-recursive-include clustergrammer_widget/static *.*
+recursive-include clustergrammer_gl/static *.*

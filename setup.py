@@ -22,7 +22,7 @@ log.set_verbosity(log.DEBUG)
 log.info('setup.py entered')
 log.info('$PATH=%s' % os.environ['PATH'])
 
-LONG_DESCRIPTION = 'clustergrammer_widget'
+LONG_DESCRIPTION = 'clustergrammer_gl'
 
 def js_prerelease(command, strict=False):
     """decorator for building minified js/css prior to another command"""
@@ -66,8 +66,8 @@ class NPM(Command):
     node_modules = os.path.join(node_root, 'node_modules')
 
     targets = [
-        os.path.join(here, 'clustergrammer_widget', 'static', 'extension.js'),
-        os.path.join(here, 'clustergrammer_widget', 'static', 'index.js')
+        os.path.join(here, 'clustergrammer_gl', 'static', 'extension.js'),
+        os.path.join(here, 'clustergrammer_gl', 'static', 'index.js')
     ]
 
     def initialize_options(self):
@@ -112,20 +112,20 @@ class NPM(Command):
         update_package_data(self.distribution)
 
 version_ns = {}
-with open(os.path.join(here, 'clustergrammer_widget', '_version.py')) as f:
+with open(os.path.join(here, 'clustergrammer_gl', '_version.py')) as f:
     exec(f.read(), {}, version_ns)
 
 setup_args = {
-    'name': 'clustergrammer_widget',
+    'name': 'clustergrammer_gl',
     'version': version_ns['__version__'],
-    'description': 'clustergrammer_widget',
+    'description': 'clustergrammer_gl',
     'long_description': LONG_DESCRIPTION,
     'include_package_data': True,
     'data_files': [
-        ('share/jupyter/nbextensions/clustergrammer_widget', [
-            'clustergrammer_widget/static/extension.js',
-            'clustergrammer_widget/static/index.js',
-            'clustergrammer_widget/static/index.js.map',
+        ('share/jupyter/nbextensions/clustergrammer_gl', [
+            'clustergrammer_gl/static/extension.js',
+            'clustergrammer_gl/static/index.js',
+            'clustergrammer_gl/static/index.js.map',
         ]),
     ],
     'install_requires': [

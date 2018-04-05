@@ -20,8 +20,8 @@ var hello_model = widgets.DOMWidgetModel.extend({
   defaults: _.extend({}, widgets.DOMWidgetModel.prototype.defaults, {
     _view_name : 'hello_view',
     _model_name : 'hello_model',
-    _view_module : 'clustergrammer_widget',
-    _model_module : 'clustergrammer_widget',
+    _view_module : 'clustergrammer_gl',
+    _model_module : 'clustergrammer_gl',
     viz_title : 'default value',
     network: ''
   })
@@ -57,7 +57,7 @@ function render_function() {
   // widget-subarea appears to be limited to a width of ~960px in nbviewer
   d3.select(this.el)
       .append('div')
-      .classed('clustergrammer_widget', true)
+      .classed('clustergrammer_gl', true)
       .attr('id', container_name)
       .style('width', '975px')
       .style('height', '800px');
@@ -66,7 +66,7 @@ function render_function() {
 
   inst_network = JSON.parse(inst_network_string);
 
-  var about_string = "<a href='http://clustergrammer.readthedocs.io/clustergrammer_widget.html' target='_blank' ><img src='http://amp.pharm.mssm.edu/clustergrammer/static/img/clustergrammer_logo.png' style='width:130px; margin-left:-5px' alt='clustergrammer'></a>";
+  var about_string = "<a href='http://clustergrammer.readthedocs.io/clustergrammer_gl.html' target='_blank' ><img src='http://amp.pharm.mssm.edu/clustergrammer/static/img/clustergrammer_logo.png' style='width:130px; margin-left:-5px' alt='clustergrammer'></a>";
 
   var hzome = ini_hzome();
 

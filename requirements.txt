@@ -2,5 +2,5 @@ numpy
 pandas
 scipy
 sklearn
-clustergrammer_widget
+clustergrammer_gl
 ipywidgets
