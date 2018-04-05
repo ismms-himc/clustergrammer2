@@ -2,6 +2,7 @@ var widgets = require('jupyter-js-widgets');
 var _ = require('underscore');
 var d3 = require('d3')
 var cgm_fun = require('clustergrammer');
+var cgm_fun2 = require('clustergrammer2-alpha');
 var ini_hzome = require('./hzome_functions');
 var Enrichrgram = require('./Enrichrgram');
 var url = require("file-loader!./clustergrammer_logo.png");
@@ -9,6 +10,7 @@ var url = require("file-loader!./clustergrammer_logo.png");
 // version 0.1.0
 console.log('**************************')
 console.log('clustergrammer_gl')
+console.log(cgm_fun2)
 console.log('**************************')
 
 require('!style!css!./custom.css');
