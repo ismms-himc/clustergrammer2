@@ -117,9 +117,9 @@ function make_viz(args){
   // cgm = cgm_fun(args);
   cgm = cgm_fun2(args);
 
-  check_setup_enrichr(cgm);
+  // check_setup_enrichr(cgm);
 
-  console.log('DO NOT UPDATE MATRIX STRING WHEN MAKING VIZ -- clustergrammer_gl')
+  // console.log('DO NOT UPDATE MATRIX STRING WHEN MAKING VIZ -- clustergrammer_gl')
 
 }
 
@@ -166,47 +166,7 @@ function update_matrix_string(){
 var genes_were_found = {};
 enr_obj = {};
 
-function check_setup_enrichr(inst_cgm){
 
-  var has_enrichrgram = _.has(inst_cgm.params.network_data, 'enrichrgram');
-
-  var make_enrichrgram = false;
-  if (has_enrichrgram){
-    make_enrichrgram = inst_cgm.params.network_data.enrichrgram;
-  }
-
-  // Toggle Enrichrgram function
-  if (has_enrichrgram === false){
-
-    // check with Hzome whether rows are genes
-    ////////////////////////////////////////////
-    genes_were_found[inst_cgm.params.root] = false;
-
-    var all_rows = inst_cgm.params.network_data.row_nodes_names;
-    var max_num_genes = 20;
-
-    if (all_rows.length > 20){
-      all_rows = all_rows.slice(0,20);
-    }
-
-    var wait_unit = 500;
-    var wait_time = 0;
-
-    _.each(all_rows, function(inst_name){
-      setTimeout(check_gene_request, wait_time, inst_cgm, inst_name, run_ini_enrichr);
-      wait_time = wait_time + wait_unit;
-    });
-
-  } else if (make_enrichrgram) {
-
-    // make enrichrgram without checking with Hzome
-    /////////////////////////////////////////////////
-    run_ini_enrichr(inst_cgm);
-
-    genes_were_found[inst_cgm.params.root] = true;
-  }
-
-}
 
 function run_ini_enrichr(inst_cgm){
 
