@@ -9,8 +9,7 @@ var url = require("file-loader!./clustergrammer_logo.png");
 
 // version 0.1.0
 console.log('**************************')
-console.log('clustergrammer_gl')
-console.log(cgm_fun2)
+console.log('clustergrammer_gl!!!!!!!!!!!!!!!!!!!!!!')
 console.log('**************************')
 
 require('!style!css!./custom.css');
@@ -79,9 +78,17 @@ function render_function() {
   cgm_model = this;
 
   var container_id = '#'+container_name;
+
+  var inst_container = document.getElementById(container_name)
+
+  console.log('container_name', container_name)
+  console.log('inst_container', inst_container)
+
   // define arguments object
   var args = {
-      root: container_id,
+      // root: container_id,
+      'container_name': container_name,
+      // 'container': inst_container,
       'network': inst_network,
       'about':about_string,
       'row_tip_callback':hzome.gene_info,
@@ -96,16 +103,21 @@ function render_function() {
 
 function make_viz(args){
 
-      // args = {};
-      // args.network = network;
-      // Clustergrammer2(args);
+  /*
+  selecting the container here, but not earlier, works. not sure why
+  */
 
+  var inst_container_2 = document.getElementById(args.container_name)
+
+  console.log('inst_container_2', inst_container_2)
+
+  args.container = inst_container_2;
+  // debugger
 
   // cgm = cgm_fun(args);
   cgm = cgm_fun2(args);
 
   check_setup_enrichr(cgm);
-
 
   console.log('DO NOT UPDATE MATRIX STRING WHEN MAKING VIZ -- clustergrammer_gl')
 
