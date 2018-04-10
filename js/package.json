@@ -1,6 +1,6 @@
 {
   "name": "clustergrammer_gl",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "clustergrammer_gl",
   "author": "Nicolas Fernandez",
   "license": "MIT",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "clustergrammer": "v1.19.5",
-    "clustergrammer2-alpha": "0.1.2",
+    "clustergrammer2-alpha": "0.1.4",
     "d3": "^3.5.8",
     "jupyter-js-widgets": "^1.1.1",
     "underscore": "^1.8.3"
