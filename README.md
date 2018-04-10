@@ -1,5 +1,7 @@
-Clustergrammer-Widget
+Clustergrammer-Glidget
 ===============================
+
+[CCLE Notebook example](http://nbviewer.jupyter.org/github/cornhundred/clustergrammer_glidget/blob/master/Clustergrammer-Glidget_CCLE.ipynb)
 
 This is a [Jupyter](http://jupyter.org/) notebook [interactive widget](https://github.com/ipython/ipywidgets) implementation of the interactive heatmap tool [Clustergrammer](https://github.com/MaayanLab/clustergrammer). The front-end visualization, [clustergrammer.js](https://github.com/MaayanLab/clustergrammer) is built using D3.js and the back-end, [clustergrammer.py](https://github.com/MaayanLab/clustergrammer-py) is built in Python.
 
