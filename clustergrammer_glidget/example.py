@@ -8,7 +8,7 @@ Network = clustergrammer.Network
 # version 0.1.2
 
 @widgets.register('hello.Hello')
-class clustergrammer_gl(widgets.DOMWidget):
+class clustergrammer_glidget(widgets.DOMWidget):
     """
     Clustergrammer-Widget generates an interactive heatmap in the Jupyter
     notebook. Clustergrammer-Widget inherits from Clustergrammer.py which can
@@ -16,8 +16,8 @@ class clustergrammer_gl(widgets.DOMWidget):
     """
     _view_name = Unicode('hello_view').tag(sync=True)
     _model_name = Unicode('hello_model').tag(sync=True)
-    _view_module = Unicode('clustergrammer_gl').tag(sync=True)
-    _model_module = Unicode('clustergrammer_gl').tag(sync=True)
+    _view_module = Unicode('clustergrammer_glidget').tag(sync=True)
+    _model_module = Unicode('clustergrammer_glidget').tag(sync=True)
 
     mat_string = Unicode('').tag(sync=True)
 

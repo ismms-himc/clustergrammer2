@@ -3,16 +3,16 @@ Clustergrammer-Widget
 
 This is a [Jupyter](http://jupyter.org/) notebook [interactive widget](https://github.com/ipython/ipywidgets) implementation of the interactive heatmap tool [Clustergrammer](https://github.com/MaayanLab/clustergrammer). The front-end visualization, [clustergrammer.js](https://github.com/MaayanLab/clustergrammer) is built using D3.js and the back-end, [clustergrammer.py](https://github.com/MaayanLab/clustergrammer-py) is built in Python.
 
-Please refer to the [Clustergrammer-Widget](http://clustergrammer.readthedocs.io/clustergrammer_gl.html) documentation for more information or click on the screenshot below to see an example notebook.
+Please refer to the [Clustergrammer-Widget](http://clustergrammer.readthedocs.io/clustergrammer_glidget.html) documentation for more information or click on the screenshot below to see an example notebook.
 
-[![demo_screenshot](img/jupyter_widget_nbviewer.png "demo_screenshot.png")](http://nbviewer.jupyter.org/github/MaayanLab/clustergrammer-widget/blob/master/Running_clustergrammer_gl.ipynb)
+[![demo_screenshot](img/jupyter_widget_nbviewer.png "demo_screenshot.png")](http://nbviewer.jupyter.org/github/MaayanLab/clustergrammer-widget/blob/master/Running_clustergrammer_glidget.ipynb)
 
 # Installation
 The interactive widget can be installed and enabled using the following commands:
 
-    pip install clustergrammer_gl
+    pip install clustergrammer_glidget
     jupyter nbextension enable --py --sys-prefix widgetsnbextension
-    jupyter nbextension enable --py --sys-prefix clustergrammer_gl
+    jupyter nbextension enable --py --sys-prefix clustergrammer_glidget
 
 # Dependencies
 * Numpy
@@ -29,10 +29,10 @@ Within the Jupyter/IPython notebook the widget can be run using the following co
 
 ```
 # import the widget
-from clustergrammer_gl import *
+from clustergrammer_glidget import *
 
 # load data into new network instance and cluster
-net = Network(clustergrammer_gl)
+net = Network(clustergrammer_glidget)
 net.load_file('rc_two_cats.txt')
 net.cluster()
 
@@ -43,7 +43,7 @@ net.widget()
 # Case Studies and Examples
 The Clustergrammer-Widget has been applied to a wide variety of biological and non-biological data. Refer to the Jupyter notebook examples below and [Case Studies and Examples](http://clustergrammer.readthedocs.io/case_studies.html) for more information:
 
-- [Running Clustergrammer Widget](http://nbviewer.jupyter.org/github/MaayanLab/clustergrammer-widget/blob/master/Running_clustergrammer_gl.ipynb)
+- [Running Clustergrammer Widget](http://nbviewer.jupyter.org/github/MaayanLab/clustergrammer-widget/blob/master/Running_clustergrammer_glidget.ipynb)
 - [DataFrame Example](http://nbviewer.jupyter.org/github/MaayanLab/clustergrammer-widget/blob/master/DataFrame_Example.ipynb)
 - [CCLE Jupyter Notebook](http://nbviewer.jupyter.org/github/MaayanLab/CCLE_Clustergrammer/blob/master/notebooks/Clustergrammer_CCLE_Notebook.ipynb)
 - [Lung Cancer PTM and Gene Expression Regulation](http://nbviewer.jupyter.org/github/MaayanLab/CST_Lung_Cancer_Viz/blob/master/notebooks/CST_Data_Viz.ipynb)
@@ -58,5 +58,5 @@ For a development installation (requires npm),
     $ git clone https://github.com/maayanlab/clustergrammer-widget.git
     $ cd clustergrammer-widget
     $ pip install -e .
-    $ jupyter nbextension install --py --symlink --user clustergrammer_gl
-    $ jupyter nbextension enable --py --user clustergrammer_gl
+    $ jupyter nbextension install --py --symlink --user clustergrammer_glidget
+    $ jupyter nbextension enable --py --user clustergrammer_glidget

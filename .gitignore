@@ -6,7 +6,7 @@ build/
 node_modules/
 
 # Compiled javascript
-clustergrammer_gl/static/
+clustergrammer_glidget/static/
 
 # OS X
 .DS_Store

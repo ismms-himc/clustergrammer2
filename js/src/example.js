@@ -9,7 +9,7 @@ var url = require("file-loader!./clustergrammer_logo.png");
 
 // version 0.1.2
 console.log('**************************')
-console.log('clustergrammer_gl!!!!!!!!!!!!!!!!!!!!!!')
+console.log('clustergrammer_glidget!!!!!!!!!!!!!!!!!!!!!!')
 console.log('**************************')
 
 require('!style!css!./custom.css');
@@ -24,8 +24,8 @@ var hello_model = widgets.DOMWidgetModel.extend({
   defaults: _.extend({}, widgets.DOMWidgetModel.prototype.defaults, {
     _view_name : 'hello_view',
     _model_name : 'hello_model',
-    _view_module : 'clustergrammer_gl',
-    _model_module : 'clustergrammer_gl',
+    _view_module : 'clustergrammer_glidget',
+    _model_module : 'clustergrammer_glidget',
     viz_title : 'default value',
     network: ''
   })
@@ -61,7 +61,7 @@ function render_function() {
   // widget-subarea appears to be limited to a width of ~960px in nbviewer
   d3.select(this.el)
       .append('div')
-      .classed('clustergrammer_gl', true)
+      .classed('clustergrammer_glidget', true)
       .attr('id', container_name)
       .style('width', '975px')
       .style('height', '800px');
@@ -70,7 +70,7 @@ function render_function() {
 
   inst_network = JSON.parse(inst_network_string);
 
-  var about_string = "<a href='http://clustergrammer.readthedocs.io/clustergrammer_gl.html' target='_blank' ><img src='http://amp.pharm.mssm.edu/clustergrammer/static/img/clustergrammer_logo.png' style='width:130px; margin-left:-5px' alt='clustergrammer'></a>";
+  var about_string = "<a href='http://clustergrammer.readthedocs.io/clustergrammer_glidget.html' target='_blank' ><img src='http://amp.pharm.mssm.edu/clustergrammer/static/img/clustergrammer_logo.png' style='width:130px; margin-left:-5px' alt='clustergrammer'></a>";
 
   var hzome = ini_hzome();
 
@@ -119,7 +119,7 @@ function make_viz(args){
 
   // check_setup_enrichr(cgm);
 
-  // console.log('DO NOT UPDATE MATRIX STRING WHEN MAKING VIZ -- clustergrammer_gl')
+  // console.log('DO NOT UPDATE MATRIX STRING WHEN MAKING VIZ -- clustergrammer_glidget')
 
 }
 

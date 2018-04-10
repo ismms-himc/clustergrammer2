@@ -7,7 +7,7 @@ if (window.require) {
     window.require.config({
         map: {
             "*" : {
-                "clustergrammer_gl": "nbextensions/clustergrammer_gl/index",
+                "clustergrammer_glidget": "nbextensions/clustergrammer_glidget/index",
                 "jupyter-js-widgets": "nbextensions/jupyter-js-widgets/extension"
             }
         }
