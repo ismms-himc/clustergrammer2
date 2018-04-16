@@ -1,7 +1,18 @@
--- Latest publishing notes
+-- Latest (4-16-2018) widget publishing notes
 
-python setup.py sdist upload -r pypi
-npm publish
+  First, update the version numbers in the following files:
+
+  * `package.json` then run `npm install`
+  * `_version.py `
+  * `example.js` and `example.py` comments
+
+  The run the following commands in the terminal
+
+  From the base directory:
+  `$ python setup.py sdist upload -r pypi`
+
+  from the `js` directory
+  `$ npm publish`
 
 
 ----------------------------------------------------------------
