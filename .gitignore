@@ -15,3 +15,5 @@ clustergrammer_glidget/static/
 *.sublime-project
 
 CCLE.txt
+
+CCLE*
