@@ -7,9 +7,9 @@ var ini_hzome = require('./hzome_functions');
 var Enrichrgram = require('./Enrichrgram');
 var url = require("file-loader!./clustergrammer_logo.png");
 
-// version 0.3.0
+// version 0.3.1
 console.log('**************************')
-console.log('clustergrammer_glidget!! version 0.3.0')
+console.log('clustergrammer_glidget!! version 0.3.1')
 console.log('running webpack 1.1.5')
 console.log('**************************')
 
@@ -65,7 +65,9 @@ function render_function() {
       .classed('clustergrammer_glidget', true)
       .attr('id', container_name)
       .style('width', '975px')
-      .style('height', '800px');
+      .style('height', '975px');
+
+  console.log('making square canvas!!!');
 
   var inst_network_string = this.model.get('network');
 
