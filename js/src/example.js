@@ -10,6 +10,7 @@ var url = require("file-loader!./clustergrammer_logo.png");
 // version 0.3.0
 console.log('**************************')
 console.log('clustergrammer_glidget!! version 0.3.0')
+console.log('running webpack 1.1.5')
 console.log('**************************')
 
 require('!style!css!./custom.css');

@@ -15,6 +15,9 @@
   `$ npm publish`
 
 
+# webpack 1.1.5
+`$ node_modules/webpack/bin/./webpack.js --watch`
+
 ----------------------------------------------------------------
 ----------------------------------------------------------------
 -- My version of pip publishing
@@ -23,7 +26,7 @@
 ----------------------------------------------------------------
 # Update _version.py (set release version, remove 'dev')
 
-git tag -a X.X.X -m 'comment'
+`$ git tag -a X.X.X -m 'comment`
 
 # ## registering has been deprecated
 # (see https://packaging.python.org/guides/migrating-to-pypi-org/#uploading)
