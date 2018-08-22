@@ -5,6 +5,15 @@ var webpack = require("webpack");
 // stored in a separate local variable.
 var loaders = [
     { test: /\.json$/, loader: 'json-loader' },
+    // {
+    //     test: /node_modules/,
+    //     loader: 'ify-loader'
+    // },
+  // {
+  //   test: /\.js$/,
+  //   loader: 'ify-loader',
+  //   enforce: 'post'
+  // }
 ];
 
 

@@ -3,15 +3,16 @@ var _ = require('underscore');
 var d3 = require('d3')
 var cgm_fun = require('clustergrammer');
 var cgm_fun2 = require('clustergrammer-gl');
+// var cgm_fun3 = require('./clustergrammer-gl-local');
 var ini_hzome = require('./hzome_functions');
 var Enrichrgram = require('./Enrichrgram');
 var url = require("file-loader!./clustergrammer_logo.png");
 
 // version 0.3.1
-console.log('**************************')
-console.log('clustergrammer_glidget!! version 0.3.1')
+console.log('************************************************')
+console.log('clustergrammer_glidget!! version 0.4.0')
 console.log('running webpack 1.1.5')
-console.log('**************************')
+console.log('************************************************')
 
 require('!style!css!./custom.css');
 
@@ -117,8 +118,14 @@ function make_viz(args){
   args.container = inst_container_2;
   // debugger
 
+  // // clustergrammer-js npm
   // cgm = cgm_fun(args);
-  cgm = cgm_fun2(args);
+
+  // clustergrammer-gl npm
+  cgm = cgm_fun2(args)
+
+  // // local version ;
+  // cgm = cgm_fun3(args);
 
   // check_setup_enrichr(cgm);
 
