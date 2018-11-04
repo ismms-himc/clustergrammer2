@@ -22,7 +22,13 @@ pip install clustergrammer2
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
 ```
 
-## Local Development and Relesaing new Versions
+### Embedding the widget into static HTML Notebooks
+
+```bash
+jupyter nbconvert --to html notebook.ipynb
+```
+
+## Development and Relesaing new Versions
 
 #### Webpack
 
@@ -30,32 +36,30 @@ During development run `npm run watch` for real time updates.
 
 Run the following commands to build the JavaScript bundle:
 
-```
-$ npm run build
-$ npm run build:nbextension
-$ npm run build:labextension
+```bash
+npm run build
+npm run build:nbextension
+npm run build:labextension
 ```
 
 Publish to npm using
-```
-$ npm publish
+```bash
+npm publish
 ```
 
 These instructions are based on the release instructions from the [jupyter-widgets/widget-ts-cookiecutterREADME](https://github.com/jupyter-widgets/widget-ts-cookiecutter).
 
-## Bundling the Python Package
+### Bundling the Python Package
 
 Next, bundle the python package using
 
-```
-$ python setup.py sdist bdist_wheel
+```bash
+python setup.py sdist bdist_wheel
 ```
 
 Then, upload the PYPI:
 
-```
-$ twine upload dist/*
+```bash
+twine upload dist/*
 ```
 
-### Embedding widget
-jupyter nbconvert --to html notebook.ipynb
