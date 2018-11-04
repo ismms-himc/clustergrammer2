@@ -30,9 +30,23 @@ jupyter nbconvert --to html notebook.ipynb
 
 ## Development and Relesaing new Versions
 
-#### Webpack
-
 During development run `npm run watch` for real time updates.
+
+#### Updating versions
+Update the versions in the following files
+
+##### JavaScript
+* package.json
+* widget.ts
+
+#### Python
+* _version.py
+* example.py
+* requirements.txt
+* _frontend.py
+
+
+#### Webpack
 
 Run the following commands to build the JavaScript bundle:
 
