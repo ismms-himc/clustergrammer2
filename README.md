@@ -1,64 +1,59 @@
-Clustergrammer-Glidget
-===============================
 
-[CCLE Notebook example](http://nbviewer.jupyter.org/github/cornhundred/clustergrammer_glidget/blob/master/Clustergrammer-Glidget_CCLE.ipynb)
+# clustergrammer2-deprecated
 
-This is a [Jupyter](http://jupyter.org/) notebook [interactive widget](https://github.com/ipython/ipywidgets) implementation of the interactive heatmap tool [Clustergrammer](https://github.com/MaayanLab/clustergrammer). The front-end visualization, [clustergrammer.js](https://github.com/MaayanLab/clustergrammer) is built using D3.js and the back-end, [clustergrammer.py](https://github.com/MaayanLab/clustergrammer-py) is built in Python.
-
-Please refer to the [Clustergrammer-Widget](http://clustergrammer.readthedocs.io/clustergrammer_glidget.html) documentation for more information or click on the screenshot below to see an example notebook.
-
-[![demo_screenshot](img/jupyter_widget_nbviewer.png "demo_screenshot.png")](http://nbviewer.jupyter.org/github/MaayanLab/clustergrammer-widget/blob/master/Running_clustergrammer_glidget.ipynb)
-
-# Installation
-The interactive widget can be installed and enabled using the following commands:
-
-    pip install clustergrammer_glidget
-    jupyter nbextension enable --py --sys-prefix widgetsnbextension
-    jupyter nbextension enable --py --sys-prefix clustergrammer_glidget
-
-# Dependencies
-* Numpy
-* Scipy
-* Pandas
-
-Clustergrammer-widget is compatable with Python 2 and 3.
+[![Build Status](https://travis-ci.org/ismms-himc/clustergrammer2.svg?branch=master)](https://travis-ci.org/ismms-himc/clustergrammer2)
+[![codecov](https://codecov.io/gh/ismms-himc/clustergrammer2/branch/master/graph/badge.svg)](https://codecov.io/gh/ismms-himc/clustergrammer2)
 
 
-# Example Workflow
-The Clustergrammer-widget can be used to visualize a matrix of your data in the TSV format described [here](https://github.com/MaayanLab/clustergrammer/tree/working#input-matrix-format).
+A custom Jupyter widget library built using the widget-ts-cookiecutter library'
 
-Within the Jupyter/IPython notebook the widget can be run using the following commands
+## Installation
 
-```
-# import the widget
-from clustergrammer_glidget import *
+A typical installation requires the following commands to be run:
 
-# load data into new network instance and cluster
-net = Network(clustergrammer_glidget)
-net.load_file('rc_two_cats.txt')
-net.cluster()
-
-# view the results as a widget
-net.widget()
+```bash
+pip install clustergrammer2
+jupyter nbextension enable --py [--sys-prefix|--user|--system] clustergrammer2
 ```
 
-# Case Studies and Examples
-The Clustergrammer-Widget has been applied to a wide variety of biological and non-biological data. Refer to the Jupyter notebook examples below and [Case Studies and Examples](http://clustergrammer.readthedocs.io/case_studies.html) for more information:
+Or, if you use jupyterlab:
 
-- [Running Clustergrammer Widget](http://nbviewer.jupyter.org/github/MaayanLab/clustergrammer-widget/blob/master/Running_clustergrammer_glidget.ipynb)
-- [DataFrame Example](http://nbviewer.jupyter.org/github/MaayanLab/clustergrammer-widget/blob/master/DataFrame_Example.ipynb)
-- [CCLE Jupyter Notebook](http://nbviewer.jupyter.org/github/MaayanLab/CCLE_Clustergrammer/blob/master/notebooks/Clustergrammer_CCLE_Notebook.ipynb)
-- [Lung Cancer PTM and Gene Expression Regulation](http://nbviewer.jupyter.org/github/MaayanLab/CST_Lung_Cancer_Viz/blob/master/notebooks/CST_Data_Viz.ipynb)
-- [Single-Cell CyTOF Data](http://nbviewer.jupyter.org/github/MaayanLab/Cytof_Plasma_PMA/blob/master/notebooks/Plasma_vs_PMA_Phosphorylation.ipynb)
-- [MNIST Notebook](http://nbviewer.jupyter.org/github/MaayanLab/MNIST_heatmaps/blob/master/notebooks/MNIST_Notebook.ipynb#Visualize-Downsampled-Version-of-MNIST)
-- [USDA Nutrient Dataset](http://nbviewer.jupyter.org/github/MaayanLab/USDA_Nutrients_Viz/blob/master/USDA_Nutrients.ipynb)
-- [Iris Dataset](http://nbviewer.jupyter.org/github/MaayanLab/iris_clustergrammer_visualization/blob/master/Iris%20Dataset.ipynb)
+```bash
+pip install clustergrammer2
+jupyter labextension install @jupyter-widgets/jupyterlab-manager
+```
 
-# Development Installation
-For a development installation (requires npm),
+## Running Locally
 
-    $ git clone https://github.com/maayanlab/clustergrammer-widget.git
-    $ cd clustergrammer-widget
-    $ pip install -e .
-    $ jupyter nbextension install --py --symlink --user clustergrammer_glidget
-    $ jupyter nbextension enable --py --user clustergrammer_glidget
+### widget-ts-cookiecutter release instructions
+The release instructions from the [jupyter-widgets/widget-ts-cookiecutterREADME](https://github.com/jupyter-widgets/widget-ts-cookiecutter).
+
+#### Webpack
+
+This will build the bundle, then build the nbextension and labextension (during development run `npm run watch` for real time updates):
+
+```
+$ npm run build
+$ npm run build:nbextension
+$ npm run build:labextension
+```
+
+Publish to npm using
+```
+$ npm publish
+```
+
+Next, bundle the python package using
+
+```
+$ python setup.py sdist bdist_wheel
+```
+
+Then, upload the PYPI:
+
+```
+$ twine upload dist/*
+```
+
+### Embedding widget
+jupyter nbconvert --to html notebook.ipynb
