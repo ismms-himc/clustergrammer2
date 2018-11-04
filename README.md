@@ -36,10 +36,12 @@ During development run `npm run watch` for real time updates.
 Update the versions in the following files
 
 ##### JavaScript
+
 * package.json
 * widget.ts
 
 #### Python
+
 * _version.py
 * example.py
 * requirements.txt
