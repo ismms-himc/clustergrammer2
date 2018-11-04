@@ -1,11 +1,10 @@
 
-# clustergrammer2-deprecated
+# clustergrammer2
 
 [![Build Status](https://travis-ci.org/ismms-himc/clustergrammer2.svg?branch=master)](https://travis-ci.org/ismms-himc/clustergrammer2)
 [![codecov](https://codecov.io/gh/ismms-himc/clustergrammer2/branch/master/graph/badge.svg)](https://codecov.io/gh/ismms-himc/clustergrammer2)
 
-
-A custom Jupyter widget library built using the widget-ts-cookiecutter library'
+An interactive WebGL heatmap Jupyter widget built using the widget-ts-cookiecutter library.
 
 ## Installation
 
@@ -23,14 +22,13 @@ pip install clustergrammer2
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
 ```
 
-## Running Locally
-
-### widget-ts-cookiecutter release instructions
-The release instructions from the [jupyter-widgets/widget-ts-cookiecutterREADME](https://github.com/jupyter-widgets/widget-ts-cookiecutter).
+## Local Development and Relesaing new Versions
 
 #### Webpack
 
-This will build the bundle, then build the nbextension and labextension (during development run `npm run watch` for real time updates):
+During development run `npm run watch` for real time updates.
+
+Run the following commands to build the JavaScript bundle:
 
 ```
 $ npm run build
@@ -42,6 +40,10 @@ Publish to npm using
 ```
 $ npm publish
 ```
+
+These instructions are based on the release instructions from the [jupyter-widgets/widget-ts-cookiecutterREADME](https://github.com/jupyter-widgets/widget-ts-cookiecutter).
+
+## Bundling the Python Package
 
 Next, bundle the python package using
 
