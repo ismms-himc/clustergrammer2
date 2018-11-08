@@ -207,6 +207,11 @@ class Network(object):
     returned and visualized on the front-end.
     '''
     if hasattr(self, 'widget_class') == True:
+
+      # run clustering if necessary
+      if len(self.viz['row_nodes']) == 0:
+        self.cluster()
+
       self.widget_instance = self.widget_class(network = self.export_viz_to_widget(which_viz))
 
       return self.widget_instance
