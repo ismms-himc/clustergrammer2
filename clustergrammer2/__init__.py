@@ -8,3 +8,7 @@ from .example import ExampleWidget
 from ._version import __version__, version_info
 
 from .nbextension import _jupyter_nbextension_paths
+
+# set up clustergrammer2
+from .clustergrammer_fun import *
+cgm = Network(ExampleWidget)
