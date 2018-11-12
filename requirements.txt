@@ -4,4 +4,4 @@ scipy==1.1.0
 scikit-learn==0.19.2
 ipywidgets==7.3.0
 clustergrammer==1.13.5
-clustergrammer2==0.2.8
+clustergrammer2==0.2.9
