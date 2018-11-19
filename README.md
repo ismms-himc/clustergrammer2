@@ -4,6 +4,8 @@
 [![Build Status](https://travis-ci.org/ismms-himc/clustergrammer2.svg?branch=master)](https://travis-ci.org/ismms-himc/clustergrammer2)
 [![codecov](https://codecov.io/gh/ismms-himc/clustergrammer2/branch/master/graph/badge.svg)](https://codecov.io/gh/ismms-himc/clustergrammer2)
 
+[![ccle_gif](img/clustergrammer2_480px.gif "ccle.gif")](https://github.com/MaayanLab/clustergrammer-docs/blob/master/docs/_static/clustergrammer2_480px.gif)
+
 An interactive WebGL heatmap Jupyter widget built using the widget-ts-cookiecutter library.
 
 ## Installation
