@@ -1,6 +1,4 @@
 
-# clustergrammer2
-
 <img src='img/clustergrammer2_logo.png' alt="Clustergramer2" width="350px" >
 
 [![Build Status](https://travis-ci.org/ismms-himc/clustergrammer2.svg?branch=master)](https://travis-ci.org/ismms-himc/clustergrammer2)
