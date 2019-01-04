@@ -25,6 +25,6 @@ class ExampleWidget(DOMWidget):
 
     value = Unicode('Hello World')
 
-    print('clustergrammer2 backend version 0.2.9')
+    print('clustergrammer2 backend version 0.2.10')
 
     network = Unicode('').tag(sync=True)
