@@ -44,7 +44,7 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager
 jupyter nbconvert --to html notebook.ipynb
 ```
 
-## Development and Relesaing new Versions
+## Development and Releasing new Versions
 
 During development run `npm run watch` for real time updates.
 
