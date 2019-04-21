@@ -13,11 +13,11 @@ import cgm_fun from 'clustergrammer-gl';
 console.log(cgm_fun);
 
 import * as d3 from 'd3';
-console.log(d3)
+// console.log(d3)
 
-console.log('*******************************************')
-console.log('** clustergrammer frontend version 0.2.10 **')
-console.log('*******************************************')
+console.log('**********************************************')
+console.log('** clustergrammer2 frontend version 0.2.11 **')
+console.log('**********************************************')
 
 export
 class ExampleModel extends DOMWidgetModel {
@@ -49,14 +49,16 @@ class ExampleModel extends DOMWidgetModel {
 
 function make_viz(args){
   var inst_container = document.getElementById(args.container_name)
-  console.log('inst_container_2', inst_container)
+  // console.log('inst_container_2', inst_container)
   args.container = inst_container;
   var cgm = cgm_fun(args)
-  console.log('making clustergram in make_viz');
+  // console.log('making clustergram in make_viz');
+
+  // necessary to suppress typescript error
   console.log(cgm);
 }
 
-console.log(make_viz);
+// console.log(make_viz);
 
 export
 class ExampleView extends DOMWidgetView {

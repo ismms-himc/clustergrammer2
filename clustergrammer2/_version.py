@@ -4,5 +4,5 @@
 # Copyright (c) Nicolas Fernandez.
 # Distributed under the terms of the Modified BSD License.
 
-version_info = (0, 2, 10)
+version_info = (0, 2, 11)
 __version__ = ".".join(map(str, version_info))
