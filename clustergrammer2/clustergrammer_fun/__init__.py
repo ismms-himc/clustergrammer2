@@ -16,6 +16,14 @@ from . import run_filter
 from . import downsample_fun
 from . import categories
 
+from scipy.stats import ttest_ind, mannwhitneyu
+from sklearn.metrics import pairwise_distances, roc_curve, auc
+from scipy.spatial.distance import pdist
+from sklearn.metrics import confusion_matrix
+import random
+from itertools import combinations
+import matplotlib.pyplot as plt
+
 class Network(object):
   '''
   version 1.13.5
