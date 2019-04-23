@@ -580,8 +580,7 @@ class Network(object):
 
       f.close()
 
-  @staticmethod
-  def sim_same_and_diff_category_samples(df, cat_index=1, dist_type='cosine',
+  def sim_same_and_diff_category_samples(self, df, cat_index=1, dist_type='cosine',
                                          equal_var=False, plot_roc=True,
                                          precalc_dist=False, calc_roc=True):
       '''
@@ -725,13 +724,11 @@ class Network(object):
       if len(keep_genes) == 0 and verbose:
           print('found no informative dimensions')
 
-      df_gene_pval = pd.concat(gene_pval_dict, axis=1)
+      df_gene_pval = pd.concat(gene_pval_dict, axis=1, sort=False)
 
       return df_sig, keep_genes_dict, df_gene_pval, all_fold_info
 
-
-  @staticmethod
-  def predict_cats_from_sigs(df_data_ini, df_sig_ini, dist_type='cosine', predict_level='Predict Category',
+  def predict_cats_from_sigs(self, df_data_ini, df_sig_ini, dist_type='cosine', predict_level='Predict Category',
                              truth_level=1, unknown_thresh=-1):
       ''' Predict category using signature '''
 
@@ -793,8 +790,7 @@ class Network(object):
 
       return df_cat, df_sim.transpose(), y_info
 
-  @staticmethod
-  def confusion_matrix_and_correct_series(y_info):
+  def confusion_matrix_and_correct_series(self, y_info):
       ''' Generate confusion matrix from y_info '''
 
 
@@ -828,8 +824,7 @@ class Network(object):
 
       return df_conf, populations, ser_correct, fraction_correct
 
-  @staticmethod
-  def compare_performance_to_shuffled_labels(df_data, category_level, num_shuffles=100,
+  def compare_performance_to_shuffled_labels(self, df_data, category_level, num_shuffles=100,
                                              random_seed=99, pval_cutoff=0.05, dist_type='cosine',
                                              num_top_dims=False, predict_level='Predict Category',
                                              truth_level=1, unknown_thresh=-1, equal_var=False,
@@ -870,12 +865,12 @@ class Network(object):
           if performance_type == 'prediction':
 
               # predict categories from signature
-              df_pred_cat, df_sig_sim, y_info = predict_cats_from_sigs(df_shuffle, df_sig,
+              df_pred_cat, df_sig_sim, y_info = self.predict_cats_from_sigs(df_shuffle, df_sig,
                   dist_type=dist_type, predict_level=predict_level, truth_level=truth_level,
                   unknown_thresh=unknown_thresh)
 
               # calc confusion matrix and performance
-              df_conf, populations, ser_correct, fraction_correct = confusion_matrix_and_correct_series(y_info)
+              df_conf, populations, ser_correct, fraction_correct = self.confusion_matrix_and_correct_series(y_info)
 
               # store performances of shuffles
               if inst_run > 0:
@@ -887,7 +882,7 @@ class Network(object):
           elif performance_type == 'cat_sim_auc':
 
               # predict categories from signature
-              sim_dict, pval_dict, roc_data = sim_same_and_diff_category_samples(df_shuffle,
+              sim_dict, pval_dict, roc_data = self.sim_same_and_diff_category_samples(df_shuffle,
                   cat_index=1, plot_roc=False, equal_var=equal_var, precalc_dist=dist_arr)
 
               # store performances of shuffles
@@ -971,7 +966,7 @@ class Network(object):
               plt.scatter(x, val, c=dot_color, alpha=alpha)
 
 
-          df_arranged = pd.a(vals, axis=1)
+          df_arranged = pd.(vals, axis=1)
 
           # anova
           anova_data = [df_arranged[col].dropna() for col in df_arranged]
@@ -1097,3 +1092,10 @@ class Network(object):
 
           inst_color = cat_colors[inst_ct]
           self.set_cat_color(axis=axis, cat_index=cat_index, cat_name=cat_name, inst_color=inst_color)
+
+  @staticmethod
+  def umi_norm(df):
+      # umi norm
+      barcode_umi_sum = df.sum()
+      df_umi = df.div(barcode_umi_sum)
+      return df_umi

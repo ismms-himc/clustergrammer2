@@ -16,7 +16,7 @@ import * as d3 from 'd3';
 // console.log(d3)
 
 console.log('**********************************************')
-console.log('** clustergrammer2 frontend version 0.2.13 **')
+console.log('** clustergrammer2 frontend version 0.2.14 **')
 console.log('**********************************************')
 
 export
@@ -103,6 +103,7 @@ class ExampleView extends DOMWidgetView {
 
     console.log(args);
 
+    // may want to save output in order to clear out old widgets:
     setTimeout(make_viz, 10, args);
   }
 
