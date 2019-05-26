@@ -966,7 +966,7 @@ class Network(object):
               plt.scatter(x, val, c=dot_color, alpha=alpha)
 
 
-          df_arranged = pd.(vals, axis=1)
+          df_arranged = pd.concat(vals, axis=1)
 
           # anova
           anova_data = [df_arranged[col].dropna() for col in df_arranged]
