@@ -15,9 +15,9 @@ console.log(cgm_fun);
 import * as d3 from 'd3';
 // console.log(d3)
 
-console.log('**********************************************')
-console.log('** clustergrammer2 frontend version 0.2.14 **')
-console.log('**********************************************')
+console.log('********************************************')
+console.log('** clustergrammer2 frontend version 0.3.0 **')
+console.log('********************************************')
 
 export
 class ExampleModel extends DOMWidgetModel {

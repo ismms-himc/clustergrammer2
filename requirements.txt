@@ -3,4 +3,4 @@ pandas==0.22.0
 scipy==1.1.0
 scikit-learn==0.19.2
 ipywidgets==7.3.0
-clustergrammer2==0.2.14
+clustergrammer2==0.3.0
