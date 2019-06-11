@@ -95,13 +95,19 @@ Then, upload the PYPI:
 twine upload dist/*
 ```
 
-#### Checklist after release
+##  Checklist after release
+
 After releasing a new version several things need to be checked to ensure proper widget functioning.
 
-Check that the latest versions of clustergrammer2 are showing up in the NPM and PYPI package services.
+### Check Package Managers
 
 - https://www.npmjs.com/package/clustergrammer2 (can be slow to update)
 - https://pypi.org/project/clustergrammer2/
 
-Check
-- Latest version
+## Check HTML Embedding
+- Run `jupyter nbconvert --to html introduction_nb.ipynb` (from the examples directory) to generate a static HTML and check that the latest widget is working (uses unpkg.com)
+- Check NBViewer using link to notebook on GitHub (e.g. https://nbviewer.jupyter.org/github/ismms-himc/clustergrammer2/blob/master/examples/introduction_nb.ipynb?flush_cache=true). Make sure to use the querystring `flush_cache=True` in the URL to ensure that NBVIewer re-runs nbconvert.
+
+## Check Cloud Services
+- Check MyBinder
+- Check Kaggle (re-install clustergrammer2)
