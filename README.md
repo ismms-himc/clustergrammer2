@@ -46,7 +46,7 @@ jupyter nbconvert --to html notebook.ipynb
 
 ## Development and Releasing new Versions
 
-During development run `npm run watch` for real time updates.
+During development run `npm run watch` for real time updates. When releasing a new version, first confirm that latest version of the front and back ends are working locally (check console logs, etc).
 
 #### Updating versions
 Update the versions in the following files
@@ -95,3 +95,13 @@ Then, upload the PYPI:
 twine upload dist/*
 ```
 
+#### Checklist after release
+After releasing a new version several things need to be checked to ensure proper widget functioning.
+
+Check that the latest versions of clustergrammer2 are showing up in the NPM and PYPI package services.
+
+- https://www.npmjs.com/package/clustergrammer2 (can be slow to update)
+- https://pypi.org/project/clustergrammer2/
+
+Check
+- Latest version
