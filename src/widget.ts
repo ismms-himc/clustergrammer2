@@ -16,7 +16,7 @@ import * as d3 from 'd3';
 // console.log(d3)
 
 console.log('********************************************')
-console.log('** clustergrammer2 frontend version 0.3.0 **')
+console.log('** clustergrammer2 frontend version 0.4.0 **')
 console.log('********************************************')
 
 export
