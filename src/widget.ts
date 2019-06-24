@@ -59,10 +59,9 @@ function make_viz(args, cgm_model){
 
   cgm_model.model.set('value', 'After making viz');
 
+  d3.select(cgm.params.root).on('mouseover', function(){
 
-  d3.select(cgm.params.root).on('click', function(){
-
-    cgm_model.model.set('value', 'clicking stuff');
+    cgm_model.model.set('value', String(cgm.params.int.mouseover.row.name));
     cgm_model.model.set('mat_string', 'click-mat-string');
     cgm_model.touch();
 
