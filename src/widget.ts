@@ -48,28 +48,19 @@ class ExampleModel extends DOMWidgetModel {
   static view_module_version = MODULE_VERSION;
 }
 
-function make_viz(args, cgm_model){
+function make_viz(args){
   console.log('3: make_viz')
-
-  console.log('need to check whether container is empty')
-  console.log('is empty: ', d3.select('#' + args.container_name).empty())
+  console.log('is container empty: ', d3.select('#' + args.container_name).empty())
   var inst_container = document.getElementById(args.container_name)
   args.container = inst_container;
-  var cgm = cgm_fun(args)
 
-  cgm_model.model.set('value', 'After making viz');
+  cgm_fun(args)
 
-  d3.select(cgm.params.root).on('mouseover', function(){
-
-    cgm_model.model.set('value', String(cgm.params.int.mouseover.row.name));
-    cgm_model.model.set('mat_string', 'click-mat-string');
-    cgm_model.touch();
-
-    // console.log('checking value', cgm_model.model.get('value'))
-    // console.log(cgm_model)
-  })
-
-  console.log(cgm);
+  // var cgm = cgm_fun(args)
+  //   cgm_model.model.set('value', String(cgm.params.int.mouseover.row.name));
+  //   cgm_model.model.set('mat_string', 'click-mat-string');
+  //   cgm_model.touch();
+  // });
 }
 
 // console.log(make_viz);
@@ -99,7 +90,8 @@ class ExampleView extends DOMWidgetView {
         'container_name': container_name,
         'network': inst_network,
         'viz_width' : 900,
-        'viz_height': 900
+        'viz_height': 900,
+        'widget_model', cgm_model
     };
 
     function make_dom(inst_element, container_name){
@@ -114,7 +106,7 @@ class ExampleView extends DOMWidgetView {
     }
 
     make_dom(this.el, container_name);
-    setTimeout(make_viz, 10, args, cgm_model);
+    setTimeout(make_viz, 10, args);
 
     /* Promise version */
     // attempting to wait until DOM is created
