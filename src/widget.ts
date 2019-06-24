@@ -54,13 +54,12 @@ function make_viz(args){
   var inst_container = document.getElementById(args.container_name)
   args.container = inst_container;
 
-  cgm_fun(args)
+  cgm_fun(args);
 
   // var cgm = cgm_fun(args)
-  //   cgm_model.model.set('value', String(cgm.params.int.mouseover.row.name));
-  //   cgm_model.model.set('mat_string', 'click-mat-string');
-  //   cgm_model.touch();
-  // });
+  // cgm_model.model.set('value', String(cgm.params.int.mouseover.row.name));
+  // cgm_model.model.set('mat_string', 'click-mat-string');
+  // cgm_model.touch();
 }
 
 // console.log(make_viz);
@@ -83,7 +82,7 @@ class ExampleView extends DOMWidgetView {
     console.log('container_name', container_name)
 
     var cgm_model = this;
-    console.log(cgm_model);
+    // console.log(cgm_model);
 
     // define arguments object
     var args = {
@@ -91,7 +90,7 @@ class ExampleView extends DOMWidgetView {
         'network': inst_network,
         'viz_width' : 900,
         'viz_height': 900,
-        'widget_model', cgm_model
+        'widget_model': cgm_model
     };
 
     function make_dom(inst_element, container_name){
