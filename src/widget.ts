@@ -30,7 +30,7 @@ class ExampleModel extends DOMWidgetModel {
       _view_name: ExampleModel.view_name,
       _view_module: ExampleModel.view_module,
       _view_module_version: ExampleModel.view_module_version,
-      value : 'Latest Hello World!!!!!!!!!!',
+      value : 'javascript set value!!!',
       network: ''
     };
   }
@@ -65,12 +65,13 @@ export
 class ExampleView extends DOMWidgetView {
   render() {
 
-    console.log('------------------------------------')
-    console.log(this)
-    console.log('------------------------------------')
+    // console.log('------------------------------------')
+    // console.log(this)
+    // console.log('------------------------------------')
 
-    this.value_changed();
-    // this.model.on('change:value', this.value_changed, this);
+    // this.value_changed();
+    this.model.on('change:value', this.value_changed, this);
+
     // console.log('NETWORK: ' + this.model.get('network'))
 
     var inst_network_string = this.model.get('network');
@@ -115,8 +116,9 @@ class ExampleView extends DOMWidgetView {
 
   value_changed() {
     // this.el.textContent = this.model.get('value');
-    console.log('CHANGED')
+    console.log(this.model.get('value'))
   }
 }
+
 
 

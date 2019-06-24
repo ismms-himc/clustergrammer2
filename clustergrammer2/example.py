@@ -23,7 +23,7 @@ class ExampleWidget(DOMWidget):
     _view_module = Unicode(module_name).tag(sync=True)
     _view_module_version = Unicode(module_version).tag(sync=True)
 
-    value = Unicode('Hello World')
+    value = Unicode('Hello World!').tag(sync=True)
 
     print('>> clustergrammer2 backend version 0.4.0')
 
