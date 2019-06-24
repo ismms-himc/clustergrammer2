@@ -57,6 +57,8 @@ function make_viz(args){
   args.container = inst_container;
   var cgm = cgm_fun(args)
 
+  // cgm_model.model.set('value', 'SOMETHING');
+
   console.log(cgm);
 }
 
@@ -65,7 +67,6 @@ function make_viz(args){
 export
 class ExampleView extends DOMWidgetView {
   render() {
-
 
     // this.value_changed();
     this.model.on('change:value', this.value_changed, this);
@@ -80,14 +81,48 @@ class ExampleView extends DOMWidgetView {
     var cgm_model = this;
     console.log(cgm_model);
 
-    console.log('1: D3 append div')
-    d3.select(this.el)
-      .append('div')
-      .classed('clustergrammer_glidget', true)
-      .attr('id', container_name)
-      .style('width', '900px')
-      .style('height', '1035px')
-      .style('border', '2px solid #eee');
+    // define arguments object
+    var args = {
+        'container_name': container_name,
+        'network': inst_network,
+        'viz_width' : 900,
+        'viz_height': 900
+    };
+
+    function make_dom(inst_element, container_name){
+      console.log('1: D3 append div')
+      d3.select(inst_element)
+        .append('div')
+        .classed('clustergrammer_glidget', true)
+        .attr('id', container_name)
+        .style('width', '900px')
+        .style('height', '1035px')
+        .style('border', '2px solid #eee');
+    }
+
+    make_dom(this.el, container_name);
+    setTimeout(make_viz, 10, args);
+
+    /* Promise version */
+    // attempting to wait until DOM is created
+    //
+    // var make_dom_promise = function(inst_element, container_name) {
+    //   return new Promise(function(resolve, reject) {
+    //     make_dom(inst_element, container_name)
+    //     resolve();
+    //   });
+    // }
+
+    // make_dom_promise(this.el, container_name).then(
+    //   function(){
+    //     console.log('finished promise and make_viz')
+
+    //     // may want to save output in order to clear out old widgets
+    //     console.log('2: setTimeout')
+    //     setTimeout(make_viz, 10, args);
+    //     // make_viz(args)
+    //   }
+    // );
 
     // widget-subarea appears to be limited to a width of ~960px in nbviewer
     // var inst_container = d3.select(this.el)
@@ -102,22 +137,6 @@ class ExampleView extends DOMWidgetView {
     //   .on('mouseover', function(){
     //     console.log('mouse over widget controlled')
     //   })
-
-
-    var heatmap_width = 900;
-
-    // define arguments object
-    var args = {
-        'container_name': container_name,
-        'network': inst_network,
-        'viz_width' : heatmap_width,
-        'viz_height': heatmap_width
-    };
-
-    // may want to save output in order to clear out old widgets
-    console.log('2: setTimeout')
-    setTimeout(make_viz, 10, args);
-    // make_viz(args)
 
   }
 
