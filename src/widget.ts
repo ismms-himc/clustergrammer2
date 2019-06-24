@@ -18,6 +18,7 @@ import * as d3 from 'd3';
 console.log('********************************************')
 console.log('** clustergrammer2 frontend version 0.4.0 **')
 console.log('********************************************')
+console.log('working on traitlets for Voila')
 
 export
 class ExampleModel extends DOMWidgetModel {
@@ -63,6 +64,11 @@ function make_viz(args){
 export
 class ExampleView extends DOMWidgetView {
   render() {
+
+    console.log('------------------------------------')
+    console.log(this)
+    console.log('------------------------------------')
+
     this.value_changed();
     // this.model.on('change:value', this.value_changed, this);
     // console.log('NETWORK: ' + this.model.get('network'))
