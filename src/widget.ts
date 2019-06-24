@@ -10,7 +10,7 @@ import {
 } from './version';
 
 import cgm_fun from 'clustergrammer-gl';
-console.log(cgm_fun);
+// console.log(cgm_fun);
 
 import * as d3 from 'd3';
 // console.log(d3)
@@ -49,13 +49,14 @@ class ExampleModel extends DOMWidgetModel {
 }
 
 function make_viz(args){
+  console.log('3: make_viz')
+
+  console.log('need to check whether container is empty')
+  console.log('is empty: ', d3.select('#' + args.container_name).empty())
   var inst_container = document.getElementById(args.container_name)
-  // console.log('inst_container_2', inst_container)
   args.container = inst_container;
   var cgm = cgm_fun(args)
-  // console.log('making clustergram in make_viz');
 
-  // necessary to suppress typescript error
   console.log(cgm);
 }
 
@@ -65,38 +66,43 @@ export
 class ExampleView extends DOMWidgetView {
   render() {
 
-    // console.log('------------------------------------')
-    // console.log(this)
-    // console.log('------------------------------------')
 
     // this.value_changed();
     this.model.on('change:value', this.value_changed, this);
 
-    // console.log('NETWORK: ' + this.model.get('network'))
-
-    var inst_network_string = this.model.get('network');
-
-    var inst_network = JSON.parse(inst_network_string);
-
-    // console.log(inst_network)
+    var inst_network = JSON.parse(this.model.get('network'));
 
     var container_name = this.cid;
 
     // the cid appears to be the container id, which gives a unique view number
     console.log('container_name', container_name)
 
+    var cgm_model = this;
+    console.log(cgm_model);
+
+    console.log('1: D3 append div')
+    d3.select(this.el)
+      .append('div')
+      .classed('clustergrammer_glidget', true)
+      .attr('id', container_name)
+      .style('width', '900px')
+      .style('height', '1035px')
+      .style('border', '2px solid #eee');
+
     // widget-subarea appears to be limited to a width of ~960px in nbviewer
-    var inst_container = d3.select(this.el)
-        .append('div')
-        .classed('clustergrammer_glidget', true)
-        .attr('id', container_name)
-        .style('width', '900px')
-        .style('height', '1035px')
-        .style('border', '2px solid #eee');
+    // var inst_container = d3.select(this.el)
+    // defining a variable, going to pass this to callback
+    // var container_id = '#'+container_name;
 
-    var container_id = '#'+container_name;
+    // console.log(container_name);
 
-    console.log(container_name, inst_container, container_id);
+    // trying to have front-end set value
+    // this.model.set('value', 'front-end-set string');
+    // d3.select('#' + container_name)
+    //   .on('mouseover', function(){
+    //     console.log('mouse over widget controlled')
+    //   })
+
 
     var heatmap_width = 900;
 
@@ -108,10 +114,11 @@ class ExampleView extends DOMWidgetView {
         'viz_height': heatmap_width
     };
 
-    console.log(args);
-
-    // may want to save output in order to clear out old widgets:
+    // may want to save output in order to clear out old widgets
+    console.log('2: setTimeout')
     setTimeout(make_viz, 10, args);
+    // make_viz(args)
+
   }
 
   value_changed() {
