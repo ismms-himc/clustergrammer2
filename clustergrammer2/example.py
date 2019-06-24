@@ -25,6 +25,8 @@ class ExampleWidget(DOMWidget):
 
     value = Unicode('Hello World!').tag(sync=True)
 
+    mat_string = Unicode('ini_mat_string').tag(sync=True)
+
     print('>> clustergrammer2 backend version 0.4.0')
 
     network = Unicode('').tag(sync=True)

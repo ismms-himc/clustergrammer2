@@ -48,7 +48,7 @@ class ExampleModel extends DOMWidgetModel {
   static view_module_version = MODULE_VERSION;
 }
 
-function make_viz(args){
+function make_viz(args, cgm_model){
   console.log('3: make_viz')
 
   console.log('need to check whether container is empty')
@@ -57,7 +57,18 @@ function make_viz(args){
   args.container = inst_container;
   var cgm = cgm_fun(args)
 
-  // cgm_model.model.set('value', 'SOMETHING');
+  cgm_model.model.set('value', 'After making viz');
+
+
+  d3.select(cgm.params.root).on('click', function(){
+
+    cgm_model.model.set('value', 'clicking stuff');
+    cgm_model.model.set('mat_string', 'click-mat-string');
+    cgm_model.touch();
+
+    // console.log('checking value', cgm_model.model.get('value'))
+    // console.log(cgm_model)
+  })
 
   console.log(cgm);
 }
@@ -70,6 +81,9 @@ class ExampleView extends DOMWidgetView {
 
     // this.value_changed();
     this.model.on('change:value', this.value_changed, this);
+
+
+    this.model.on('change:mat_string', this.update_mat_string, this);
 
     var inst_network = JSON.parse(this.model.get('network'));
 
@@ -101,7 +115,7 @@ class ExampleView extends DOMWidgetView {
     }
 
     make_dom(this.el, container_name);
-    setTimeout(make_viz, 10, args);
+    setTimeout(make_viz, 10, args, cgm_model);
 
     /* Promise version */
     // attempting to wait until DOM is created
@@ -142,7 +156,11 @@ class ExampleView extends DOMWidgetView {
 
   value_changed() {
     // this.el.textContent = this.model.get('value');
-    console.log(this.model.get('value'))
+    console.log('checking value', this.model.get('value'))
+  }
+
+  update_mat_string(){
+    console.log('checking mat_string', this.model.get('mat_string'))
   }
 }
 
