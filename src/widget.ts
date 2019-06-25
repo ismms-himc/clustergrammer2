@@ -50,16 +50,21 @@ class ExampleModel extends DOMWidgetModel {
 
 function make_viz(args){
   console.log('3: make_viz')
-  console.log('is container empty: ', d3.select('#' + args.container_name).empty())
+
+  console.log('need to check whether container is empty')
+  console.log('is empty: ', d3.select('#' + args.container_name).empty())
   var inst_container = document.getElementById(args.container_name)
   args.container = inst_container;
 
-  cgm_fun(args);
+  var cgm = cgm_fun(args)
 
-  // var cgm = cgm_fun(args)
-  // cgm_model.model.set('value', String(cgm.params.int.mouseover.row.name));
-  // cgm_model.model.set('mat_string', 'click-mat-string');
-  // cgm_model.touch();
+  d3.select(cgm.params.root).on('mouseover', function(){
+    args.widget_model.model.set('value', String(cgm.params.int.mouseover.row.name));
+    args.widget_model.model.set('mat_string', 'click-mat-string');
+    args.widget_model.touch();
+  });
+
+  // console.log(cgm);
 }
 
 // console.log(make_viz);
@@ -82,7 +87,7 @@ class ExampleView extends DOMWidgetView {
     console.log('container_name', container_name)
 
     var cgm_model = this;
-    // console.log(cgm_model);
+    console.log(cgm_model);
 
     // define arguments object
     var args = {
