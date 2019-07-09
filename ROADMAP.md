@@ -11,13 +11,19 @@ Clustergrammer2 allows users to interactively explore single-cell datasets consi
 
 Clustergrammer2 uses the JavaScript library [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl) to generate the interactive heatmaps. Clustergrammer-GL is built using the WebGL library [regl](https://github.com/regl-project/regl). Development of the interactive WebGL visualizations are primarily done on the [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl) repo. 
 
-## Single Cell Data Analysis
+## Single-Cell Data Analysis
 We are working on additing additional data analysis methods to facilitate exploration and analysis of single cell data. The Python back-end of Clustergrammer2 handles data analysis tasks (e.g. filtering, normalization, clustering) and development of additional data analysis methods is done in this repo. 
 
 ## Building Dashboards
 We are working on using the librray [voila](https://github.com/QuantStack/voila) for generating dashboards. The [Jupyter Widgets](https://github.com/jupyter-widgets) framework enables communication between widgets and we are currently working on using this feature to build dashboards using Clustergrammer2.
 
-## Improve Documentation and Examples
+## Examples
+We are currently working on examples Jupyter notebooks using Clustergrammer2. Users can run these example noteooks by installing Clustergrammer2 locally or for free using several cloud-based Jupyter instances: 
+* MyBinder
+* Kaggle
+* Saturn Cloud
+
+## Documentation 
 The broader Clustergrammer project spans several smaller and inter-connected projects (e.g. [Clustergrammer-JS](https://github.com/maayanlab/clustergrammer), [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl)) and documentation can be found here [clustergrammer.readthedocs.io/](https://clustergrammer.readthedocs.io/).
 
 ## Implement Testing and Continuous Integration
