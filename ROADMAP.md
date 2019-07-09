@@ -24,7 +24,14 @@ We are currently working on examples Jupyter notebooks using Clustergrammer2. Us
 * Saturn Cloud
 
 ## Documentation 
-The broader Clustergrammer project spans several smaller and inter-connected projects (e.g. [Clustergrammer-JS](https://github.com/maayanlab/clustergrammer), [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl)) and documentation can be found here [clustergrammer.readthedocs.io/](https://clustergrammer.readthedocs.io/).
+The broader Clustergrammer project spans several inter-connected projects: 
+* [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl)
+* [Clustergrammer-JS](https://github.com/maayanlab/clustergrammer)
+* [Clustergrammer-PY](https://github.com/maayanlab/clustergrammer-py)
+* [Clustergrammer-Widget](https://github.com/maayanlab/clustergrammer-widget)
+* [Clustergrammer-Web](https://github.com/maayanlab/clustergrammer-web)
+
+Documentation can be found here [clustergrammer.readthedocs.io/](https://clustergrammer.readthedocs.io/). We will be improving documentation for Clustergrammer2.
 
 ## Implement Testing and Continuous Integration
 Please see [issue #30](https://github.com/ismms-himc/clustergrammer2/issues/30).
