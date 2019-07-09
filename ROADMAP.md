@@ -1,14 +1,21 @@
 # Clustergrammer2 Roadmap
 
-Clustergrammer2 enables researchers to interactively explore and analyze single cell data. Our immediate goals are to improve the interactive visualization as well as add additional data analysis methods. If you have feedback or concerns please submit an issue on GitHub.
+Clustergrammer2 is a Jupyter Widget that enables researchers to interactively explore and analyze high-dimensional single-cell data. Our immediate goals are to improve the interactive visualization as well as add additional data analysis methods. 
+
+If you have feedback or concerns please submit an issue on GitHub.
 
 Last updated: July 9, 2019
 
 ## Interactive Visualization High-Dimensional Single Cell Data
-Clustergrammer2 is a Jupyter Widget built using the JavaScript library [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl). Clustergrammer-GL is built using [regl](https://github.com/regl-project/regl) and generates the interactive WebGL heatmap visualization. Development of the interactive WebGL visualization is done on the [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl) repo. 
+Clustergrammer2 allows users to interactively explore single-cell datasets consisting of millions of data points. We are continuing to improve the interactive visualization user experience (e.g. add functionaltiy). 
+
+Clustergrammer2 uses the JavaScript library [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl) to generate the interactive heatmaps. Clustergrammer-GL is built using the WebGL library [regl](https://github.com/regl-project/regl). Development of the interactive WebGL visualizations are primarily done on the [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl) repo. 
 
 ## Single Cell Data Analysis
-The Python back-end of Clustergrammer2 handles data analysis tasks (e.g. filtering, normalization, clustering). 
+We are working on additing additional data analysis methods to facilitate exploration and analysis of single cell data. The Python back-end of Clustergrammer2 handles data analysis tasks (e.g. filtering, normalization, clustering) and development of additional data analysis methods is done in this repo. 
+
+## Building Dashboards
+We are working on using the librray [voila](https://github.com/QuantStack/voila) for generating dashboards. The [Jupyter Widgets](https://github.com/jupyter-widgets) framework enables communication between widgets and we are currently working on using this feature to build dashboards using Clustergrammer2.
 
 ## Improve Documentation and Examples
 The broader Clustergrammer project spans several smaller and inter-connected projects (e.g. [Clustergrammer-JS](https://github.com/maayanlab/clustergrammer), [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl)) and documentation can be found here [clustergrammer.readthedocs.io/](https://clustergrammer.readthedocs.io/).
