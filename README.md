@@ -55,7 +55,7 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager
 jupyter nbconvert --to html notebook.ipynb
 ```
 
-## Development and Releasing new Versions
+# Development and Releasing new Versions
 
 During development run `npm run watch` for real time updates. When releasing a new version, first confirm that latest version of the front and back ends are working locally (check console logs, etc).
 
