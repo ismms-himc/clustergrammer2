@@ -15,13 +15,13 @@ An interactive WebGL heatmap Jupyter widget built using the widget-ts-cookiecutt
 
 Click the MyBinder badges above to launch Clustergrammer2 example Jupyter Notebooks. Also see the [Clustergrammer2-Examples](https://github.com/ismms-himc/clustergrammer2-examples) repo for more examples.
 
-# Running Clustergrammer2 on Kaggle
+## Running Clustergrammer2 on Kaggle
 [![Kaggle Clustergrammer2 2,700 PBMC](https://img.youtube.com/vi/f-snXe2Bn9Q/0.jpg)](https://www.youtube.com/watch?v=f-snXe2Bn9Q)
 
 
 https://www.kaggle.com/cornhundred/viz-2-700-pbmcs-with-cell-type-predictions
 
-### JupyterCon 2018 Presentation
+## JupyterCon 2018 Presentation
 [![Clustergrammer JupyterCon 2018](http://img.youtube.com/vi/82epZkmfkrE/0.jpg)](http://www.youtube.com/watch?v=82epZkmfkrE)
 
 The Clustergrammer project was recently presented at JupyterCon 2018 (see [slides](http://bit.ly/clustergrammer-jupytercon)).
