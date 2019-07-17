@@ -4,7 +4,7 @@
 
 [![ccle_gif](https://github.com/MaayanLab/clustergrammer-docs/blob/master/docs/_static/clustergrammer2_480px.gif "demo_high-fr.gif")](https://mybinder.org/v2/gh/ismms-himc/clustergrammer2_examples/master?filepath=notebooks%2F2.0_CCLE_Gene_Expression.ipynb)
 
-An interactive WebGL heatmap Jupyter widget built using the widget-ts-cookiecutter library.
+Clustergrammer2 is an interactive WebGL heatmap Jupyter widget built using the widget-ts-cookiecutter library. Clustergrammer2 is built to help researchers interactively explore single cell data (e.g. scRNA-seq).
 
 # Running Clustergrammer2
 
