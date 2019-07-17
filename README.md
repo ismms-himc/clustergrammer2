@@ -24,11 +24,6 @@ Browse other example notebooks:
 Clustergrammer2 can be run using Kaggle kernels. Clustergrammer2 was used to explore a public scRNA-seq dataset of 2.700 PBMCs from 10X genomics (https://www.10xgenomics.com/resources/datasets/) . The kernel can be found here: https://www.kaggle.com/cornhundred/viz-2-700-pbmcs-with-cell-type-predictions.
 
 
-# JupyterCon 2018 Presentation
-[![Clustergrammer JupyterCon 2018](http://img.youtube.com/vi/82epZkmfkrE/0.jpg)](http://www.youtube.com/watch?v=82epZkmfkrE)
-
-The Clustergrammer project was recently presented at JupyterCon 2018 (see [slides](http://bit.ly/clustergrammer-jupytercon)).
-
 # Installation
 
 A typical installation requires the following commands to be run:
