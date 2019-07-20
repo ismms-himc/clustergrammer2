@@ -1,6 +1,9 @@
 # Clustergrammer2 Roadmap
 
-Clustergrammer2 is a Jupyter Widget that enables researchers to interactively explore and analyze high-dimensional single-cell data. Our immediate goals are to improve the interactive visualization as well as add additional data analysis methods.
+Clustergrammer2 is a Jupyter Widget that enables researchers to interactively explore and analyze high-dimensional single-cell data. Our goals are to:
+
+* improve the interactive visualization
+* add and improve additional data analysis methods (e.g. gene signature methods)
 
 If you have feedback or concerns please submit an issue on GitHub.
 
