@@ -89,13 +89,20 @@ class ExampleView extends DOMWidgetView {
     var cgm_model = this;
     console.log(cgm_model);
 
+    var my_widget_callback = function(cgm){
+      console.log('RUNNING MY WIDGET CALLBAC')
+      console.log('defining some widget in index.html')
+      console.log(cgm)
+    }
+
     // define arguments object
     var args = {
         'container_name': container_name,
         'network': inst_network,
         'viz_width' : 900,
         'viz_height': 900,
-        'widget_model': cgm_model
+        'widget_model': cgm_model,
+        'widget_callback': my_widget_callback
     };
 
     function make_dom(inst_element, container_name){
