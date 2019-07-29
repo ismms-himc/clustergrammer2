@@ -59,6 +59,8 @@ function make_viz(args){
   var cgm = cgm_fun(args)
 
   d3.select(cgm.params.root).on('mouseover', function(){
+
+    console.log('updating stuff and running touch')
     args.widget_model.model.set('value', String(cgm.params.int.mouseover.row.name));
     args.widget_model.model.set('mat_string', 'click-mat-string');
     args.widget_model.touch();
@@ -90,9 +92,13 @@ class ExampleView extends DOMWidgetView {
     console.log(cgm_model);
 
     var my_widget_callback = function(cgm){
-      console.log('RUNNING MY WIDGET CALLBAC')
+      console.log('RUNNING MY WIDGET CALLBACK -- widget model search 2!')
       console.log('defining some widget in index.html')
-      console.log(cgm)
+      console.log(cgm.params.widget_model)
+
+      cgm.params.widget_model.model.set('value', String(cgm.params.int.mouseover.row.name));
+      cgm.params.widget_model.model.set('mat_string', 'click-mat-string');
+      cgm.params.widget_model.touch();
     }
 
     // define arguments object
@@ -104,6 +110,8 @@ class ExampleView extends DOMWidgetView {
         'widget_model': cgm_model,
         'widget_callback': my_widget_callback
     };
+
+
 
     function make_dom(inst_element, container_name){
       console.log('1: D3 append div')
