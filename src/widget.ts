@@ -96,9 +96,13 @@ class ExampleView extends DOMWidgetView {
       console.log('defining some widget in index.html')
       console.log(cgm.params.widget_model)
 
-      cgm.params.widget_model.model.set('value', String(cgm.params.int.mouseover.row.name));
-      cgm.params.widget_model.model.set('mat_string', 'click-mat-string');
-      cgm.params.widget_model.touch();
+
+      console.log('tooltip type')
+      console.log(cgm.params.tooltip.tooltip_type)
+      if (cgm.params.tooltip.tooltip_type === 'row-label'){
+        cgm.params.widget_model.model.set('value', String(cgm.params.int.mouseover.row.name));
+        cgm.params.widget_model.touch();
+      }
     }
 
     // define arguments object
