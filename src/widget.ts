@@ -48,18 +48,17 @@ class ExampleModel extends DOMWidgetModel {
 
 function make_viz(args, cgm_model){
   args.container = document.getElementById(args.container_name);
-  var cgm = cgm_fun(args);
-
-
-  console.log(cgm)
-  console.log(cgm_model)
+  cgm_fun(args, cgm_model);
 
   // // exposing all of cgm, eventually want to only expose a few methods
-  // cgm_model.cgm = cgm;
+  // // cgm_model.cgm = cgm;
+  // cgm_model.destroy_viz = cgm.destroy_viz;
 
 }
 
-var my_widget_callback = function(cgm){
+var my_widget_callback = function(external_widget){
+
+  var cgm = external_widget.cgm;
   var params = cgm.params;
   if (params.tooltip.tooltip_type === 'row-label'){
     params.widget_model.model.set('value', String(params.int.mouseover.row.name));
@@ -87,7 +86,7 @@ class ExampleView extends DOMWidgetView {
         'network': JSON.parse(this.model.get('network')),
         'viz_width' : 900,
         'viz_height': 900,
-        'widget_model': this,
+        // 'widget_model': this,
         'widget_callback': my_widget_callback
     };
 
@@ -100,6 +99,7 @@ class ExampleView extends DOMWidgetView {
 
   value_changed() {
 
+    console.log('value_changed')
     console.log(this)
     // this.el.textContent = this.model.get('value');
     console.log('checking value!!', this.model.get('value'));
@@ -107,6 +107,8 @@ class ExampleView extends DOMWidgetView {
     // // see https://stackoverflow.com/questions/55834241/ts2339-property-name-does-not-exist-on-type-object
     // console.log(this['cgm'])
     // this['cgm'].destroy_viz()
+
+    // this['destroy_viz']();
 
   }
 
