@@ -46,22 +46,21 @@ class ExampleModel extends DOMWidgetModel {
   static view_module_version = MODULE_VERSION;
 }
 
-function make_viz(args){
-  var inst_container = document.getElementById(args.container_name)
-  args.container = inst_container;
-  cgm_fun(args);
-
-}
-
 function make_dom(inst_element, container_name){
-  console.log('1: D3 append div')
   d3.select(inst_element)
     .append('div')
-    .classed('clustergrammer_glidget', true)
     .attr('id', container_name)
     .style('width', '900px')
     .style('height', '1035px')
     .style('border', '2px solid #eee');
+}
+
+function make_viz(args){
+
+  var inst_container = document.getElementById(args.container_name)
+  args.container = inst_container;
+  cgm_fun(args);
+
 }
 
 export
