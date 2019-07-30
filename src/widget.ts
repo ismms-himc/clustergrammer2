@@ -49,12 +49,13 @@ class ExampleModel extends DOMWidgetModel {
 function make_viz(args, cgm_model){
   args.container = document.getElementById(args.container_name);
   var cgm = cgm_fun(args);
-  cgm_model.cgm = cgm;
+
+
   console.log(cgm)
   console.log(cgm_model)
 
-  // exposing all of cgm, eventually want to only expose a few methods
-  cgm_model.cgm = cgm;
+  // // exposing all of cgm, eventually want to only expose a few methods
+  // cgm_model.cgm = cgm;
 
 }
 
@@ -98,12 +99,14 @@ class ExampleView extends DOMWidgetView {
   }
 
   value_changed() {
+
+    console.log(this)
     // this.el.textContent = this.model.get('value');
     console.log('checking value!!', this.model.get('value'));
 
-    // see https://stackoverflow.com/questions/55834241/ts2339-property-name-does-not-exist-on-type-object
-    console.log(this['cgm'])
-    this['cgm'].destroy_viz()
+    // // see https://stackoverflow.com/questions/55834241/ts2339-property-name-does-not-exist-on-type-object
+    // console.log(this['cgm'])
+    // this['cgm'].destroy_viz()
 
   }
 
