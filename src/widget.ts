@@ -56,16 +56,16 @@ function make_viz(args, cgm_model){
 
 }
 
-var my_widget_callback = function(external_widget){
+var my_widget_callback = function(external_model){
 
-  var cgm = external_widget.cgm;
+  var cgm = external_model.cgm;
   var params = cgm.params;
   if (params.tooltip.tooltip_type === 'row-label'){
-    params.widget_model.model.set('value', String(params.int.mouseover.row.name));
-    params.widget_model.touch();
+    external_model.model.set('value', String(params.int.mouseover.row.name));
+    external_model.touch();
   } else {
-    params.widget_model.model.set('value', String(null));
-    params.widget_model.touch();
+    external_model.model.set('value', String(null));
+    external_model.touch();
   }
 }
 
