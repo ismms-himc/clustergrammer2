@@ -63,39 +63,33 @@ function make_viz(args){
 
 }
 
+var my_widget_callback = function(cgm){
+  var params = cgm.params;
+  if (params.tooltip.tooltip_type === 'row-label'){
+    params.widget_model.model.set('value', String(params.int.mouseover.row.name));
+    params.widget_model.touch();
+  } else {
+    params.widget_model.model.set('value', String(null));
+    params.widget_model.touch();
+  }
+}
+
 export
 class ExampleView extends DOMWidgetView {
   render() {
 
-    var inst_network = JSON.parse(this.model.get('network'));
-    var container_name = this.cid;
-
-    // the cid appears to be the container id, which gives a unique view number
-    console.log('container_name', container_name)
-
-    var my_widget_callback = function(cgm){
-
-      var params = cgm.params;
-      if (params.tooltip.tooltip_type === 'row-label'){
-        params.widget_model.model.set('value', String(params.int.mouseover.row.name));
-        params.widget_model.touch();
-      } else {
-        params.widget_model.model.set('value', String(null));
-        params.widget_model.touch();
-      }
-    }
-
     // define arguments object
     var args = {
-        'container_name': container_name,
-        'network': inst_network,
+        'container_name': this.cid,
+        'network': JSON.parse(this.model.get('network')),
         'viz_width' : 900,
         'viz_height': 900,
         'widget_model': this,
         'widget_callback': my_widget_callback
     };
 
-    make_dom(this.el, container_name);
+    make_dom(this.el, this.cid);
+
     setTimeout(make_viz, 10, args);
 
     this.model.on('change:value', this.value_changed, this);
