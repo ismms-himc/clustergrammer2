@@ -58,6 +58,8 @@ function make_viz(args, cgm_model){
 
 var my_widget_callback = function(external_model){
 
+  console.log('my_widget_callback')
+
   var cgm = external_model.cgm;
   var params = cgm.params;
   if (params.tooltip.tooltip_type === 'row-label'){
@@ -99,10 +101,11 @@ class ExampleView extends DOMWidgetView {
 
   value_changed() {
 
-    console.log('value_changed')
+    console.log('widget_model.value_changed')
+    console.log('--------------------------')
     console.log(this)
     // this.el.textContent = this.model.get('value');
-    console.log('checking value!!', this.model.get('value'));
+    console.log('value', this.model.get('value'));
 
     // // see https://stackoverflow.com/questions/55834241/ts2339-property-name-does-not-exist-on-type-object
     // console.log(this['cgm'])
