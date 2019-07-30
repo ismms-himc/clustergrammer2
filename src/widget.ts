@@ -46,20 +46,15 @@ class ExampleModel extends DOMWidgetModel {
   static view_module_version = MODULE_VERSION;
 }
 
-function make_dom(inst_element, container_name){
-  d3.select(inst_element)
-    .append('div')
-    .attr('id', container_name)
-    .style('width', '900px')
-    .style('height', '1035px')
-    .style('border', '2px solid #eee');
-}
+function make_viz(args, cgm_model){
+  args.container = document.getElementById(args.container_name);
+  var cgm = cgm_fun(args);
+  cgm_model.cgm = cgm;
+  console.log(cgm)
+  console.log(cgm_model)
 
-function make_viz(args){
-
-  var inst_container = document.getElementById(args.container_name)
-  args.container = inst_container;
-  cgm_fun(args);
+  // exposing all of cgm, eventually want to only expose a few methods
+  cgm_model.cgm = cgm;
 
 }
 
@@ -78,6 +73,13 @@ export
 class ExampleView extends DOMWidgetView {
   render() {
 
+    d3.select(this.el)
+      .append('div')
+      .attr('id', this.cid)
+      .style('width', '900px')
+      .style('height', '1035px')
+      .style('border', '2px solid #eee');
+
     // define arguments object
     var args = {
         'container_name': this.cid,
@@ -88,23 +90,23 @@ class ExampleView extends DOMWidgetView {
         'widget_callback': my_widget_callback
     };
 
-    make_dom(this.el, this.cid);
-
-    setTimeout(make_viz, 10, args);
+    setTimeout(make_viz, 10, args, this);
 
     this.model.on('change:value', this.value_changed, this);
-    this.model.on('change:mat_string', this.update_mat_string, this);
+
 
   }
 
   value_changed() {
     // this.el.textContent = this.model.get('value');
-    console.log('checking value', this.model.get('value'))
+    console.log('checking value!!', this.model.get('value'));
+
+    // see https://stackoverflow.com/questions/55834241/ts2339-property-name-does-not-exist-on-type-object
+    console.log(this['cgm'])
+    this['cgm'].destroy_viz()
 
   }
-  update_mat_string(){
-    console.log('checking mat_string', this.model.get('mat_string'))
-  }
+
 }
 
 

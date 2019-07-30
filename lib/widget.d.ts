@@ -12,5 +12,4 @@ export declare class ExampleModel extends DOMWidgetModel {
 export declare class ExampleView extends DOMWidgetView {
     render(): void;
     value_changed(): void;
-    update_mat_string(): void;
 }
