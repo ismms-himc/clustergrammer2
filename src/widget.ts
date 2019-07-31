@@ -14,7 +14,7 @@ import cgm_fun from 'clustergrammer-gl';
 import * as d3 from 'd3';
 
 console.log('********************************************')
-console.log('** clustergrammer2 frontend version 0.4.3 **')
+console.log('** clustergrammer2 frontend version 0.5.0 **')
 console.log('********************************************')
 console.log('working on traitlets for Voila')
 
@@ -58,7 +58,7 @@ function make_viz(args, cgm_model){
 
 var my_widget_callback = function(external_model){
 
-  console.log('my_widget_callback')
+  // console.log('my_widget_callback')
 
   var cgm = external_model.cgm;
   var params = cgm.params;
@@ -101,11 +101,14 @@ class ExampleView extends DOMWidgetView {
 
   value_changed() {
 
-    console.log('widget_model.value_changed')
-    console.log('--------------------------')
-    console.log(this)
+    // this can be used to update cgm on a value change to the widget_model
+    // e.g. reorder cgm based on value change to widget traitlet
+
+    // console.log('widget_model.value_changed')
+    // console.log('--------------------------')
+    // console.log(this)
     // this.el.textContent = this.model.get('value');
-    console.log('value', this.model.get('value'));
+    // console.log('value', this.model.get('value'));
 
     // // see https://stackoverflow.com/questions/55834241/ts2339-property-name-does-not-exist-on-type-object
     // console.log(this['cgm'])

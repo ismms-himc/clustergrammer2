@@ -32,7 +32,7 @@ clustergrammer2/clustergrammer_fun/make_viz.py
 clustergrammer2/clustergrammer_fun/normalize_fun.py
 clustergrammer2/clustergrammer_fun/proc_df_labels.py
 clustergrammer2/clustergrammer_fun/run_filter.py
-clustergrammer2/labextension/clustergrammer2-0.4.2.tgz
+clustergrammer2/labextension/clustergrammer2-0.5.0.tgz
 clustergrammer2/nbextension/.DS_Store
 clustergrammer2/nbextension/__init__.py
 clustergrammer2/nbextension/static/extension.js
@@ -40,6 +40,7 @@ clustergrammer2/nbextension/static/index.js
 clustergrammer2/nbextension/static/index.js.map
 clustergrammer2/tests/__init__.py
 clustergrammer2/tests/conftest.py
+clustergrammer2/tests/expected_values.py
 clustergrammer2/tests/test_example.py
 clustergrammer2/tests/test_nbextension_path.py
 docs/Makefile
@@ -57,10 +58,17 @@ docs/source/examples/index.rst
 docs/source/examples/introduction.nblink
 examples/.DS_Store
 examples/dashboard-experiment.ipynb
+examples/expected_columns.txt
+examples/expected_rows_all.txt
 examples/introduction_lab.ipynb
 examples/introduction_nb.html
 examples/introduction_nb.ipynb
 examples/rc_two_cats.txt
+examples/two_cats_categories.txt
+examples/two_cats_celllines.txt
+examples/two_cats_expected_gene_types.txt
+examples/two_cats_expected_rows.txt
+examples/two_cats_genders.txt
 examples/widget-dashboard.ipynb
 examples/.ipynb_checkpoints/Untitled-checkpoint.ipynb
 examples/.ipynb_checkpoints/dashboard-experiment-checkpoint.ipynb
