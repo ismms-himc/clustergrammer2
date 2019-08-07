@@ -30,8 +30,8 @@ For additional examples and tutorials please see:
 
 Single cell RNA-seq (scRNA-seq) is a powerful method to interrogate gene expression across thousands of single cells. This method produces thousands of measurements (single cells) across thousands of dimensions (genes). This notebook uses Clustergrammer2 to interactively explore an example dataset measuring the gene expression of 2,700 PBMCs obtained from [10X Genomics](https://www.10xgenomics.com/resources/datasets/). Bulk gene expression signatures of cell types from [CIBERSORT](https://cibersort.stanford.edu/) were used to obtain a tentative cell type for each cell. Please see the video tutorial above for more information.
 
-
-
+# Clustergrammer2 Roadmap
+Please see the project [Roadmap](https://github.com/ismms-himc/clustergrammer2/blob/master/ROADMAP.md) for information on where the project is heading.
 
 # Installation
 
@@ -123,4 +123,7 @@ After releasing a new version several things need to be checked to ensure proper
 
 ### Check Cloud Services
 - Check MyBinder
+
+# Contact
+For issues and concerns please use the [issue tracker](https://github.com/ismms-himc/clustergrammer2/issues) or [gitter](https://gitter.im/clustergrammer2) discussion room.
 - Check Kaggle (re-install clustergrammer2)
