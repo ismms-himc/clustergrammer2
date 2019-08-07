@@ -7,7 +7,7 @@
 
 Clustergrammer2 is an interactive heatmap Jupyter widget built using the [widget-ts-cookiecutter](https://github.com/jupyter-widgets/widget-ts-cookiecutter) library and the WebGL library [regl](https://github.com/regl-project/regl). Clustergrammer2 is built to help researchers interactively explore single cell data (e.g. scRNA-seq). Please see [Case Studies and Tutorials](https://clustergrammer.readthedocs.io/case_studies.html) for examples.
 
-# Running Clustergrammer2
+# Clustergrammer2 Examples
 
 ### Basic Example of Running Clustergrammer2 on MyBinder
 
