@@ -30,6 +30,7 @@ We are currently working on examples Jupyter notebooks using Clustergrammer2 (se
 * [Improve API](https://github.com/ismms-himc/clustergrammer2/issues/34)
 * [testing and continuous integration](https://github.com/ismms-himc/clustergrammer2/issues/30)
 * [Clear Old WebGL State](https://github.com/ismms-himc/clustergrammer2/issues/5)
+* [Dendrogram Slicing](https://github.com/ismms-himc/clustergrammer2/issues/49)
 * [Initial Ordering](https://github.com/ismms-himc/clustergrammer2/issues/1)
 
 ## Normal Priority
