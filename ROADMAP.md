@@ -26,7 +26,6 @@ We are currently working on examples Jupyter notebooks using Clustergrammer2 (se
 
 # Issues
 ## High Priority
-* [Jupyter Lab 1.0 Bug](https://github.com/ismms-himc/clustergrammer2/issues/48)
 * [Improve API](https://github.com/ismms-himc/clustergrammer2/issues/34)
 * [testing and continuous integration](https://github.com/ismms-himc/clustergrammer2/issues/30)
 * [Clear Old WebGL State](https://github.com/ismms-himc/clustergrammer2/issues/5)
