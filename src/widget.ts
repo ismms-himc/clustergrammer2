@@ -62,16 +62,35 @@ var my_widget_callback = function(external_model){
 
   var cgm = external_model.cgm;
   var params = cgm.params;
+  var inst_value;
+
   if (params.tooltip.tooltip_type === 'row-label'){
-    external_model.model.set('value', params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover.row.name));
+
+    // update row/column
+    ////////////////////////
+    inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover.row.name)
+    external_model.model.set('value', inst_value);
     external_model.touch();
+
   } else if (params.tooltip.tooltip_type === 'col-cat-0'){
+
+    // update category
+    ////////////////////////
     // params.int.mouseover[inst_axis].cats[mouseover_cat_index]
-    external_model.model.set('value', params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover['col'].cats[0]));
+    inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover['col'].cats[0])
+    external_model.model.set('value', inst_value);
     external_model.touch();
+
   } else {
-    external_model.model.set('value', String(null));
+
+    inst_value = params.tooltip.tooltip_type // 'other'
+
+    // update other
+    ////////////////////////
+    // external_model.model.set('value', String(null));
+    external_model.model.set('value', inst_value);
     external_model.touch();
+
   }
 }
 
