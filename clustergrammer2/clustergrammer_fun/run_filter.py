@@ -71,7 +71,7 @@ def grab_df_subset(df, keep_rows='all', keep_cols='all'):
   if keep_cols != 'all':
     df = df[keep_cols]
   if keep_rows != 'all':
-    df = df.ix[keep_rows]
+    df = df.loc[keep_rows]
   return df
 
 def get_sorted_rows(df, rank_type='sum'):
@@ -101,13 +101,13 @@ def filter_N_top(inst_rc, df, N_top, rank_type='sum'):
 
   keep_rows = rows_sorted[:N_top]
 
-  df['mat'] = df['mat'].ix[keep_rows]
+  df['mat'] = df['mat'].loc[keep_rows]
   if 'mat_up' in df:
-    df['mat_up'] = df['mat_up'].ix[keep_rows]
-    df['mat_dn'] = df['mat_dn'].ix[keep_rows]
+    df['mat_up'] = df['mat_up'].loc[keep_rows]
+    df['mat_dn'] = df['mat_dn'].loc[keep_rows]
 
   if 'mat_orig' in df:
-    df['mat_orig'] = df['mat_orig'].ix[keep_rows]
+    df['mat_orig'] = df['mat_orig'].loc[keep_rows]
 
   if inst_rc == 'col':
     for inst_type in df:

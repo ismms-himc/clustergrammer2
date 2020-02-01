@@ -87,11 +87,13 @@ class Network(object):
     load_data.load_data_to_net(self, inst_dat)
 
   def cluster(self, dist_type='cosine', run_clustering=True,
-                 dendro=True, views=['N_row_sum', 'N_row_var'],
+                 dendro=True, views=[],
                  linkage_type='average', sim_mat=False, filter_sim=0.1,
                  calc_cat_pval=False, run_enrichr=None, enrichrgram=None):
     '''
     The main function performs hierarchical clustering, optionally generates filtered views (e.g. row-filtered views), and generates the :``visualization_json``.
+
+    Used to set views equal to ['N_row_sum', 'N_row_var']
     '''
     initialize_net.viz(self)
 
@@ -719,7 +721,7 @@ class Network(object):
           new_cols.append(new_col)
       df_gbm.columns = new_cols
 
-      df_sig = df_gbm.ix[keep_genes]
+      df_sig = df_gbm.loc[keep_genes]
 
       if len(keep_genes) == 0 and verbose:
           print('found no informative dimensions')
@@ -737,8 +739,8 @@ class Network(object):
 
       common_rows = list(set(data_rows).intersection(keep_rows))
 
-      df_data = deepcopy(df_data_ini.ix[common_rows])
-      df_sig = deepcopy(df_sig_ini.ix[common_rows])
+      df_data = deepcopy(df_data_ini.loc[common_rows])
+      df_sig = deepcopy(df_sig_ini.loc[common_rows])
 
       # calculate sim_mat of df_data and df_sig
       cell_types = df_sig.columns.tolist()

@@ -72,7 +72,7 @@ def dist_matrix_lattice(names):
 
 
 def calc_median_dist_subset(dm, subset):
-  return np.median(dm[subset].ix[subset].values)
+  return np.median(dm[subset].loc[subset].values)
 
 def calc_hist_distances(dm, subset, inst_nodes):
   np.random.seed(100)
@@ -83,7 +83,7 @@ def calc_hist_distances(dm, subset, inst_nodes):
   median_dist = []
   for i in range(num_null):
     tmp = np.random.choice(inst_nodes, num_points, replace=False)
-    median_dist.append( np.median(dm[tmp].ix[tmp].values)  )
+    median_dist.append( np.median(dm[tmp].loc[tmp].values)  )
 
   tmp_dist = sorted(deepcopy(median_dist))
 
