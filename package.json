@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@jupyter-widgets/base": "^2",
-    "clustergrammer-gl": "0.11.1",
+    "clustergrammer-gl": "0.11.4",
     "d3": "^3.5.17"
   },
   "devDependencies": {
