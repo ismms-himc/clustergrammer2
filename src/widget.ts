@@ -64,77 +64,77 @@ var my_widget_callback = function(external_model){
   var params = cgm.params;
   var inst_value;
 
-  switch(params.tooltip.tooltip_type) {
-    case 'row-label':
+  // switch(params.tooltip.tooltip_type) {
+  //   case 'row-label':
 
-      // update row/column
-      ////////////////////////
-      inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover.row.name)
-      external_model.model.set('value', inst_value);
-      external_model.touch();
+  //     // update row/column
+  //     ////////////////////////
+  //     inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover.row.name)
+  //     external_model.model.set('value', inst_value);
+  //     external_model.touch();
 
-      break;
+  //     break;
 
-    case 'col-cat-0':
+  //   case 'col-cat-0':
 
-      // update category
-      ////////////////////////
-      // params.int.mouseover[inst_axis].cats[mouseover_cat_index]
-      inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover['col'].cats[0])
-      external_model.model.set('value', inst_value);
-      external_model.touch();
+  //     // update category
+  //     ////////////////////////
+  //     // params.int.mouseover[inst_axis].cats[mouseover_cat_index]
+  //     inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover['col'].cats[0])
+  //     external_model.model.set('value', inst_value);
+  //     external_model.touch();
 
-      break;
+  //     break;
 
-    case 'col-dendro':
+  //   case 'col-dendro':
 
-      inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.dendro.selected_clust_names)
-      external_model.model.set('value', inst_value);
-      external_model.touch();
+  //     inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.dendro.selected_clust_names)
+  //     external_model.model.set('value', inst_value);
+  //     external_model.touch();
 
-      break;
+  //     break;
 
-    default:
+  //   default:
 
-      inst_value = params.tooltip.tooltip_type + ' -> ' // 'other'
+  //     inst_value = params.tooltip.tooltip_type + ' -> ' // 'other'
 
-      // update other
-      ////////////////////////
-      // external_model.model.set('value', String(null));
-      external_model.model.set('value', inst_value);
-      external_model.touch();
+  //     // update other
+  //     ////////////////////////
+  //     // external_model.model.set('value', String(null));
+  //     external_model.model.set('value', inst_value);
+  //     external_model.touch();
 
-      break;
-  }
-
-  // if (params.tooltip.tooltip_type === 'row-label'){
-
-  //   // update row/column
-  //   ////////////////////////
-  //   inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover.row.name)
-  //   external_model.model.set('value', inst_value);
-  //   external_model.touch();
-
-  // } else if (params.tooltip.tooltip_type === 'col-cat-0'){
-
-  //   // update category
-  //   ////////////////////////
-  //   // params.int.mouseover[inst_axis].cats[mouseover_cat_index]
-  //   inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover['col'].cats[0])
-  //   external_model.model.set('value', inst_value);
-  //   external_model.touch();
-
-  // } else {
-
-  //   inst_value = params.tooltip.tooltip_type // 'other'
-
-  //   // update other
-  //   ////////////////////////
-  //   // external_model.model.set('value', String(null));
-  //   external_model.model.set('value', inst_value);
-  //   external_model.touch();
-
+  //     break;
   // }
+
+  if (params.tooltip.tooltip_type === 'row-label'){
+
+    // update row/column
+    ////////////////////////
+    inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover.row.name)
+    external_model.model.set('value', inst_value);
+    external_model.touch();
+
+  } else if (params.tooltip.tooltip_type === 'col-cat-0'){
+
+    // update category
+    ////////////////////////
+    // params.int.mouseover[inst_axis].cats[mouseover_cat_index]
+    inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover['col'].cats[0])
+    external_model.model.set('value', inst_value);
+    external_model.touch();
+
+  } else {
+
+    inst_value = params.tooltip.tooltip_type // 'other'
+
+    // update other
+    ////////////////////////
+    // external_model.model.set('value', String(null));
+    external_model.model.set('value', inst_value);
+    external_model.touch();
+
+  }
 
 }
 
