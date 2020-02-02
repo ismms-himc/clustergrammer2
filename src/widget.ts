@@ -16,7 +16,6 @@ import * as d3 from 'd3';
 console.log('********************************************')
 console.log('** clustergrammer2 frontend version 0.5.13 **')
 console.log('********************************************')
-console.log('working on traitlets for Voila')
 
 export
 class ExampleModel extends DOMWidgetModel {
@@ -64,48 +63,6 @@ var my_widget_callback = function(external_model){
   var params = cgm.params;
   var inst_value;
 
-  // switch(params.tooltip.tooltip_type) {
-  //   case 'row-label':
-
-  //     // update row/column
-  //     ////////////////////////
-  //     inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover.row.name)
-  //     external_model.model.set('value', inst_value);
-  //     external_model.touch();
-
-  //     break;
-
-  //   case 'col-cat-0':
-
-  //     // update category
-  //     ////////////////////////
-  //     // params.int.mouseover[inst_axis].cats[mouseover_cat_index]
-  //     inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover['col'].cats[0])
-  //     external_model.model.set('value', inst_value);
-  //     external_model.touch();
-
-  //     break;
-
-  //   case 'col-dendro':
-
-  //     inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.dendro.selected_clust_names)
-  //     external_model.model.set('value', inst_value);
-  //     external_model.touch();
-
-  //     break;
-
-  //   default:
-
-  //     inst_value = params.tooltip.tooltip_type + ' -> ' // 'other'
-
-  //     // update other
-  //     ////////////////////////
-  //     // external_model.model.set('value', String(null));
-  //     external_model.model.set('value', inst_value);
-  //     external_model.touch();
-
-  //     break;
-  // }
 
   if (params.tooltip.tooltip_type === 'row-label'){
 
@@ -124,13 +81,71 @@ var my_widget_callback = function(external_model){
     external_model.model.set('value', inst_value);
     external_model.touch();
 
-  } else if ('col-dendro') {
+  } else if (params.tooltip.tooltip_type === 'col-dendro') {
 
-      inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.dendro.selected_clust_names)
+
+      var selected_clust_names = params.dendro.selected_clust_names;
+      var tmp_index;
+      var real_index;
+      var all_labels = new Array();
+      var index_list = new Array();
+
+      // console.log(selected_clust_names)
+      // console.log(tmp_index)
+      // console.log(real_index)
+      // console.log(index_list)
+
+      // console.log('---------------------------------------------')
+      // console.log('checking all columns')
+      // console.log(params.labels.ordered_labels.cols)
+      // console.log('---------------------------------------------')
+
+      // Parse titles out of labels (if necessary)
+      var ini_all_labels = params.labels.ordered_labels.cols;
+      var all_labels = new Array();
+      for (let inst_label of ini_all_labels){
+        // console.log(inst_label)
+        if (inst_label.includes(': ')){
+          inst_label = inst_label.split(': ')[1];
+        }
+        all_labels.push(inst_label);
+      }
+
+      // console.log('---------------------------------------------')
+      // console.log('checking all_labels - after parsing')
+      // console.log(all_labels)
+      // console.log('---------------------------------------------')
+
+
+      // look up indexes in original dataframe
+      for (let inst_name of selected_clust_names) {
+
+        // console.log(inst_name)
+
+        // get index of label
+        tmp_index = all_labels.indexOf(inst_name)
+
+        // console.log(tmp_index)
+        // look up index in original dataframe
+        real_index = cgm.params.labels.ordered_labels.col_indices[tmp_index]
+        index_list.push(real_index);
+
+      }
+
+      // console.log('=============================================!!')
+      // console.log('checking index_list ')
+      // console.log(index_list)
+      // console.log('=============================================!!')
+
+      var index_list_string = String(index_list)
+
+      inst_value = params.tooltip.tooltip_type + ' -> ' + index_list_string
       external_model.model.set('value', inst_value);
       external_model.touch();
 
   } else {
+
+    console.log('OTHER')
 
     inst_value = params.tooltip.tooltip_type; // 'other'
 
