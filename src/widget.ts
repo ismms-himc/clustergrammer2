@@ -14,7 +14,7 @@ import cgm_fun from 'clustergrammer-gl';
 import * as d3 from 'd3';
 
 console.log('********************************************')
-console.log('** clustergrammer2 frontend version 0.5.12 **')
+console.log('** clustergrammer2 frontend version 0.5.13 **')
 console.log('********************************************')
 console.log('working on traitlets for Voila')
 
@@ -124,9 +124,15 @@ var my_widget_callback = function(external_model){
     external_model.model.set('value', inst_value);
     external_model.touch();
 
+  } else if ('col-dendro') {
+
+      inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.dendro.selected_clust_names)
+      external_model.model.set('value', inst_value);
+      external_model.touch();
+
   } else {
 
-    inst_value = params.tooltip.tooltip_type // 'other'
+    inst_value = params.tooltip.tooltip_type; // 'other'
 
     // update other
     ////////////////////////
