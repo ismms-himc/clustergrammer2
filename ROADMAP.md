@@ -34,7 +34,6 @@ We are currently working on examples Jupyter notebooks using Clustergrammer2 (se
 * [Initial Ordering](https://github.com/ismms-himc/clustergrammer2/issues/1)
 
 ## Normal Priority
-* [Save and Load Pre-clustered Views](https://github.com/ismms-himc/clustergrammer2/issues/40)
 * [Zarr read/write](https://github.com/ismms-himc/clustergrammer2/issues/38)
 * [Local Enrichment Analysis](https://github.com/ismms-himc/clustergrammer2/issues/10)
 
