@@ -1,13 +1,14 @@
 # Clustergrammer2 Roadmap
 
-Clustergrammer2 is a Jupyter Widget that enables researchers to interactively explore and analyze high-dimensional single-cell data. Our goals are to:
+Clustergrammer2 is a Jupyter Widget that enables researchers to interactively explore and analyze high-dimensional single-cell data. Our goals are to improve and enhance:
 
-* improve the interactive visualization
-* add and improve additional data analysis methods (e.g. gene signature methods)
+* the interactive visualization experience
+* the data analysis experience
+* the usage, sharing and deployment experience
 
-If you have feedback or concerns please submit an issue on GitHub.
+Documentation for the Clustergrammer projects can be found at [https://clustergrammer.readthedocs.io](https://clustergrammer.readthedocs.io). Please send feedback or concerns via the [Gitter chat room](https://gitter.im/clustergrammer2) and or the [issue tracker](https://github.com/ismms-himc/clustergrammer2/issues).
 
-Last updated: July 9, 2019
+Last updated: February 4th, 2020
 
 # Interactive Visualization High-Dimensional Single Cell Data
 Clustergrammer2 allows users to interactively explore single-cell datasets consisting of millions of data points (e.g. thousands of single cells in thousands of dimensions). Clustergrammer2 uses the JavaScript library [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl) to generate the interactive heatmaps. Clustergrammer-GL is built using the WebGL library [regl](https://github.com/regl-project/regl). Development of the interactive WebGL visualizations are primarily done on the [Clustergrammer-GL](https://github.com/ismms-himc/clustergrammer-gl) repo.
