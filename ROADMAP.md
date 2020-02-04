@@ -4,7 +4,7 @@ Clustergrammer2 is a Jupyter Widget that enables researchers to interactively ex
 
 * the interactive visualization experience
 * the data analysis experience
-* the usage, sharing and deployment experience
+* the usage, sharing, and deployment experience
 
 Documentation for the Clustergrammer projects can be found at [https://clustergrammer.readthedocs.io](https://clustergrammer.readthedocs.io). Please send feedback or concerns via the [Gitter chat room](https://gitter.im/clustergrammer2) and or the [issue tracker](https://github.com/ismms-himc/clustergrammer2/issues).
 
