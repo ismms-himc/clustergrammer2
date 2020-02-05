@@ -96,7 +96,7 @@ These instructions are based on the release instructions from the [jupyter-widge
 
 ### Bundling the Python Package
 
-Next, bundle the python package using
+Next, bundle the python package using (optinally delete the old versions under `dist`)
 
 ```bash
 python setup.py sdist bdist_wheel
