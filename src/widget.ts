@@ -13,9 +13,9 @@ import cgm_fun from 'clustergrammer-gl';
 
 import * as d3 from 'd3';
 
-console.log('********************************************')
-console.log('** clustergrammer2 frontend version 0.5.18 **')
-console.log('********************************************')
+console.log('*********************************************')
+console.log('** clustergrammer2 frontend version 0.5.19 **')
+console.log('*********************************************')
 
 export
 class ExampleModel extends DOMWidgetModel {
@@ -74,10 +74,19 @@ var my_widget_callback = function(external_model){
 
   } else if (params.tooltip.tooltip_type === 'col-cat-0'){
 
-    // update category
+    // update second category
     ////////////////////////
     // params.int.mouseover[inst_axis].cats[mouseover_cat_index]
     inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover['col'].cats[0])
+    external_model.model.set('value', inst_value);
+    external_model.touch();
+
+  } else if (params.tooltip.tooltip_type === 'col-cat-1'){
+
+    // update first category
+    ////////////////////////
+    // params.int.mouseover[inst_axis].cats[mouseover_cat_index]
+    inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover['col'].cats[1])
     external_model.model.set('value', inst_value);
     external_model.touch();
 
