@@ -118,7 +118,7 @@ After releasing a new version several things need to be checked to ensure proper
 - https://pypi.org/project/clustergrammer2/
 
 ### Check HTML Embedding
-- Run `jupyter nbconvert --to html introduction_nb.ipynb` (from the examples directory) to generate a static HTML and check that the latest widget is working (uses unpkg.com)
+- Run `jupyter nbconvert --to html introduction_nb.ipynb` (from the examples directory) to generate a static HTML and check that the latest widget is working (uses unpkg.com, like https://unpkg.com/clustergrammer2@0.5.18/dist/index.js)
 - Check NBViewer using link to notebook on GitHub (e.g. https://nbviewer.jupyter.org/github/ismms-himc/clustergrammer2/blob/master/examples/introduction_nb.ipynb?flush_cache=true). Make sure to use the querystring `flush_cache=True` in the URL to ensure that NBVIewer re-runs nbconvert.
 
 ### Check Cloud Services
