@@ -5,7 +5,15 @@ def viz_json(net, dendro=True, links=False):
 
   all_dist = calc_clust.group_cutoffs()
 
+  # linkage information
+  net.viz['linkage'] = {}
+  net.viz['linkage']['row'] = net.dat['node_info']['row']['Y'].tolist()
+  net.viz['linkage']['col'] = net.dat['node_info']['row']['Y'].tolist()
+
+  # node information
   for inst_rc in net.dat['nodes']:
+
+    print(net.dat.keys())
 
     inst_keys = net.dat['node_info'][inst_rc]
     all_cats = [x for x in inst_keys if 'cat-' in x]

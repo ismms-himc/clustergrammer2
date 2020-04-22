@@ -264,6 +264,8 @@ def post_request(input_genes, meta=''):
   inst_dict = json.loads( post_response.text )
   userListId = str(inst_dict['userListId'])
 
+  # print(userListId)
+
   # return the userListId that is needed to reference the list later
   return userListId
 

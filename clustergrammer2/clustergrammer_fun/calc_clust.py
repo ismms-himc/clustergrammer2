@@ -22,7 +22,7 @@ def cluster_row_and_col(net, dist_type='cosine', linkage_type='average',
 
     # cluster
     if run_clustering is True:
-      node_info['clust'], node_info['group'] = \
+      node_info['clust'], node_info['group'], node_info['Y'] = \
           clust_and_group(net, dm[inst_rc], linkage_type=linkage_type)
     else:
       dendro = False
@@ -74,7 +74,7 @@ def clust_and_group(net, inst_dm, linkage_type='average'):
     groups[inst_key] = hier.fcluster(Y, inst_dist * inst_dm.max(), 'distance')
     groups[inst_key] = groups[inst_key].tolist()
 
-  return inst_clust_order, groups
+  return inst_clust_order, groups, Y
 
 def sort_rank_nodes(net, rowcol, rank_type):
   import numpy as np
