@@ -13,8 +13,6 @@ def viz_json(net, dendro=True, links=False):
   # node information
   for inst_rc in net.dat['nodes']:
 
-    print(net.dat.keys())
-
     inst_keys = net.dat['node_info'][inst_rc]
     all_cats = [x for x in inst_keys if 'cat-' in x]
 
