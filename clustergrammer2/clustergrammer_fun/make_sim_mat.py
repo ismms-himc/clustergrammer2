@@ -68,7 +68,7 @@ def adjust_filter_sim(inst_dm, filter_sim, keep_top=20000):
 
 
     inst_series = pd.Series(val_vect)
-    inst_series.sort(ascending=False)
+    inst_series.sort_values(ascending=False)
 
     sort_values = inst_series.values
 

@@ -1,6 +1,6 @@
 def make_clust(net, dist_type='cosine', run_clustering=True, dendro=True,
                           requested_views=['pct_row_sum', 'N_row_sum'],
-                          linkage_type='average', sim_mat=False, filter_sim=0.1,
+                          linkage_type='average', sim_mat=False, filter_sim=0.0,
                           calc_cat_pval=False, sim_mat_views=['N_row_sum'],
                           run_enrichr=None, enrichrgram=None):
   '''

@@ -88,7 +88,7 @@ class Network(object):
 
   def cluster(self, dist_type='cosine', run_clustering=True,
                  dendro=True, views=[],
-                 linkage_type='average', sim_mat=False, filter_sim=0.1,
+                 linkage_type='average', sim_mat=False, filter_sim=0.0,
                  calc_cat_pval=False, run_enrichr=None, enrichrgram=None):
     '''
     The main function performs hierarchical clustering, optionally generates filtered views (e.g. row-filtered views), and generates the :``visualization_json``.
@@ -109,7 +109,7 @@ class Network(object):
 
   def make_clust(self, dist_type='cosine', run_clustering=True,
                  dendro=True, views=['N_row_sum', 'N_row_var'],
-                 linkage_type='average', sim_mat=False, filter_sim=0.1,
+                 linkage_type='average', sim_mat=False, filter_sim=0.0,
                  calc_cat_pval=False, run_enrichr=None, enrichrgram=None):
     '''
     ... Will be deprecated, renaming method cluster ...

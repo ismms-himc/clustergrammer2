@@ -117,7 +117,7 @@ def clust_from_response(response_list):
   # sort and normalize the scores
   for score_type in score_types:
     scores[score_type] = scores[score_type]/scores[score_type].max()
-    scores[score_type].sort(ascending=False)
+    scores[score_type].sort_values(ascending=False)
 
   number_of_enriched_terms = len(scores['combined_score'])
 
