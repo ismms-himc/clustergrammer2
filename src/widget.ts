@@ -177,7 +177,7 @@ class ExampleView extends DOMWidgetView {
       .attr('id', this.cid)
       .style('width', '900px')
       .style('height', '1035px')
-      .style('border', '2px solid #eee');
+      // .style('border', '2px solid #eee')
 
     // define arguments object
     var args = {
