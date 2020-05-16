@@ -10,35 +10,35 @@ def cluster_row_and_col(net, dist_type='cosine', linkage_type='average',
   from . import categories, make_viz, cat_pval
 
   dm = {}
-  for inst_rc in ['row', 'col']:
+  for axis in ['row', 'col']:
 
     tmp_mat = deepcopy(net.dat['mat'])
-    dm[inst_rc] = calc_distance_matrix(tmp_mat, inst_rc, dist_type)
+    dm[axis] = calc_distance_matrix(tmp_mat, axis, dist_type)
 
     # save directly to dat structure
-    node_info = net.dat['node_info'][inst_rc]
+    node_info = net.dat['node_info'][axis]
 
-    node_info['ini'] = list(range( len(net.dat['nodes'][inst_rc]), -1, -1))
+    node_info['ini'] = list(range( len(net.dat['nodes'][axis]), -1, -1))
 
     # cluster
     if run_clustering is True:
       node_info['clust'], node_info['group'], node_info['Y'] = \
-          clust_and_group(net, dm[inst_rc], linkage_type=linkage_type)
+          clust_and_group(net, dm[axis], linkage_type=linkage_type)
     else:
       dendro = False
       node_info['clust'] = node_info['ini']
 
     # sorting
     if run_rank is True:
-      node_info['rank'] = sort_rank_nodes(net, inst_rc, 'sum')
-      node_info['rankvar'] = sort_rank_nodes(net, inst_rc, 'var')
+      node_info['rank'] = sort_rank_nodes(net, axis, 'sum')
+      node_info['rankvar'] = sort_rank_nodes(net, axis, 'var')
     else:
       node_info['rank'] = node_info['ini']
       node_info['rankvar'] = node_info['ini']
 
     ##################################
     if ignore_cat is False:
-      categories.calc_cat_clust_order(net, inst_rc)
+      categories.calc_cat_clust_order(net, axis)
 
   if calc_cat_pval is True:
     cat_pval.main(net)
@@ -48,13 +48,13 @@ def cluster_row_and_col(net, dist_type='cosine', linkage_type='average',
 
   return dm
 
-def calc_distance_matrix(tmp_mat, inst_rc, dist_type='cosine'):
+def calc_distance_matrix(tmp_mat, axis, dist_type='cosine'):
   from scipy.spatial.distance import pdist
   import numpy as np
 
-  if inst_rc == 'row':
+  if axis == 'row':
     inst_dm = pdist(tmp_mat, metric=dist_type)
-  elif inst_rc == 'col':
+  elif axis == 'col':
     inst_dm = pdist(tmp_mat.transpose(), metric=dist_type)
 
   inst_dm[inst_dm < 0] = float(0)

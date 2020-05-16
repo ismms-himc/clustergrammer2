@@ -215,6 +215,7 @@ class Network(object):
     method passes the visualization JSON to the instantiated widget, which is
     returned and visualized on the front-end.
     '''
+
     if hasattr(self, 'widget_class') == True:
 
       # run clustering if necessary
@@ -274,36 +275,60 @@ class Network(object):
     '''
     return export_data.write_matrix_to_tsv(self, filename, df)
 
-  def filter_sum(self, inst_rc, threshold, take_abs=True):
+  def filter_sum(self, threshold, take_abs=True, axis=None, inst_rc=None):
     '''
     Filter a network's rows or columns based on the sum across rows or columns.
     '''
+
+    if axis is None:
+      axis = inst_rc
+      print('warning inst_rc argument will be deprecated, please use axis')
+
+      if inst_rc is None:
+        print('please provide axis argument')
+
     inst_df = self.dat_to_df()
-    if inst_rc == 'row':
+    if axis == 'row':
       inst_df = run_filter.df_filter_row_sum(inst_df, threshold, take_abs)
-    elif inst_rc == 'col':
+    elif axis == 'col':
       inst_df = run_filter.df_filter_col_sum(inst_df, threshold, take_abs)
     self.df_to_dat(inst_df)
 
-  def filter_N_top(self, inst_rc, N_top, rank_type='sum'):
+  def filter_N_top(self, N_top, rank_type='sum', inst_rc=None, axis=None):
     '''
     Filter the matrix rows or columns based on sum/variance, and only keep the top
     N.
     '''
+
+    if axis is None:
+      axis = inst_rc
+      print('warning inst_rc argument will be deprecated, please use axis')
+
+      if inst_rc is None:
+        print('please provide axis argument')
+
     inst_df = self.dat_to_df()
 
     inst_df = run_filter.filter_N_top(inst_rc, inst_df, N_top, rank_type)
 
     self.df_to_dat(inst_df)
 
-  def filter_threshold(self, inst_rc, threshold, num_occur=1):
+  def filter_threshold(self, threshold, num_occur=1, inst_rc=None, axis=None):
     '''
     Filter the matrix rows or columns based on num_occur values being above a
     threshold (in absolute value).
     '''
+
+    if axis is None:
+      axis = inst_rc
+      print('warning inst_rc argument will be deprecated, please use axis')
+
+      if inst_rc is None:
+        print('please provide axis argument')
+
     inst_df = self.dat_to_df()
 
-    inst_df = run_filter.filter_threshold(inst_df, inst_rc, threshold,
+    inst_df = run_filter.filter_threshold(inst_df, axis, threshold,
       num_occur)
 
     self.df_to_dat(inst_df)
@@ -1094,6 +1119,17 @@ class Network(object):
 
           inst_color = cat_colors[inst_ct]
           self.set_cat_color(axis=axis, cat_index=cat_index, cat_name=cat_name, inst_color=inst_color)
+
+  def manual_category(self, col=None, row=None):
+    '''
+    This method is used to tell Clustergrammer2 that the user wants to define
+    a manual category interactively using the dendrogram.
+    '''
+
+    self.dat['manual_category'] = {}
+
+    self.dat['manual_category']['col'] = col
+    self.dat['manual_category']['row'] = row
 
   @staticmethod
   def umi_norm(df):
