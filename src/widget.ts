@@ -193,6 +193,9 @@ class ExampleView extends DOMWidgetView {
 
     this.model.on('change:value', this.value_changed, this);
 
+    // Jupyter.keyboard_manager.register_events(document.getElementById("d3-tip_view28"))
+
+
 
   }
 

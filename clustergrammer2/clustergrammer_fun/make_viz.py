@@ -10,6 +10,11 @@ def viz_json(net, dendro=True, links=False):
   net.viz['linkage']['row'] = net.dat['node_info']['row']['Y'].tolist()
   net.viz['linkage']['col'] = net.dat['node_info']['row']['Y'].tolist()
 
+  # print('HERE!!!!!!!!!!!!!!!!!!!!!!!!')
+  # if 'manual_category' in net.dat:
+  #   print('adding manual_category to viz')
+  #   net.viz['manual_category'] = net.dat['manual_category']
+
   # node information
   for inst_rc in net.dat['nodes']:
 
