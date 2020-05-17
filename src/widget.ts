@@ -14,7 +14,7 @@ import cgm_fun from 'clustergrammer-gl';
 import * as d3 from 'd3';
 
 console.log('*********************************************')
-console.log('** clustergrammer2 frontend version 0.5.23 **')
+console.log('** clustergrammer2 frontend version 0.6.0 **')
 console.log('*********************************************')
 
 export
@@ -57,7 +57,7 @@ function make_viz(args, cgm_model){
 
 var my_widget_callback = function(external_model){
 
-  // console.log('my_widget_callback')
+  console.log('my_widget_callback!!!!!!!!!!!!!!!!!!!1')
 
   var cgm = external_model.cgm;
   var params = cgm.params;
@@ -68,7 +68,9 @@ var my_widget_callback = function(external_model){
 
     // update row/column
     ////////////////////////
-    inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover.row.name)
+    inst_value = params.tooltip.tooltip_type + ' -> ' +
+                 String(params.int.mouseover.row.name)
+
     external_model.model.set('value', inst_value);
     external_model.touch();
 
@@ -77,7 +79,9 @@ var my_widget_callback = function(external_model){
     // update second category
     ////////////////////////
     // params.int.mouseover[inst_axis].cats[mouseover_cat_index]
-    inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover['col'].cats[0])
+    inst_value = params.tooltip.tooltip_type + ' -> ' +
+                 String(params.int.mouseover['col'].cats[0])
+
     external_model.model.set('value', inst_value);
     external_model.touch();
 
@@ -86,28 +90,19 @@ var my_widget_callback = function(external_model){
     // update first category
     ////////////////////////
     // params.int.mouseover[inst_axis].cats[mouseover_cat_index]
-    inst_value = params.tooltip.tooltip_type + ' -> ' + String(params.int.mouseover['col'].cats[1])
+    inst_value = params.tooltip.tooltip_type + ' -> ' +
+                 String(params.int.mouseover['col'].cats[1])
+
     external_model.model.set('value', inst_value);
     external_model.touch();
 
   } else if (params.tooltip.tooltip_type === 'col-dendro') {
-
 
       var selected_clust_names = params.dendro.selected_clust_names;
       var tmp_index;
       var real_index;
       var all_labels = new Array();
       var index_list = new Array();
-
-      // console.log(selected_clust_names)
-      // console.log(tmp_index)
-      // console.log(real_index)
-      // console.log(index_list)
-
-      // console.log('---------------------------------------------')
-      // console.log('checking all columns')
-      // console.log(params.labels.ordered_labels.cols)
-      // console.log('---------------------------------------------')
 
       // Parse titles out of labels (if necessary)
       var ini_all_labels = params.labels.ordered_labels.cols;
@@ -120,12 +115,6 @@ var my_widget_callback = function(external_model){
         all_labels.push(inst_label);
       }
 
-      // console.log('---------------------------------------------')
-      // console.log('checking all_labels - after parsing')
-      // console.log(all_labels)
-      // console.log('---------------------------------------------')
-
-
       // look up indexes in original dataframe
       for (let inst_name of selected_clust_names) {
 
@@ -134,17 +123,12 @@ var my_widget_callback = function(external_model){
         // get index of label
         tmp_index = all_labels.indexOf(inst_name)
 
-        // console.log(tmp_index)
         // look up index in original dataframe
         real_index = cgm.params.labels.ordered_labels.col_indices[tmp_index]
         index_list.push(real_index);
 
       }
 
-      // console.log('=============================================!!')
-      // console.log('checking index_list ')
-      // console.log(index_list)
-      // console.log('=============================================!!')
 
       var index_list_string = String(index_list)
 
@@ -192,10 +176,6 @@ class ExampleView extends DOMWidgetView {
     setTimeout(make_viz, 10, args, this);
 
     this.model.on('change:value', this.value_changed, this);
-
-    // Jupyter.keyboard_manager.register_events(document.getElementById("d3-tip_view28"))
-
-
 
   }
 
