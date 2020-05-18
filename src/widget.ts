@@ -136,17 +136,29 @@ var my_widget_callback = function(external_model){
       external_model.model.set('value', inst_value);
       external_model.touch();
 
-  } else {
+  }
+  // else {
 
-    console.log('OTHER')
+  //   console.log('OTHER')
 
-    inst_value = params.tooltip.tooltip_type; // 'other'
+  //   inst_value = params.tooltip.tooltip_type; // 'other'
 
-    // update other
-    ////////////////////////
-    // external_model.model.set('value', String(null));
-    external_model.model.set('value', inst_value);
+  //   // update other
+  //   ////////////////////////
+  //   // external_model.model.set('value', String(null));
+  //   external_model.model.set('value', inst_value);
+  //   external_model.touch();
+
+  // }
+
+  if (params.int.manual_update_cats){
+    console.log('manual_update_cats')
+
+    let json_string = JSON.stringify(params.cat_data.manual_cat_dict)
+
+    external_model.model.set('value', json_string);
     external_model.touch();
+
 
   }
 
