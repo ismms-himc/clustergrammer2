@@ -8,7 +8,7 @@ def viz_json(net, dendro=True, links=False):
   # linkage information
   net.viz['linkage'] = {}
   net.viz['linkage']['row'] = net.dat['node_info']['row']['Y'].tolist()
-  net.viz['linkage']['col'] = net.dat['node_info']['row']['Y'].tolist()
+  net.viz['linkage']['col'] = net.dat['node_info']['col']['Y'].tolist()
 
   # print('HERE!!!!!!!!!!!!!!!!!!!!!!!!')
   # if 'manual_category' in net.dat:

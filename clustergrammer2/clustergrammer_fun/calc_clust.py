@@ -69,9 +69,13 @@ def clust_and_group(net, inst_dm, linkage_type='average'):
   all_dist = group_cutoffs()
 
   groups = {}
+  # print('--------------------')
+  # print(inst_dm.max())
   for inst_dist in all_dist:
     inst_key = str(inst_dist).replace('.', '')
     groups[inst_key] = hier.fcluster(Y, inst_dist * inst_dm.max(), 'distance')
+
+    # print(inst_dist * inst_dm.max())
     groups[inst_key] = groups[inst_key].tolist()
 
   return inst_clust_order, groups, Y

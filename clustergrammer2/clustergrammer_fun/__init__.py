@@ -222,9 +222,9 @@ class Network(object):
       if len(self.viz['row_nodes']) == 0:
         self.cluster()
 
-        print('HERE!!!!!!!!!!!!!!!!!!!!!!!!')
+        # print('HERE!!!!!!!!!!!!!!!!!!!!!!!!')
         if 'manual_category' in self.dat:
-          print('adding manual_category to viz')
+          # print('adding manual_category to viz')
           self.viz['manual_category'] = self.dat['manual_category']
 
       self.widget_instance = self.widget_class(network = self.export_viz_to_widget(which_viz))
