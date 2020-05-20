@@ -162,8 +162,45 @@ var my_widget_callback = function(external_model){
 
 
   if (params.int.manual_update_cats){
+
+    let export_dict = {}
+
+      // transfer manual categories
+    if ('col' in params.cat_data.manual_cat_dict){
+      export_dict['col'] = params.cat_data.manual_cat_dict.col
+      export_dict['col_cat_colors'] = params.cat_colors.col['cat-0']
+    }
+
+    if ('row' in params.cat_data.manual_cat_dict){
+      export_dict['row'] = params.cat_data.manual_cat_dict.row
+      export_dict['row_cat_colors'] = params.cat_colors.row['cat-0']
+    }
+
+
+    // Object.keys(cgm.params.cat_colors.col['cat-0'])
+
+    // let axes = ['row', 'col']
+    // let cat_colors = {}
+    // let ini_cat_colors = {}
+    // let ini_cats
+
+
+    // if (axis in params.cat_colors){
+    //   ini_cat_colors[axis] = params.cat_colors[axis]['cat-0']
+    // }
+
+    // ini_cats = Object.keys(ini_cat_colors)
+
+    // ini_cats.forEach(x => {
+    //   cat_colors[x.split(': ')[1]] = ini_cat_colors[x]
+    // })
+
+    // // cleaned
+    // console.log('cleaned cat colors')
+    // console.log(cat_colors)
+
     console.log('>>>>>>>>>>>>>>> manual_update_cats!!!!!!')
-    let json_string = JSON.stringify(params.cat_data.manual_cat_dict)
+    let json_string = JSON.stringify(export_dict)
     external_model.model.set('custom_cat', json_string);
     external_model.touch();
   }

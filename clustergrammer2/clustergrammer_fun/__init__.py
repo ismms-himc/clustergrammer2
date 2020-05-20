@@ -22,6 +22,8 @@ from sklearn.metrics import confusion_matrix
 import random
 from itertools import combinations
 import matplotlib.pyplot as plt
+import json
+
 
 class Network(object):
   '''
@@ -1135,6 +1137,28 @@ class Network(object):
 
     self.dat['manual_category']['col'] = col
     self.dat['manual_category']['row'] = row
+
+  def get_manual_category(self, axis, cat_title):
+    try:
+      export_dict = {}
+      try:
+        export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.custom_cat)[axis][cat_title])
+      except:
+        print('unable to load category, please check title')
+      ini_new_colors = json.loads(self.widget_instance.custom_cat)[axis + '_cat_colors']
+
+      # drop title from category colors
+      export_dict['new_colors'] = {}
+      for inst_cat in ini_new_colors:
+        if (': ' in inst_cat):
+          export_dict['new_colors'][inst_cat.split(': ')[1]] = ini_new_colors[inst_cat]
+        else:
+          export_dict['new_colors'][inst_cat] = ini_new_colors[inst_cat]
+
+      return export_dict
+    except:
+        print('please set custom category')
+
 
   @staticmethod
   def umi_norm(df):
