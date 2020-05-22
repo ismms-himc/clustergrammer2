@@ -34,7 +34,7 @@ def make_clust(net, dist_type='cosine', run_clustering=True, dendro=True,
   inst_dm = calc_clust.cluster_row_and_col(net, dist_type=dist_type,
                                 linkage_type=linkage_type,
                                 run_clustering=run_clustering,
-                                dendro=dendro, ignore_cat=False,
+                                dendro=dendro,
                                 calc_cat_pval=calc_cat_pval)
 
   all_views = []
