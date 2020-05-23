@@ -24,6 +24,20 @@ def main(self, widget=None):
     found_cats = True
     inst_cat_colors = self.viz['cat_colors']
 
+  # initialize matrix colors
+  ###########################
+  has_matrix_colors = False
+  if hasattr(self, 'viz'):
+    if 'matrix_colors' in self.viz:
+      has_matrix_colors = True
+
+  if has_matrix_colors:
+    matrix_colors = self.viz['matrix_colors']
+  else:
+    matrix_colors = {}
+    matrix_colors['pos'] = 'red'
+    matrix_colors['neg'] = 'blue'
+
   # add widget if necessary
   if widget != None:
     self.widget_class = widget
@@ -43,6 +57,8 @@ def main(self, widget=None):
     # print('yes persistent_cat')
     self.viz['cat_colors'] = inst_cat_colors
 
+  self.viz['matrix_colors'] = matrix_colors
+
   self.sim = {}
 
 
@@ -50,6 +66,9 @@ def viz(self, reset_cat_colors=False):
 
   # keep track of old cat_colors
   old_cat_colors = self.viz['cat_colors']
+
+  if 'matrix_colors' in self.viz:
+    matrix_colors = self.viz['matrix_colors']
 
   self.viz = {}
   self.viz['row_nodes'] = []
@@ -63,3 +82,5 @@ def viz(self, reset_cat_colors=False):
     self.viz['cat_colors']['col'] = {}
   else:
     self.viz['cat_colors'] = old_cat_colors
+
+  self.viz['matrix_colors'] = matrix_colors

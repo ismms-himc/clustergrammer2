@@ -174,6 +174,12 @@ class Network(object):
     '''
     data_formats.df_to_dat(self, df, define_cat_colors)
 
+  def set_matrix_colors(self, pos='red', neg='blue'):
+
+    self.viz['matrix_colors'] = {}
+    self.viz['matrix_colors']['pos'] = pos
+    self.viz['matrix_colors']['neg'] = neg
+
   def set_cat_color(self, axis, cat_index, cat_name, inst_color):
 
     if axis == 0:
