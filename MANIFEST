@@ -32,7 +32,7 @@ clustergrammer2/clustergrammer_fun/make_viz.py
 clustergrammer2/clustergrammer_fun/normalize_fun.py
 clustergrammer2/clustergrammer_fun/proc_df_labels.py
 clustergrammer2/clustergrammer_fun/run_filter.py
-clustergrammer2/labextension/clustergrammer2-0.6.0.tgz
+clustergrammer2/labextension/clustergrammer2-0.7.0.tgz
 clustergrammer2/nbextension/.DS_Store
 clustergrammer2/nbextension/__init__.py
 clustergrammer2/nbextension/static/extension.js
@@ -57,6 +57,7 @@ docs/source/_static/helper.js
 docs/source/examples/index.rst
 docs/source/examples/introduction.nblink
 examples/.DS_Store
+examples/Papermill.ipynb
 examples/dashboard-experiment.ipynb
 examples/enrichr_testing.ipynb
 examples/expected_columns.txt
@@ -72,6 +73,7 @@ examples/two_cats_expected_gene_types.txt
 examples/two_cats_expected_rows.txt
 examples/two_cats_genders.txt
 examples/widget-dashboard.ipynb
+examples/.ipynb_checkpoints/Papermill-checkpoint.ipynb
 examples/.ipynb_checkpoints/dashboard-experiment-checkpoint.ipynb
 examples/.ipynb_checkpoints/enrichr_testing-checkpoint.ipynb
 examples/.ipynb_checkpoints/introduction_lab-checkpoint.ipynb

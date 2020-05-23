@@ -9,4 +9,4 @@ Information about the frontend package of the widgets.
 """
 
 module_name = "clustergrammer2"
-module_version = "~0.6.0"
+module_version = "~0.7.0"
