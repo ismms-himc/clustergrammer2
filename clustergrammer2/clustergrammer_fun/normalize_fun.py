@@ -15,7 +15,7 @@ def run_norm(net, df=None, norm_type='zscore', axis='row', keep_orig=False):
     df = net.dat_to_df()
 
   if norm_type == 'zscore':
-    df = zscore_df(df, axis, keep_orig)
+    df, ser_mean, ser_std = zscore_df(df, axis, keep_orig)
 
   if norm_type == 'qn':
     df = qn_df(df, axis, keep_orig)
@@ -131,6 +131,7 @@ def zscore_df(df, axis='row', keep_orig=False):
   df_z = {}
 
   for mat_type in df:
+
     if keep_orig and mat_type == 'mat':
       mat_orig = deepcopy(df[mat_type])
 
@@ -139,7 +140,10 @@ def zscore_df(df, axis='row', keep_orig=False):
     if axis == 'row':
       inst_df = inst_df.transpose()
 
-    df_z[mat_type] = (inst_df - inst_df.mean())/inst_df.std()
+    ser_mean = inst_df.mean()
+    ser_std = inst_df.std()
+
+    df_z[mat_type] = (inst_df - ser_mean)/ser_std
 
     if axis == 'row':
       df_z[mat_type] = df_z[mat_type].transpose()
@@ -147,4 +151,4 @@ def zscore_df(df, axis='row', keep_orig=False):
   if keep_orig:
     df_z['mat_orig'] = mat_orig
 
-  return df_z
+  return df_z, ser_mean, ser_std

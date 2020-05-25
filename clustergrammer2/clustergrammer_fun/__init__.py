@@ -230,10 +230,14 @@ class Network(object):
       if len(self.viz['row_nodes']) == 0:
         self.cluster()
 
-        # print('HERE!!!!!!!!!!!!!!!!!!!!!!!!')
+        # add manual_category to viz json
         if 'manual_category' in self.dat:
-          # print('adding manual_category to viz')
           self.viz['manual_category'] = self.dat['manual_category']
+
+        # add pre-z-score data to viz
+        if 'pre-zscore' in self.dat:
+          pass
+          # self.viz['pre-zscore'] = self.dat['pre-zscore']
 
       self.widget_instance = self.widget_class(network = self.export_viz_to_widget(which_viz))
 
