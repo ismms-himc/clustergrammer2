@@ -235,9 +235,8 @@ class Network(object):
           self.viz['manual_category'] = self.dat['manual_category']
 
         # add pre-z-score data to viz
-        if 'pre-zscore' in self.dat:
-          pass
-          # self.viz['pre-zscore'] = self.dat['pre-zscore']
+        if 'pre_zscore' in self.dat:
+          self.viz['pre_zscore'] = self.dat['pre_zscore']
 
       self.widget_instance = self.widget_class(network = self.export_viz_to_widget(which_viz))
 

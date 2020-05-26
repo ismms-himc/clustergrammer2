@@ -17,10 +17,19 @@ def run_norm(net, df=None, norm_type='zscore', axis='row', keep_orig=False):
   if norm_type == 'zscore':
     df, ser_mean, ser_std = zscore_df(df, axis, keep_orig)
 
+    net.dat['pre_zscore'] = {}
+    net.dat['pre_zscore']['mean'] = ser_mean.values.tolist()
+    net.dat['pre_zscore']['std'] = ser_std.values.tolist()
+
   if norm_type == 'qn':
     df = qn_df(df, axis, keep_orig)
 
   net.df_to_dat(df)
+
+  # if norm_type == 'zscore' and axis == 'row':
+  #   net.dat['pre_zscore'] = {}
+  #   net.dat['pre_zscore']['mean'] = ser_mean
+  #   net.dat['pre_zscore']['std'] = ser_std
 
 def qn_df(df, axis='row', keep_orig=False):
   '''
