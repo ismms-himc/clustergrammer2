@@ -164,18 +164,46 @@ var my_widget_callback = function(external_model){
   if (params.int.manual_update_cats){
 
     let export_dict = {}
+    // let inst_dict = {}
 
       // transfer manual categories
     if ('col' in params.cat_data.manual_cat_dict){
+
+      // params.network.col_nodes.forEach((d) => {
+      //   let inst_name
+      //   if (d.name.includes(': ')){
+      //     inst_name = d.name.split(': ')[1]
+      //   } else {
+      //     inst_name = d.name
+      //   }
+
+      //   inst_dict[inst_name] = d['cat-0']
+      // })
+      // export_dict['col'] = inst_dict
+
       export_dict['col'] = params.cat_data.manual_cat_dict.col
       export_dict['col_cat_colors'] = params.cat_colors.col['cat-0']
     }
 
     if ('row' in params.cat_data.manual_cat_dict){
+
+      // params.network.row_nodes.forEach((d) => {
+      //   let inst_name
+      //   if (d.name.includes(': ')){
+      //     inst_name = d.name.split(': ')[1]
+      //   } else {
+      //     inst_name = d.name
+      //   }
+
+      //   inst_dict[inst_name] = d['cat-0']
+      // })
+      // export_dict['row'] = inst_dict
+
       export_dict['row'] = params.cat_data.manual_cat_dict.row
       export_dict['row_cat_colors'] = params.cat_colors.row['cat-0']
     }
 
+    // console.log(export_dict)
 
     // Object.keys(cgm.params.cat_colors.col['cat-0'])
 

@@ -1151,6 +1151,7 @@ class Network(object):
     try:
       export_dict = {}
       try:
+        # print(json.loads(self.widget_instance.custom_cat))
         export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.custom_cat)[axis][cat_title])
       except:
         print('unable to load category, please check title')
