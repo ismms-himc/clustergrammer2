@@ -1,6 +1,6 @@
 def cluster_row_and_col(net, dist_type='cosine', linkage_type='average',
                         dendro=True, run_clustering=True, run_rank=True,
-                        ignore_cat=False, calc_cat_pval=False, links=False):
+                        calc_cat_pval=False, links=False):
   ''' cluster net.dat and make visualization json, net.viz.
   optionally leave out dendrogram colorbar groups with dendro argument '''
 
@@ -25,6 +25,8 @@ def cluster_row_and_col(net, dist_type='cosine', linkage_type='average',
       node_info['clust'], node_info['Y'] = clust_and_group(net,
                                                            dm[axis],
                                                            linkage_type=linkage_type)
+
+
     else:
       dendro = False
       node_info['clust'] = node_info['ini']
@@ -36,10 +38,6 @@ def cluster_row_and_col(net, dist_type='cosine', linkage_type='average',
     else:
       node_info['rank'] = node_info['ini']
       node_info['rankvar'] = node_info['ini']
-
-    ##################################
-    if ignore_cat is False:
-      categories.calc_cat_clust_order(net, axis)
 
   if calc_cat_pval is True:
     cat_pval.main(net)
@@ -67,18 +65,6 @@ def clust_and_group(net, inst_dm, linkage_type='average'):
   Y = hier.linkage(inst_dm, method=linkage_type)
   Z = hier.dendrogram(Y, no_plot=True)
   inst_clust_order = Z['leaves']
-
-  # all_dist = group_cutoffs()
-
-  # groups = {}
-  # # print('--------------------')
-  # # print(inst_dm.max())
-  # for inst_dist in all_dist:
-  #   inst_key = str(inst_dist).replace('.', '')
-  #   groups[inst_key] = hier.fcluster(Y, inst_dist * inst_dm.max(), 'distance')
-
-  #   # print(inst_dist * inst_dm.max())
-  #   groups[inst_key] = groups[inst_key].tolist()
 
   return inst_clust_order, Y
 
@@ -119,9 +105,3 @@ def sort_rank_nodes(net, rowcol, rank_type):
     sort_index.append(tmp_sort_nodes.index(inst_node))
 
   return sort_index
-
-# def group_cutoffs():
-#   all_dist = []
-#   for i in range(11):
-#     all_dist.append(float(i) / 10)
-#   return all_dist

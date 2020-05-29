@@ -47,6 +47,8 @@ def viz_json(net, dendro=True, links=False):
 
           tmp_index_name = inst_name_cat.replace('-', '_') + '_index'
 
+          print(inst_rc)
+          print(tmp_index_name)
           inst_dict[tmp_index_name] = net.dat['node_info'][inst_rc] \
               [tmp_index_name][i]
 
