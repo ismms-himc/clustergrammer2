@@ -27,18 +27,6 @@ def main(real_net, vect_post):
   net.dat['mat'] = np.empty((len(all_rows), len(all_sigs)))
   net.dat['mat'][:] = np.nan
 
-  # is_up_down = False
-  # if 'is_up_down' in vect_post:
-  #   if vect_post['is_up_down'] is True:
-  #     is_up_down = True
-
-  # if is_up_down is True:
-  #   net.dat['mat_up'] = np.empty((len(all_rows), len(all_sigs)))
-  #   net.dat['mat_up'][:] = np.nan
-
-  #   net.dat['mat_dn'] = np.empty((len(all_rows), len(all_sigs)))
-  #   net.dat['mat_dn'][:] = np.nan
-
   for inst_sig in sigs:
     inst_sig_name = inst_sig['col_name']
     col_data = inst_sig['data']
@@ -51,10 +39,6 @@ def main(real_net, vect_post):
       col_index = all_sigs.index(inst_sig_name)
 
       net.dat['mat'][row_index, col_index] = inst_value
-
-      # if is_up_down is True:
-      #   net.dat['mat_up'][row_index, col_index] = inst_row_data['val_up']
-      #   net.dat['mat_dn'][row_index, col_index] = inst_row_data['val_dn']
 
   tmp_df = net.dat_to_df()
   tmp_df = proc_df_labels.main(tmp_df)
