@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from copy import deepcopy
 
-def run_norm(net, df=None, norm_type='zscore', axis='row', keep_orig=False):
+def run_norm(net, df=None, norm_type='zscore', axis='row'):
   '''
   A dataframe can be passed to run_norm and a normalization will be run (
   e.g. zscore) on either the rows or columns
@@ -14,14 +14,14 @@ def run_norm(net, df=None, norm_type='zscore', axis='row', keep_orig=False):
     df = net.dat_to_df()
 
   if norm_type == 'zscore':
-    df, ser_mean, ser_std = zscore_df(df, axis, keep_orig)
+    df, ser_mean, ser_std = zscore_df(df, axis)
 
     net.dat['pre_zscore'] = {}
     net.dat['pre_zscore']['mean'] = ser_mean.values.tolist()
     net.dat['pre_zscore']['std'] = ser_std.values.tolist()
 
   if norm_type == 'qn':
-    df = qn_df(df, axis, keep_orig)
+    df = qn_df(df, axis)
 
   net.df_to_dat(df)
 
@@ -30,7 +30,7 @@ def run_norm(net, df=None, norm_type='zscore', axis='row', keep_orig=False):
   #   net.dat['pre_zscore']['mean'] = ser_mean
   #   net.dat['pre_zscore']['std'] = ser_std
 
-def qn_df(df, axis='row', keep_orig=False):
+def qn_df(df, axis='row'):
   '''
   do quantile normalization of a dataframe dictionary, does not write to net
   '''
@@ -132,16 +132,13 @@ def calc_common_dist(df):
 
   return common_dist
 
-def zscore_df(df, axis='row', keep_orig=False):
+def zscore_df(df, axis='row'):
   '''
   take the zscore of a dataframe dictionary, does not write to net (self)
   '''
   df_z = {}
 
   for mat_type in df:
-
-    if keep_orig and mat_type == 'mat':
-      mat_orig = deepcopy(df[mat_type])
 
     inst_df = df[mat_type]
 
@@ -155,8 +152,5 @@ def zscore_df(df, axis='row', keep_orig=False):
 
     if axis == 'row':
       df_z[mat_type] = df_z[mat_type].transpose()
-
-  if keep_orig:
-    df_z['mat_orig'] = mat_orig
 
   return df_z, ser_mean, ser_std

@@ -369,11 +369,11 @@ class Network(object):
     df = df.clip(lower=lower, upper=upper)
     self.load_df(df)
 
-  def normalize(self, df=None, norm_type='zscore', axis='row', keep_orig=False):
+  def normalize(self, df=None, norm_type='zscore', axis='row'):
     '''
     Normalize the matrix rows or columns using Z-score (zscore) or Quantile Normalization (qn). Users can optionally pass in a DataFrame to be normalized (and this will be incorporated into the Network object).
     '''
-    normalize_fun.run_norm(self, df, norm_type, axis, keep_orig)
+    normalize_fun.run_norm(self, df, norm_type, axis)
 
   def downsample(self, df=None, ds_type='kmeans', axis='row', num_samples=100, random_state=1000):
     '''

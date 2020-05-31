@@ -15,8 +15,6 @@ def load_file(net, filename):
   # reset network when loaing file, prevents errors when loading new file
   # have persistent categories
 
-  print('reset when loading file')
-
   net.reset()
 
   f = open(filename, 'r')
