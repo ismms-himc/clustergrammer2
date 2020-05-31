@@ -13,21 +13,20 @@ def df_to_dat(net, df, define_cat_colors=False):
   net.dat['nodes']['row'] = df['mat'].index.tolist()
   net.dat['nodes']['col'] = df['mat'].columns.tolist()
 
-  for inst_rc in ['row', 'col']:
+  for axis in ['row', 'col']:
 
-    if type(net.dat['nodes'][inst_rc][0]) is tuple:
+    if type(net.dat['nodes'][axis][0]) is tuple:
       # get the number of categories from the length of the tuple
       # subtract 1 because the name is the first element of the tuple
-      num_cat = len(net.dat['nodes'][inst_rc][0]) - 1
+      num_cat = len(net.dat['nodes'][axis][0]) - 1
 
-      net.dat['node_info'][inst_rc]['full_names'] = net.dat['nodes']\
-          [inst_rc]
+      net.dat['node_info'][axis]['full_names'] = net.dat['nodes'][axis]
 
-      for inst_rcat in range(num_cat):
-        net.dat['node_info'][inst_rc]['cat-' + str(inst_rcat)] = \
-          [i[inst_rcat + 1] for i in net.dat['nodes'][inst_rc]]
+      for axisat in range(num_cat):
+        net.dat['node_info'][axis]['cat-' + str(axisat)] = \
+          [i[axisat + 1] for i in net.dat['nodes'][axis]]
 
-      net.dat['nodes'][inst_rc] = [i[0] for i in net.dat['nodes'][inst_rc]]
+      net.dat['nodes'][axis] = [i[0] for i in net.dat['nodes'][axis]]
 
   if 'mat_orig' in df:
     net.dat['mat_orig'] = df['mat_orig'].values
@@ -39,11 +38,11 @@ def dat_to_df(net):
 
   df = {}
   nodes = {}
-  for inst_rc in ['row', 'col']:
-    if 'full_names' in net.dat['node_info'][inst_rc]:
-      nodes[inst_rc] = net.dat['node_info'][inst_rc]['full_names']
+  for axis in ['row', 'col']:
+    if 'full_names' in net.dat['node_info'][axis]:
+      nodes[axis] = net.dat['node_info'][axis]['full_names']
     else:
-      nodes[inst_rc] = net.dat['nodes'][inst_rc]
+      nodes[axis] = net.dat['nodes'][axis]
 
   df['mat'] = pd.DataFrame(data=net.dat['mat'], columns=nodes['col'],
       index=nodes['row'])

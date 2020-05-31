@@ -1,5 +1,7 @@
 import pandas as pd
 
+# make_unique_labels
+
 def main(net, df=None):
   '''
   Run in load_data module (which runs when file is loaded or dataframe is loaded),
@@ -14,6 +16,7 @@ def main(net, df=None):
   if type(rows[0]) is str:
 
     if len(rows) != len(list(set(rows))):
+      print('warning: making row names unique')
       new_rows = add_index_list(rows)
       df.index = new_rows
 
@@ -24,6 +27,7 @@ def main(net, df=None):
       row_names.append(inst_row[0])
 
     if len(row_names) != len(list(set(row_names))):
+      print('warning: making row names unique')
       row_names = add_index_list(row_names)
 
       # add back to tuple
@@ -44,6 +48,7 @@ def main(net, df=None):
 
     # list column names
     if len(cols) != len(list(set(cols))):
+      print('warning: making col names unique')
       new_cols = add_index_list(cols)
       df.columns = new_cols
 
@@ -54,6 +59,7 @@ def main(net, df=None):
       col_names.append(inst_col[0])
 
     if len(col_names) != len(list(set(col_names))):
+      print('warning: making col names unique')
       col_names = add_index_list(col_names)
 
       # add back to tuple

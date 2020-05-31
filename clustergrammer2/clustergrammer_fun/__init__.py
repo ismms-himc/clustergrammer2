@@ -144,12 +144,9 @@ class Network(object):
     '''
     Swaps all NaN (numpy NaN) instances for zero.
     '''
-    # # may re-instate this in some form
-    # self.dat['mat_orig'] = deepcopy(self.dat['mat'])
-
     self.dat['mat'][np.isnan(self.dat['mat'])] = 0
 
-  def load_df(self, df):
+  def load_df(self, df, meta_col=None, meta_row=None):
     '''
     Load Pandas DataFrame.
     '''
