@@ -27,8 +27,6 @@ import json
 
 class Network(object):
   '''
-  version 1.13.5
-
   Clustergrammer.py takes a matrix as input (either from a file of a Pandas DataFrame), normalizes/filters, hierarchically clusters, and produces the :ref:`visualization_json` for :ref:`clustergrammer_js`.
 
   Networks have two states:
@@ -41,6 +39,8 @@ class Network(object):
   '''
 
   def __init__(self, widget=None):
+
+    # print('INITIALIZING')
     initialize_net.main(self, widget)
 
   def reset(self):

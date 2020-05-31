@@ -124,5 +124,11 @@ After releasing a new version several things need to be checked to ensure proper
 ### Check Cloud Services
 - Check MyBinder
 
+### Note for Sublime Development
+Use this in the where section to restrict search
+```
+clustergrammer2/*.py,-*/build/*
+```
+
 # Contact
 For issues and concerns please use the [issue tracker](https://github.com/ismms-himc/clustergrammer2/issues) or [gitter](https://gitter.im/clustergrammer2) discussion room.

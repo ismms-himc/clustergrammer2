@@ -59,7 +59,8 @@ def viz_json(net, dendro=True, links=False):
 
       net.viz[inst_rc + '_nodes'].append(inst_dict)
 
-  mat_types = ['mat', 'mat_orig', 'mat_info', 'mat_hl', 'mat_up', 'mat_dn']
+  # mat_types = ['mat', 'mat_orig', 'mat_info', 'mat_hl', 'mat_up', 'mat_dn']
+  mat_types = ['mat', 'mat_orig', 'mat_info', 'mat_hl']
 
   # save data as links or mat
   ###########################
@@ -72,9 +73,9 @@ def viz_json(net, dendro=True, links=False):
         inst_dict['target'] = j
         inst_dict['value'] = float(net.dat['mat'][i, j])
 
-        if 'mat_up' in net.dat:
-          inst_dict['value_up'] = net.dat['mat_up'][i, j]
-          inst_dict['value_dn'] = net.dat['mat_dn'][i, j]
+        # if 'mat_up' in net.dat:
+        #   inst_dict['value_up'] = net.dat['mat_up'][i, j]
+        #   inst_dict['value_dn'] = net.dat['mat_dn'][i, j]
 
         if 'mat_orig' in net.dat:
           inst_dict['value_orig'] = net.dat['mat_orig'][i, j]

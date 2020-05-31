@@ -29,9 +29,9 @@ def df_to_dat(net, df, define_cat_colors=False):
 
       net.dat['nodes'][inst_rc] = [i[0] for i in net.dat['nodes'][inst_rc]]
 
-  if 'mat_up' in df:
-    net.dat['mat_up'] = df['mat_up'].values
-    net.dat['mat_dn'] = df['mat_dn'].values
+  # if 'mat_up' in df:
+  #   net.dat['mat_up'] = df['mat_up'].values
+  #   net.dat['mat_dn'] = df['mat_dn'].values
 
   if 'mat_orig' in df:
     net.dat['mat_orig'] = df['mat_orig'].values
@@ -52,13 +52,13 @@ def dat_to_df(net):
   df['mat'] = pd.DataFrame(data=net.dat['mat'], columns=nodes['col'],
       index=nodes['row'])
 
-  if 'mat_up' in net.dat:
+  # if 'mat_up' in net.dat:
 
-    df['mat_up'] = pd.DataFrame(data=net.dat['mat_up'],
-      columns=nodes['col'], index=nodes['row'])
+  #   df['mat_up'] = pd.DataFrame(data=net.dat['mat_up'],
+  #     columns=nodes['col'], index=nodes['row'])
 
-    df['mat_dn'] = pd.DataFrame(data=net.dat['mat_dn'],
-      columns=nodes['col'], index=nodes['row'])
+  #   df['mat_dn'] = pd.DataFrame(data=net.dat['mat_dn'],
+  #     columns=nodes['col'], index=nodes['row'])
 
   if 'mat_orig' in net.dat:
     df['mat_orig'] = pd.DataFrame(data=net.dat['mat_orig'],

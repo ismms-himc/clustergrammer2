@@ -4,8 +4,7 @@ from copy import deepcopy
 
 def run_norm(net, df=None, norm_type='zscore', axis='row', keep_orig=False):
   '''
-  A dataframe (more accurately a dictionary of dataframes, e.g. mat,
-  mat_up...) can be passed to run_norm and a normalization will be run (
+  A dataframe can be passed to run_norm and a normalization will be run (
   e.g. zscore) on either the rows or columns
   '''
 

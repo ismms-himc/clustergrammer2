@@ -23,9 +23,9 @@ def df_filter_row_sum(df, threshold, take_abs=True):
   if len(keep_rows) < len(ini_rows):
     df['mat'] = grab_df_subset(df['mat'], keep_rows=keep_rows)
 
-    if 'mat_up' in df:
-      df['mat_up'] = grab_df_subset(df['mat_up'], keep_rows=keep_rows)
-      df['mat_dn'] = grab_df_subset(df['mat_dn'], keep_rows=keep_rows)
+    # if 'mat_up' in df:
+    #   df['mat_up'] = grab_df_subset(df['mat_up'], keep_rows=keep_rows)
+    #   df['mat_dn'] = grab_df_subset(df['mat_dn'], keep_rows=keep_rows)
 
     if 'mat_orig' in df:
       df['mat_orig'] = grab_df_subset(df['mat_orig'], keep_rows=keep_rows)
@@ -55,9 +55,9 @@ def df_filter_col_sum(df, threshold, take_abs=True):
     inst_cols = df_copy.columns.tolist()
     df['mat'] = grab_df_subset(df['mat'], inst_rows, inst_cols)
 
-    if 'mat_up' in df:
-      df['mat_up'] = grab_df_subset(df['mat_up'], inst_rows, inst_cols)
-      df['mat_dn'] = grab_df_subset(df['mat_dn'], inst_rows, inst_cols)
+    # if 'mat_up' in df:
+    #   df['mat_up'] = grab_df_subset(df['mat_up'], inst_rows, inst_cols)
+    #   df['mat_dn'] = grab_df_subset(df['mat_dn'], inst_rows, inst_cols)
 
     if 'mat_orig' in df:
       df['mat_orig'] = grab_df_subset(df['mat_orig'], inst_rows, inst_cols)
@@ -102,9 +102,10 @@ def filter_N_top(inst_rc, df, N_top, rank_type='sum'):
   keep_rows = rows_sorted[:N_top]
 
   df['mat'] = df['mat'].loc[keep_rows]
-  if 'mat_up' in df:
-    df['mat_up'] = df['mat_up'].loc[keep_rows]
-    df['mat_dn'] = df['mat_dn'].loc[keep_rows]
+
+  # if 'mat_up' in df:
+  #   df['mat_up'] = df['mat_up'].loc[keep_rows]
+  #   df['mat_dn'] = df['mat_dn'].loc[keep_rows]
 
   if 'mat_orig' in df:
     df['mat_orig'] = df['mat_orig'].loc[keep_rows]
@@ -144,9 +145,9 @@ def filter_threshold(df, inst_rc, threshold, num_occur=1):
     if len(keep_names) < len(ini_rows):
       df['mat'] = grab_df_subset(df['mat'], keep_rows=keep_names)
 
-      if 'mat_up' in df:
-        df['mat_up'] = grab_df_subset(df['mat_up'], keep_rows=keep_names)
-        df['mat_dn'] = grab_df_subset(df['mat_dn'], keep_rows=keep_names)
+      # if 'mat_up' in df:
+      #   df['mat_up'] = grab_df_subset(df['mat_up'], keep_rows=keep_names)
+      #   df['mat_dn'] = grab_df_subset(df['mat_dn'], keep_rows=keep_names)
 
       if 'mat_orig' in df:
         df['mat_orig'] = grab_df_subset(df['mat_orig'], keep_rows=keep_names)
@@ -159,9 +160,9 @@ def filter_threshold(df, inst_rc, threshold, num_occur=1):
 
     df['mat'] = grab_df_subset(df['mat'], inst_rows, inst_cols)
 
-    if 'mat_up' in df:
-      df['mat_up'] = grab_df_subset(df['mat_up'], inst_rows, inst_cols)
-      df['mat_dn'] = grab_df_subset(df['mat_dn'], inst_rows, inst_cols)
+    # if 'mat_up' in df:
+    #   df['mat_up'] = grab_df_subset(df['mat_up'], inst_rows, inst_cols)
+    #   df['mat_dn'] = grab_df_subset(df['mat_dn'], inst_rows, inst_cols)
 
     if 'mat_orig' in df:
       df['mat_orig'] = grab_df_subset(df['mat_orig'], inst_rows, inst_cols)
