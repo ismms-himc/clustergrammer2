@@ -40,13 +40,6 @@ def dict_cat(net, define_cat_colors=False):
   '''
   make a dictionary of node-category associations
   '''
-
-  # print('---------------------------------')
-  # print('---- dict_cat: before setting cat colors')
-  # print('---------------------------------\n')
-  # print(define_cat_colors)
-  # print(net.viz['cat_colors'])
-
   net.persistent_cat = True
 
   for inst_rc in ['row', 'col']:
@@ -166,57 +159,6 @@ def calc_cat_clust_order(net, inst_rc):
 
         tmp_names_list.extend(inst_nodes)
 
-      #   cat_net = deepcopy(Network())
-
-      #   cat_net.dat['mat'] = deepcopy(net.dat['mat'])
-      #   cat_net.dat['nodes'] = deepcopy(net.dat['nodes'])
-
-      #   cat_df = cat_net.dat_to_df()
-
-      #   sub_df = {}
-      #   if inst_rc == 'col':
-      #     sub_df['mat'] = cat_df['mat'][inst_nodes]
-      #   elif inst_rc == 'row':
-      #     # need to transpose df
-      #     cat_df['mat'] = cat_df['mat'].transpose()
-      #     sub_df['mat'] = cat_df['mat'][inst_nodes]
-      #     sub_df['mat'] = sub_df['mat'].transpose()
-
-      #   # filter matrix before clustering
-      #   ###################################
-      #   threshold = 0.0001
-      #   sub_df = run_filter.df_filter_row_sum(sub_df, threshold)
-      #   sub_df = run_filter.df_filter_col_sum(sub_df, threshold)
-
-      #   # load back to dat
-      #   cat_net.df_to_dat(sub_df)
-
-      #   cat_mat_shape = cat_net.dat['mat'].shape
-
-      #   print('***************')
-      #   try:
-      #     if cat_mat_shape[0]>1 and cat_mat_shape[1] > 1 and all_are_numbers == False:
-
-      #       calc_clust.cluster_row_and_col(cat_net, 'cos')
-      #       inst_cat_order = cat_net.dat['node_info'][inst_rc]['clust']
-      #     else:
-      #       inst_cat_order = list(range(len(cat_net.dat['nodes'][inst_rc])))
-
-      #   except:
-      #     inst_cat_order = list(range(len(cat_net.dat['nodes'][inst_rc])))
-
-
-      #   prev_order_len = len(all_cat_orders)
-
-      #   # add prev order length to the current order number
-      #   inst_cat_order = [i + prev_order_len for i in inst_cat_order]
-      #   all_cat_orders.extend(inst_cat_order)
-
-      # # generate ordered list of row/col names, which will be used to
-      # # assign the order to specific nodes
-      # names_clust_list = [x for (y, x) in sorted(zip(all_cat_orders,
-      #                     tmp_names_list))]
-
       names_clust_list = tmp_names_list
 
       # calc category-cluster order
@@ -325,45 +267,6 @@ def get_cat_color(cat_num):
   inst_color = all_colors[cat_num % len(all_colors)]
 
   return inst_color
-
-# def dendro_cats(net, axis, dendro_level):
-
-#   if axis == 0:
-#     axis = 'row'
-#   if axis == 1:
-#     axis = 'col'
-
-#   dendro_level = str(dendro_level)
-#   dendro_level_name = dendro_level
-#   if len(dendro_level) == 1:
-#     dendro_level = '0' + dendro_level
-
-#   df = net.export_df()
-
-#   if axis == 'row':
-#     old_names = df.index.tolist()
-#   elif axis == 'col':
-#     old_names = df.columns.tolist()
-
-#   if 'group' in net.dat['node_info'][axis]:
-#     inst_groups = net.dat['node_info'][axis]['group'][dendro_level]
-
-#     new_names = []
-#     for i in range(len(old_names)):
-#       inst_name = old_names[i]
-#       group_cat = 'Group '+ str(dendro_level_name) +': cat-' + str(inst_groups[i])
-#       inst_name = inst_name + (group_cat,)
-#       new_names.append(inst_name)
-
-#     if axis == 'row':
-#       df.index = new_names
-#     elif axis == 'col':
-#       df.columns = new_names
-
-#     net.load_df(df)
-
-#   else:
-#     print('please cluster, using make_clust, to define dendrogram groups before running dendro_cats')
 
 def add_cats(net, axis, cat_data):
 

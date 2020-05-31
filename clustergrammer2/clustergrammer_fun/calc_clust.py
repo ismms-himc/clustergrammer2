@@ -68,18 +68,6 @@ def clust_and_group(net, inst_dm, linkage_type='average'):
   Z = hier.dendrogram(Y, no_plot=True)
   inst_clust_order = Z['leaves']
 
-  # all_dist = group_cutoffs()
-
-  # groups = {}
-  # # print('--------------------')
-  # # print(inst_dm.max())
-  # for inst_dist in all_dist:
-  #   inst_key = str(inst_dist).replace('.', '')
-  #   groups[inst_key] = hier.fcluster(Y, inst_dist * inst_dm.max(), 'distance')
-
-  #   # print(inst_dist * inst_dm.max())
-  #   groups[inst_key] = groups[inst_key].tolist()
-
   return inst_clust_order, Y
 
 def sort_rank_nodes(net, rowcol, rank_type):
@@ -119,9 +107,3 @@ def sort_rank_nodes(net, rowcol, rank_type):
     sort_index.append(tmp_sort_nodes.index(inst_node))
 
   return sort_index
-
-# def group_cutoffs():
-#   all_dist = []
-#   for i in range(11):
-#     all_dist.append(float(i) / 10)
-#   return all_dist
