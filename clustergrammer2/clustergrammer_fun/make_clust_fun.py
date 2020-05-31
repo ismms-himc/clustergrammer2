@@ -10,7 +10,7 @@ def make_clust(net, dist_type='cosine', run_clustering=True, dendro=True,
   '''
   from copy import deepcopy
   import scipy
-  from . import calc_clust, run_filter, make_views, make_sim_mat, cat_pval
+  from . import calc_clust, run_filter, make_sim_mat, cat_pval
   from . import enrichr_functions as enr_fun
 
   df = net.dat_to_df()
@@ -39,22 +39,6 @@ def make_clust(net, dist_type='cosine', run_clustering=True, dendro=True,
 
   all_views = []
   send_df = deepcopy(df)
-
-  if 'N_row_sum' in requested_views:
-    all_views = make_views.N_rows(net, send_df, all_views,
-                                  dist_type=dist_type, rank_type='sum')
-
-  if 'N_row_var' in requested_views:
-    all_views = make_views.N_rows(net, send_df, all_views,
-                                  dist_type=dist_type, rank_type='var')
-
-  if 'pct_row_sum' in requested_views:
-    all_views = make_views.pct_rows(net, send_df, all_views,
-                                    dist_type=dist_type, rank_type='sum')
-
-  if 'pct_row_var' in requested_views:
-    all_views = make_views.pct_rows(net, send_df, all_views,
-                                    dist_type=dist_type, rank_type='var')
 
   which_sim = []
 

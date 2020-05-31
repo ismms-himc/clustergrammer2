@@ -1,7 +1,7 @@
 def main(net, inst_dm, which_sim, filter_sim, sim_mat_views=['N_row_sum']):
   from .__init__ import Network
   from copy import deepcopy
-  from . import calc_clust, make_views
+  from . import calc_clust
 
   sim_dict = {}
 
@@ -29,10 +29,6 @@ def main(net, inst_dm, which_sim, filter_sim, sim_mat_views=['N_row_sum']):
     all_views = []
     df = sim_net[inst_rc].dat_to_df()
     send_df = deepcopy(df)
-
-    if 'N_row_sum' in sim_mat_views:
-      all_views = make_views.N_rows(net, send_df, all_views,
-                                    dist_type='cos', rank_type='sum')
 
     sim_net[inst_rc].viz['views'] = all_views
 

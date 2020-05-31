@@ -23,9 +23,9 @@ def df_to_dat(net, df, define_cat_colors=False):
       num_cat = len(net.dat['nodes'][axis][0]) - 1
 
       # makes tuples
-      # print(axis)
-      # print('---------------------------')
-      # print(net.dat['nodes'][axis])
+      print(axis)
+      print('---------------------------')
+      print(net.dat['nodes'][axis])
       net.dat['node_info'][axis]['full_names'] = net.dat['nodes'][axis]
 
       # makes short names
