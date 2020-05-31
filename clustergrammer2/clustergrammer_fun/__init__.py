@@ -93,42 +93,47 @@ class Network(object):
                  linkage_type='average', sim_mat=False, filter_sim=0.0,
                  calc_cat_pval=False, run_enrichr=None, enrichrgram=None):
     '''
-    The main function performs hierarchical clustering, optionally generates filtered views (e.g. row-filtered views), and generates the :``visualization_json``.
+    The main function performs hierarchical clustering, optionally generates
+    filtered views (e.g. row-filtered views), and generates the :
+    ``visualization_json``.
 
     Used to set views equal to ['N_row_sum', 'N_row_var']
     '''
     initialize_net.viz(self)
 
-    make_clust_fun.make_clust(self, dist_type=dist_type, run_clustering=run_clustering,
-                                   dendro=dendro,
-                                   requested_views=views,
-                                   linkage_type=linkage_type,
-                                   sim_mat=sim_mat,
-                                   filter_sim=filter_sim,
-                                   calc_cat_pval=calc_cat_pval,
-                                   run_enrichr=run_enrichr,
-                                   enrichrgram=enrichrgram)
+    make_clust_fun.make_clust(self, dist_type=dist_type,
+                                    run_clustering=run_clustering,
+                                    dendro=dendro,
+                                    requested_views=views,
+                                    linkage_type=linkage_type,
+                                    sim_mat=sim_mat,
+                                    filter_sim=filter_sim,
+                                    calc_cat_pval=calc_cat_pval,
+                                    run_enrichr=run_enrichr,
+                                    enrichrgram=enrichrgram)
 
-  def make_clust(self, dist_type='cosine', run_clustering=True,
-                 dendro=True, views=['N_row_sum', 'N_row_var'],
-                 linkage_type='average', sim_mat=False, filter_sim=0.0,
-                 calc_cat_pval=False, run_enrichr=None, enrichrgram=None):
-    '''
-    ... Will be deprecated, renaming method cluster ...
-    The main function performs hierarchical clustering, optionally generates filtered views (e.g. row-filtered views), and generates the :``visualization_json``.
-    '''
-    print('make_clust method will be deprecated in next version, please use cluster method.')
-    initialize_net.viz(self)
+  # def make_clust(self, dist_type='cosine', run_clustering=True,
+  #                dendro=True, views=['N_row_sum', 'N_row_var'],
+  #                linkage_type='average', sim_mat=False, filter_sim=0.0,
+  #                calc_cat_pval=False, run_enrichr=None, enrichrgram=None):
+  #   '''
+  #   ... Will be deprecated, renaming method cluster ...
+  #   The main function performs hierarchical clustering, optionally generates
+  #   filtered views (e.g. row-filtered views), and generates the :
+  #   ``visualization_json``.
+  #   '''
+  #   print('make_clust method will be deprecated in next version, please use cluster method.')
+  #   initialize_net.viz(self)
 
-    make_clust_fun.make_clust(self, dist_type=dist_type, run_clustering=run_clustering,
-                                   dendro=dendro,
-                                   requested_views=views,
-                                   linkage_type=linkage_type,
-                                   sim_mat=sim_mat,
-                                   filter_sim=filter_sim,
-                                   calc_cat_pval=calc_cat_pval,
-                                   run_enrichr=run_enrichr,
-                                   enrichrgram=enrichrgram)
+  #   make_clust_fun.make_clust(self, dist_type=dist_type, run_clustering=run_clustering,
+  #                                  dendro=dendro,
+  #                                  requested_views=views,
+  #                                  linkage_type=linkage_type,
+  #                                  sim_mat=sim_mat,
+  #                                  filter_sim=filter_sim,
+  #                                  calc_cat_pval=calc_cat_pval,
+  #                                  run_enrichr=run_enrichr,
+  #                                  enrichrgram=enrichrgram)
 
   def produce_view(self, requested_view=None):
     '''
@@ -220,27 +225,21 @@ class Network(object):
     method passes the visualization JSON to the instantiated widget, which is
     returned and visualized on the front-end.
     '''
+    # run clustering if necessary
+    if len(self.viz['row_nodes']) == 0:
+      self.cluster()
 
-    if hasattr(self, 'widget_class') == True:
+      # add manual_category to viz json
+      if 'manual_category' in self.dat:
+        self.viz['manual_category'] = self.dat['manual_category']
 
-      # run clustering if necessary
-      if len(self.viz['row_nodes']) == 0:
-        self.cluster()
+      # add pre-z-score data to viz
+      if 'pre_zscore' in self.dat:
+        self.viz['pre_zscore'] = self.dat['pre_zscore']
 
-        # add manual_category to viz json
-        if 'manual_category' in self.dat:
-          self.viz['manual_category'] = self.dat['manual_category']
+    self.widget_instance = self.widget_class(network = self.export_viz_to_widget(which_viz))
 
-        # add pre-z-score data to viz
-        if 'pre_zscore' in self.dat:
-          self.viz['pre_zscore'] = self.dat['pre_zscore']
-
-      self.widget_instance = self.widget_class(network = self.export_viz_to_widget(which_viz))
-
-      return self.widget_instance
-    else:
-      print('Can not make widget because Network has no attribute widget_class')
-      print('Please instantiate Network with clustergrammer_widget using: Network(clustergrammer_widget)')
+    return self.widget_instance
 
 
   def widget_df(self):
