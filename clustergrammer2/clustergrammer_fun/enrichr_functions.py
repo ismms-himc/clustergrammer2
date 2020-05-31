@@ -194,9 +194,9 @@ def clust_from_response(response_list):
   views = ['']
 
   if len(net.dat['nodes']['row']) > 1:
-    net.make_clust(dist_type='jaccard', views=views, dendro=False)
+    net.cluster(dist_type='jaccard', views=views, dendro=False)
   else:
-    net.make_clust(dist_type='jaccard', views=views, dendro=False, run_clustering=False)
+    net.cluster(dist_type='jaccard', views=views, dendro=False, run_clustering=False)
 
   # get dataframe from full matrix
   df = net.dat_to_df()
@@ -215,9 +215,9 @@ def clust_from_response(response_list):
 
       # make views
       if len(net.dat['nodes']['row']) > 1:
-        inst_net.make_clust(dist_type='jaccard', views=['N_row_sum'], dendro=False)
+        inst_net.cluster(dist_type='jaccard', views=['N_row_sum'], dendro=False)
       else:
-        inst_net.make_clust(dist_type='jaccard', views=['N_row_sum'], dendro=False, run_clustering = False)
+        inst_net.cluster(dist_type='jaccard', views=['N_row_sum'], dendro=False, run_clustering = False)
 
       inst_views = inst_net.viz['views']
 

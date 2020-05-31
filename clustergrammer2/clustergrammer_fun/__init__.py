@@ -112,39 +112,6 @@ class Network(object):
                                     run_enrichr=run_enrichr,
                                     enrichrgram=enrichrgram)
 
-  # def make_clust(self, dist_type='cosine', run_clustering=True,
-  #                dendro=True, views=['N_row_sum', 'N_row_var'],
-  #                linkage_type='average', sim_mat=False, filter_sim=0.0,
-  #                calc_cat_pval=False, run_enrichr=None, enrichrgram=None):
-  #   '''
-  #   ... Will be deprecated, renaming method cluster ...
-  #   The main function performs hierarchical clustering, optionally generates
-  #   filtered views (e.g. row-filtered views), and generates the :
-  #   ``visualization_json``.
-  #   '''
-  #   print('make_clust method will be deprecated in next version, please use cluster method.')
-  #   initialize_net.viz(self)
-
-  #   make_clust_fun.make_clust(self, dist_type=dist_type, run_clustering=run_clustering,
-  #                                  dendro=dendro,
-  #                                  requested_views=views,
-  #                                  linkage_type=linkage_type,
-  #                                  sim_mat=sim_mat,
-  #                                  filter_sim=filter_sim,
-  #                                  calc_cat_pval=calc_cat_pval,
-  #                                  run_enrichr=run_enrichr,
-  #                                  enrichrgram=enrichrgram)
-
-  def produce_view(self, requested_view=None):
-    '''
-    This function is under development and will produce a single view on demand.
-    '''
-    print('\tproduce a single view of a matrix, will be used for get requests')
-
-    if requested_view != None:
-      print('requested_view')
-      print(requested_view)
-
   def swap_nan_for_zero(self):
     '''
     Swaps all NaN (numpy NaN) instances for zero.
