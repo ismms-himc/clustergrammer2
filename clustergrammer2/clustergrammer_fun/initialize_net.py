@@ -1,7 +1,10 @@
 def main(self, widget=None):
 
+  print('initialize')
+
   if hasattr(self, 'meta_cat') == False:
     self.meta_cat = False
+    print('meta_cet False')
 
   self.dat = {}
   self.dat['nodes'] = {}

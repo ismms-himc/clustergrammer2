@@ -16,6 +16,10 @@ def df_to_dat(net, df, define_cat_colors=False):
 
   # parse categories from tuple
   ##################################
+  print('************************************')
+  print('df_to_dat')
+  print('************************************')
+  print(net.meta_cat)
   if net.meta_cat == False:
     for axis in ['row', 'col']:
 
@@ -38,6 +42,9 @@ def df_to_dat(net, df, define_cat_colors=False):
 
         # clean up nodes after parsing categories
         net.dat['nodes'][axis] = [x[0] for x in inst_nodes]
+
+  else:
+    print('meta_cat!!!!!!!!')
 
   categories.dict_cat(net, define_cat_colors=define_cat_colors)
 
