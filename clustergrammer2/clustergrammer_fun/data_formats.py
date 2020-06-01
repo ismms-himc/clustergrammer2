@@ -20,21 +20,22 @@ def df_to_dat(net, df, define_cat_colors=False):
     for axis in ['row', 'col']:
 
       inst_nodes = net.dat['nodes'][axis]
+
       if type(inst_nodes[0]) is tuple:
-        # get the number of categories from the length of the tuple
-        # subtract 1 because the name is the first element of the tuple
-        num_cat = len(inst_nodes[0]) - 1
 
         if axis == 'row':
           net.dat['node_info'][axis]['full_names'] = df.index.tolist()
         elif axis == 'col':
           net.dat['node_info'][axis]['full_names'] = df.columns.tolist()
 
+        # get the number of categories from the length of the tuple
+        # subtract 1 because the name is the first element of the tuple
+        num_cat = len(inst_nodes[0]) - 1
         for inst_cat in range(num_cat):
           cat_name = 'cat-' + str(inst_cat)
           cat_index = inst_cat + 1
-          cat_value = [x[cat_index] for x in inst_nodes]
-          net.dat['node_info'][axis][cat_name] = cat_value
+          cat_values = [x[cat_index] for x in inst_nodes]
+          net.dat['node_info'][axis][cat_name] = cat_values
 
         # clean up nodes after parsing categories
         net.dat['nodes'][axis] = [x[0] for x in inst_nodes]
@@ -43,10 +44,32 @@ def df_to_dat(net, df, define_cat_colors=False):
     # print('meta_cat!!!!!!!!')
 
     for axis in ['row', 'col']:
+
+      inst_nodes = net.dat['nodes'][axis]
+
+      if axis == 'row':
+        net.dat['node_info'][axis]['full_names'] = df.index.tolist()
+      elif axis == 'col':
+        net.dat['node_info'][axis]['full_names'] = df.columns.tolist()
+
+      if axis == 'row':
+        inst_cats = net.meta_row.columns.tolist()
+      else:
+        inst_cats = net.meta_col.columns.tolist()
+
+      num_cat = len(inst_cats)
+      for inst_cat in range(num_cat):
+        cat_name = 'cat-' + str(inst_cat)
+        cat_index = inst_cat + 1
+        # cat_value = [x[cat_index] for x in inst_nodes]
+
+        cat_title = inst_cats[inst_cat]
         if axis == 'row':
-          net.dat['node_info'][axis]['full_names'] = df.index.tolist()
-        elif axis == 'col':
-          net.dat['node_info'][axis]['full_names'] = df.columns.tolist()
+          cat_values = net.meta_row[cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+        else:
+          cat_values = net.meta_col[cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+
+        net.dat['node_info'][axis][cat_name] = cat_values
 
   categories.dict_cat(net, define_cat_colors=define_cat_colors)
 
