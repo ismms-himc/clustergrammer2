@@ -1,12 +1,11 @@
 from . import make_unique_labels
+import pandas as pd
+from . import categories
 
 def df_to_dat(net, df, define_cat_colors=False):
   '''
   This is always run when data is loaded.
   '''
-  from . import categories
-
-  # print('df_to_dat!!!!!!!!!!!!!!!!!!!!!!!!')
 
   # check if df has unique values
   df = make_unique_labels.main(net, df)
@@ -15,12 +14,15 @@ def df_to_dat(net, df, define_cat_colors=False):
   net.dat['nodes']['row'] = df.index.tolist()
   net.dat['nodes']['col'] = df.columns.tolist()
 
+  # parse categories from tuple
+  ##################################
   for axis in ['row', 'col']:
 
-    if type(net.dat['nodes'][axis][0]) is tuple:
+    inst_nodes = net.dat['nodes'][axis]
+    if type(inst_nodes[0]) is tuple:
       # get the number of categories from the length of the tuple
       # subtract 1 because the name is the first element of the tuple
-      num_cat = len(net.dat['nodes'][axis][0]) - 1
+      num_cat = len(inst_nodes[0]) - 1
 
       if axis == 'row':
         net.dat['node_info'][axis]['full_names'] = df.index.tolist()
@@ -31,18 +33,16 @@ def df_to_dat(net, df, define_cat_colors=False):
 
       for inst_cat in range(num_cat):
         cat_name = 'cat-' + str(inst_cat)
-        cat_value = [i[inst_cat + 1] for i in net.dat['nodes'][axis]]
+        cat_index = inst_cat + 1
+        cat_value = [x[cat_index] for x in inst_nodes]
         net.dat['node_info'][axis][cat_name] = cat_value
 
-      # nodes are cleaned up
-      net.dat['nodes'][axis] = [i[0] for i in net.dat['nodes'][axis]]
+      # clean up nodes after parsing categories
+      net.dat['nodes'][axis] = [x[0] for x in inst_nodes]
 
   categories.dict_cat(net, define_cat_colors=define_cat_colors)
 
 def dat_to_df(net):
-  import pandas as pd
-
-  # print('dat_to_df')
 
   nodes = {}
   for axis in ['row', 'col']:
