@@ -29,8 +29,6 @@ def df_to_dat(net, df, define_cat_colors=False):
       elif axis == 'col':
         net.dat['node_info'][axis]['full_names'] = df.columns.tolist()
 
-      # makes short names
-
       for inst_cat in range(num_cat):
         cat_name = 'cat-' + str(inst_cat)
         cat_index = inst_cat + 1

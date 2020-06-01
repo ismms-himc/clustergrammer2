@@ -1,6 +1,7 @@
 def check_categories(lines):
   '''
   find out how many row and col categories are available
+  when loading data from file
   '''
   # count the number of row categories
   rcat_line = lines[0].split('\t')
@@ -40,7 +41,7 @@ def dict_cat(net, define_cat_colors=False):
   '''
   make a dictionary of node-category associations
   '''
-  net.persistent_cat = True
+  net.persistent_cat_colors = True
 
   for inst_rc in ['row', 'col']:
     inst_keys = list(net.dat['node_info'][inst_rc].keys())

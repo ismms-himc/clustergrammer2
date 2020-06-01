@@ -17,8 +17,8 @@ def main(self, widget=None):
     self.dat['node_info'][inst_rc]['value'] = []
 
   # check if net has categories predefined
-  if hasattr(self, 'persistent_cat') == False:
-    self.persistent_cat = False
+  if hasattr(self, 'persistent_cat_colors') == False:
+    self.persistent_cat_colors = False
     found_cats = False
   else:
     found_cats = True
@@ -49,12 +49,10 @@ def main(self, widget=None):
   self.viz['mat'] = []
 
   if found_cats == False:
-    # print('no persistent_cat')
     self.viz['cat_colors'] = {}
     self.viz['cat_colors']['row'] = {}
     self.viz['cat_colors']['col'] = {}
   else:
-    # print('yes persistent_cat')
     self.viz['cat_colors'] = inst_cat_colors
 
   self.viz['matrix_colors'] = matrix_colors

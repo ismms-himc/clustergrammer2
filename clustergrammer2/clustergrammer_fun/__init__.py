@@ -122,12 +122,21 @@ class Network(object):
     '''
     Load Pandas DataFrame.
     '''
-    # self.__init__()
     self.reset()
 
+    # load dataframe
     df = deepcopy(df_ini)
-    # always define category colors if applicable when loading a df
     data_formats.df_to_dat(self, df, define_cat_colors=True)
+
+    # load metadata
+    if isinstance(meta_col, pd.DataFrame):
+      self.meta_col = meta_col
+      self.meta_cat = True
+
+    if isinstance(meta_row, pd.DataFrame):
+      self.meta_row = meta_row
+      self.meta_cat = True
+
 
   def export_df(self):
     '''
