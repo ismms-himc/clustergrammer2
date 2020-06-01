@@ -27,14 +27,20 @@ def df_to_dat(net, df, define_cat_colors=False):
       # print('---------------------------')
       # print(net.dat['nodes'][axis])
 
-      net.dat['node_info'][axis]['full_names'] = net.dat['nodes'][axis]
+      # net.dat['node_info'][axis]['full_names'] = net.dat['nodes'][axis]
+      if axis == 'row':
+        net.dat['node_info'][axis]['full_names'] = df.index.tolist()
+      elif axis == 'col':
+        net.dat['node_info'][axis]['full_names'] = df.columns.tolist()
 
       # makes short names
 
-      for inst_axis in range(num_cat):
-        net.dat['node_info'][axis]['cat-' + str(inst_axis)] = \
-          [i[inst_axis + 1] for i in net.dat['nodes'][axis]]
+      for inst_cat in range(num_cat):
+        cat_name = 'cat-' + str(inst_cat)
+        cat_value = [i[inst_cat + 1] for i in net.dat['nodes'][axis]]
+        net.dat['node_info'][axis][cat_name] = cat_value
 
+      # nodes are cleaned up
       net.dat['nodes'][axis] = [i[0] for i in net.dat['nodes'][axis]]
 
   if 'mat_orig' in df:
