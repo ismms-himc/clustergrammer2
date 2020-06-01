@@ -3,17 +3,10 @@ def viz_json(net, dendro=True, links=False):
   from . import calc_clust
   import numpy as np
 
-  # all_dist = calc_clust.group_cutoffs()
-
   # linkage information
   net.viz['linkage'] = {}
   net.viz['linkage']['row'] = net.dat['node_info']['row']['Y'].tolist()
   net.viz['linkage']['col'] = net.dat['node_info']['col']['Y'].tolist()
-
-  # print('HERE!!!!!!!!!!!!!!!!!!!!!!!!')
-  # if 'manual_category' in net.dat:
-  #   print('adding manual_category to viz')
-  #   net.viz['manual_category'] = net.dat['manual_category']
 
   # node information
   for inst_rc in net.dat['nodes']:
@@ -59,8 +52,6 @@ def viz_json(net, dendro=True, links=False):
 
       net.viz[inst_rc + '_nodes'].append(inst_dict)
 
-  mat_types = ['mat', 'mat_orig', 'mat_info', 'mat_hl']
-
   # save data as links or mat
   ###########################
   if links is True:
@@ -72,24 +63,12 @@ def viz_json(net, dendro=True, links=False):
         inst_dict['target'] = j
         inst_dict['value'] = float(net.dat['mat'][i, j])
 
-        if 'mat_orig' in net.dat:
-          inst_dict['value_orig'] = net.dat['mat_orig'][i, j]
-
-          if np.isnan(inst_dict['value_orig']):
-            inst_dict['value_orig'] = 'NaN'
-
-
-        if 'mat_info' in net.dat:
-          inst_dict['info'] = net.dat['mat_info'][str((i, j))]
-
-        if 'mat_hl' in net.dat:
-          inst_dict['highlight'] = net.dat['mat_hl'][i, j]
+        if np.isnan(inst_dict['value_orig']):
+          inst_dict['value_orig'] = 'NaN'
 
         net.viz['links'].append(inst_dict)
 
   else:
-    for inst_mat in mat_types:
-      if inst_mat in net.dat:
-        net.viz[inst_mat] = net.dat[inst_mat].tolist()
+    net.viz['mat'] = net.dat['mat'].tolist()
 
 

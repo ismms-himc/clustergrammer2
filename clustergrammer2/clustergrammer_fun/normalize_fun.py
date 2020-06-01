@@ -8,8 +8,6 @@ def run_norm(net, df=None, norm_type='zscore', axis='row'):
   e.g. zscore) on either the rows or columns
   '''
 
-  # df here is actually a dictionary of several dataframes, 'mat', 'mat_orig',
-  # etc
   if df is None:
     df = net.dat_to_df()
 

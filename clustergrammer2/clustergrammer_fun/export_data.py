@@ -8,8 +8,6 @@ def export_net_json(net, net_type, indent='no-indent'):
 
     if type(exp_dict['mat']) is not list:
       exp_dict['mat'] = exp_dict['mat'].tolist()
-      if 'mat_orig' in exp_dict:
-        exp_dict['mat_orig'] = exp_dict['mat_orig'].tolist()
 
   elif net_type == 'viz':
     exp_dict = net.viz

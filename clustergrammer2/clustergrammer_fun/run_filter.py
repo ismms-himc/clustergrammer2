@@ -23,9 +23,6 @@ def df_filter_row_sum(df, threshold, take_abs=True):
   if len(keep_rows) < len(ini_rows):
     df = grab_df_subset(df, keep_rows=keep_rows)
 
-    if 'mat_orig' in df:
-      df['mat_orig'] = grab_df_subset(df['mat_orig'], keep_rows=keep_rows)
-
   return df
 
 def df_filter_col_sum(df, threshold, take_abs=True):
@@ -50,9 +47,6 @@ def df_filter_col_sum(df, threshold, take_abs=True):
     inst_rows = df_copy.index.tolist()
     inst_cols = df_copy.columns.tolist()
     df = grab_df_subset(df, inst_rows, inst_cols)
-
-    if 'mat_orig' in df:
-      df['mat_orig'] = grab_df_subset(df['mat_orig'], inst_rows, inst_cols)
 
   else:
     df = df_copy
@@ -95,9 +89,6 @@ def filter_N_top(inst_rc, df, N_top, rank_type='sum'):
 
   df = df.loc[keep_rows]
 
-  if 'mat_orig' in df:
-    df['mat_orig'] = df['mat_orig'].loc[keep_rows]
-
   if inst_rc == 'col':
     for inst_type in df:
       df[inst_type] = df[inst_type].transpose()
@@ -133,9 +124,6 @@ def filter_threshold(df, inst_rc, threshold, num_occur=1):
     if len(keep_names) < len(ini_rows):
       df = grab_df_subset(df, keep_rows=keep_names)
 
-      if 'mat_orig' in df:
-        df['mat_orig'] = grab_df_subset(df['mat_orig'], keep_rows=keep_names)
-
   elif inst_rc == 'col':
     inst_df = inst_df.transpose()
 
@@ -143,9 +131,6 @@ def filter_threshold(df, inst_rc, threshold, num_occur=1):
     inst_cols = keep_names
 
     df = grab_df_subset(df, inst_rows, inst_cols)
-
-    if 'mat_orig' in df:
-      df['mat_orig'] = grab_df_subset(df['mat_orig'], inst_rows, inst_cols)
 
   return df
 

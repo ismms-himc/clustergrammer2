@@ -22,12 +22,6 @@ def df_to_dat(net, df, define_cat_colors=False):
       # subtract 1 because the name is the first element of the tuple
       num_cat = len(net.dat['nodes'][axis][0]) - 1
 
-      # # makes tuples
-      # print(axis)
-      # print('---------------------------')
-      # print(net.dat['nodes'][axis])
-
-      # net.dat['node_info'][axis]['full_names'] = net.dat['nodes'][axis]
       if axis == 'row':
         net.dat['node_info'][axis]['full_names'] = df.index.tolist()
       elif axis == 'col':
@@ -42,9 +36,6 @@ def df_to_dat(net, df, define_cat_colors=False):
 
       # nodes are cleaned up
       net.dat['nodes'][axis] = [i[0] for i in net.dat['nodes'][axis]]
-
-  if 'mat_orig' in df:
-    net.dat['mat_orig'] = df['mat_orig'].values
 
   categories.dict_cat(net, define_cat_colors=define_cat_colors)
 
@@ -62,10 +53,6 @@ def dat_to_df(net):
 
   df = pd.DataFrame(data=net.dat['mat'], columns=nodes['col'],
       index=nodes['row'])
-
-  if 'mat_orig' in net.dat:
-    df['mat_orig'] = pd.DataFrame(data=net.dat['mat_orig'],
-      columns=nodes['col'], index=nodes['row'])
 
   return df
 
