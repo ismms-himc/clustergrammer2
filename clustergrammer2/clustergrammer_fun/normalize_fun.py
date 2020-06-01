@@ -32,41 +32,36 @@ def qn_df(df, axis='row'):
   '''
   do quantile normalization of a dataframe dictionary, does not write to net
   '''
-  df_qn = {}
+  # using transpose to do row qn
+  if axis == 'row':
+    df = df.transpose()
 
-  for mat_type in df:
-    inst_df = df[mat_type]
+  missing_values = df.isnull().values.any()
 
-    # using transpose to do row qn
-    if axis == 'row':
-      inst_df = inst_df.transpose()
+  # make mask of missing values
+  if missing_values:
 
-    missing_values = inst_df.isnull().values.any()
+    # get nan mask
+    missing_mask = pd.isnull(df)
 
-    # make mask of missing values
-    if missing_values:
+    # tmp fill in na with zero, will not affect qn
+    df = df.fillna(value=0)
 
-      # get nan mask
-      missing_mask = pd.isnull(inst_df)
+  # calc common distribution
+  common_dist = calc_common_dist(df)
 
-      # tmp fill in na with zero, will not affect qn
-      inst_df = inst_df.fillna(value=0)
+  # swap in common distribution
+  df = swap_in_common_dist(df, common_dist)
 
-    # calc common distribution
-    common_dist = calc_common_dist(inst_df)
+  # swap back in missing values
+  if missing_values:
+    df = df.mask(missing_mask, other=np.nan)
 
-    # swap in common distribution
-    inst_df = swap_in_common_dist(inst_df, common_dist)
+  # using transpose to do row qn
+  if axis == 'row':
+    df = df.transpose()
 
-    # swap back in missing values
-    if missing_values:
-      inst_df = inst_df.mask(missing_mask, other=np.nan)
-
-    # using transpose to do row qn
-    if axis == 'row':
-      inst_df = inst_df.transpose()
-
-    df_qn[mat_type] = inst_df
+  df_qn = df
 
   return df_qn
 
@@ -134,21 +129,16 @@ def zscore_df(df, axis='row'):
   '''
   take the zscore of a dataframe dictionary, does not write to net (self)
   '''
-  df_z = {}
 
-  for mat_type in df:
+  if axis == 'row':
+    df = df.transpose()
 
-    inst_df = df[mat_type]
+  ser_mean = df.mean()
+  ser_std = df.std()
 
-    if axis == 'row':
-      inst_df = inst_df.transpose()
+  df_z = (df - ser_mean)/ser_std
 
-    ser_mean = inst_df.mean()
-    ser_std = inst_df.std()
-
-    df_z[mat_type] = (inst_df - ser_mean)/ser_std
-
-    if axis == 'row':
-      df_z[mat_type] = df_z[mat_type].transpose()
+  if axis == 'row':
+    df_z = df_z.transpose()
 
   return df_z, ser_mean, ser_std
