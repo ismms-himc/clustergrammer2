@@ -1115,22 +1115,38 @@ class Network(object):
   def get_manual_category(self, axis, cat_title):
     try:
       export_dict = {}
+
+      # Category Names
+      #######################
       try:
-        # print(json.loads(self.widget_instance.custom_cat))
         export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.custom_cat)[axis][cat_title])
+
+        if hasattr(self, 'meta_cat') == True:
+
+          if axis == 'row':
+            print('saving to self')
+            self.meta_row[cat_title] = export_dict[cat_title]
+
+          elif axis == 'col':
+            print('saving to self')
+            self.meta_col[cat_title] = export_dict[cat_title]
+
       except:
         print('unable to load category, please check title')
-      ini_new_colors = json.loads(self.widget_instance.custom_cat)[axis + '_cat_colors']
 
+      # Category Colors
+      #######################
+      ini_new_colors = json.loads(self.widget_instance.custom_cat)[axis + '_cat_colors']
       # drop title from category colors
-      export_dict['new_colors'] = {}
+      export_dict['cat_colors'] = {}
       for inst_cat in ini_new_colors:
         if (': ' in inst_cat):
-          export_dict['new_colors'][inst_cat.split(': ')[1]] = ini_new_colors[inst_cat]
+          export_dict['cat_colors'][inst_cat.split(': ')[1]] = ini_new_colors[inst_cat]
         else:
-          export_dict['new_colors'][inst_cat] = ini_new_colors[inst_cat]
+          export_dict['cat_colors'][inst_cat] = ini_new_colors[inst_cat]
 
-      return export_dict
+      if hasattr(self, 'meta_cat') == False:
+        return export_dict
     except:
         print('please set custom category')
 
