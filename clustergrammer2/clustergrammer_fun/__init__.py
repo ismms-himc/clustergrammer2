@@ -125,8 +125,7 @@ class Network(object):
     # self.__init__()
     self.reset()
 
-    df = {}
-    df['mat'] = deepcopy(df_ini)
+    df = deepcopy(df_ini)
     # always define category colors if applicable when loading a df
     data_formats.df_to_dat(self, df, define_cat_colors=True)
 
@@ -135,7 +134,7 @@ class Network(object):
     Export Pandas DataFrame/
     '''
     df = data_formats.dat_to_df(self)
-    return df['mat']
+    return df
 
   def df_to_dat(self, df, define_cat_colors=False):
     '''

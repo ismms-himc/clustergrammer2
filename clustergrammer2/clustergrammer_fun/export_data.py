@@ -39,7 +39,7 @@ def write_matrix_to_tsv(net, filename=None, df=None):
   if df is None:
     df = net.dat_to_df()
 
-  return df['mat'].to_csv(filename, sep='\t')
+  return df.to_csv(filename, sep='\t')
 
 def write_json_to_file(net, net_type, filename, indent='no-indent'):
 

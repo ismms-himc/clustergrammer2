@@ -208,7 +208,7 @@ def clust_from_response(response_list):
       inst_df = deepcopy(df)
       inst_net = deepcopy(Network())
 
-      inst_df['mat'] = inst_df['mat'][top_terms[score_type][num_terms]]
+      inst_df = inst_df[top_terms[score_type][num_terms]]
 
       # load back into net
       inst_net.df_to_dat(inst_df)

@@ -58,18 +58,17 @@ def load_tsv_to_net(net, file_buffer, filename=None):
 
   row_arr = list(range(num_labels['row']))
   col_arr = list(range(num_labels['col']))
-  tmp_df = {}
 
   # use header if there are col categories
   if len(col_arr) > 1:
-    tmp_df['mat'] = pd.read_table(file_buffer, index_col=row_arr,
+    df = pd.read_table(file_buffer, index_col=row_arr,
                                   header=col_arr)
   else:
-    tmp_df['mat'] = pd.read_table(file_buffer, index_col=row_arr)
+    df = pd.read_table(file_buffer, index_col=row_arr)
 
-  tmp_df = proc_df_labels.main(tmp_df)
+  df = proc_df_labels.main(df)
 
-  net.df_to_dat(tmp_df, True)
+  net.df_to_dat(df, True)
   net.dat['filename'] = filename
 
 def load_json_to_dict(filename):

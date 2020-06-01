@@ -7,9 +7,9 @@ def df_filter_row_sum(df, threshold, take_abs=True):
   net = Network()
 
   if take_abs is True:
-    df_copy = deepcopy(df['mat'].abs())
+    df_copy = deepcopy(df.abs())
   else:
-    df_copy = deepcopy(df['mat'])
+    df_copy = deepcopy(df)
 
   ini_rows = df_copy.index.values.tolist()
   df_copy = df_copy.transpose()
@@ -21,7 +21,7 @@ def df_filter_row_sum(df, threshold, take_abs=True):
   keep_rows = sorted(tmp_sum.index.values.tolist())
 
   if len(keep_rows) < len(ini_rows):
-    df['mat'] = grab_df_subset(df['mat'], keep_rows=keep_rows)
+    df = grab_df_subset(df, keep_rows=keep_rows)
 
     if 'mat_orig' in df:
       df['mat_orig'] = grab_df_subset(df['mat_orig'], keep_rows=keep_rows)
@@ -37,9 +37,9 @@ def df_filter_col_sum(df, threshold, take_abs=True):
   net = Network()
 
   if take_abs is True:
-    df_copy = deepcopy(df['mat'].abs())
+    df_copy = deepcopy(df.abs())
   else:
-    df_copy = deepcopy(df['mat'])
+    df_copy = deepcopy(df)
 
   df_copy = df_copy.transpose()
   df_copy = df_copy[df_copy.sum(axis=1) > threshold]
@@ -49,13 +49,13 @@ def df_filter_col_sum(df, threshold, take_abs=True):
   if take_abs is True:
     inst_rows = df_copy.index.tolist()
     inst_cols = df_copy.columns.tolist()
-    df['mat'] = grab_df_subset(df['mat'], inst_rows, inst_cols)
+    df = grab_df_subset(df, inst_rows, inst_cols)
 
     if 'mat_orig' in df:
       df['mat_orig'] = grab_df_subset(df['mat_orig'], inst_rows, inst_cols)
 
   else:
-    df['mat'] = df_copy
+    df = df_copy
 
   return df
 
@@ -89,11 +89,11 @@ def filter_N_top(inst_rc, df, N_top, rank_type='sum'):
     for inst_type in df:
       df[inst_type] = df[inst_type].transpose()
 
-  rows_sorted = get_sorted_rows(df['mat'], rank_type)
+  rows_sorted = get_sorted_rows(df, rank_type)
 
   keep_rows = rows_sorted[:N_top]
 
-  df['mat'] = df['mat'].loc[keep_rows]
+  df = df.loc[keep_rows]
 
   if 'mat_orig' in df:
     df['mat_orig'] = df['mat_orig'].loc[keep_rows]
@@ -111,7 +111,7 @@ def filter_threshold(df, inst_rc, threshold, num_occur=1):
   '''
   from copy import deepcopy
 
-  inst_df = deepcopy(df['mat'])
+  inst_df = deepcopy(df)
 
   if inst_rc == 'col':
     inst_df = inst_df.transpose()
@@ -131,7 +131,7 @@ def filter_threshold(df, inst_rc, threshold, num_occur=1):
 
   if inst_rc == 'row':
     if len(keep_names) < len(ini_rows):
-      df['mat'] = grab_df_subset(df['mat'], keep_rows=keep_names)
+      df = grab_df_subset(df, keep_rows=keep_names)
 
       if 'mat_orig' in df:
         df['mat_orig'] = grab_df_subset(df['mat_orig'], keep_rows=keep_names)
@@ -142,7 +142,7 @@ def filter_threshold(df, inst_rc, threshold, num_occur=1):
     inst_rows = inst_df.index.values.tolist()
     inst_cols = keep_names
 
-    df['mat'] = grab_df_subset(df['mat'], inst_rows, inst_cols)
+    df = grab_df_subset(df, inst_rows, inst_cols)
 
     if 'mat_orig' in df:
       df['mat_orig'] = grab_df_subset(df['mat_orig'], inst_rows, inst_cols)

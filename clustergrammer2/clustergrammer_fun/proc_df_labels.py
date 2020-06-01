@@ -7,8 +7,8 @@ def main(df):
   from ast import literal_eval as make_tuple
 
   test = {}
-  test['row'] = df['mat'].index.tolist()
-  test['col'] = df['mat'].columns.tolist()
+  test['row'] = df.index.tolist()
+  test['col'] = df.columns.tolist()
 
   # if type( test_row ) is not str and type( test_row ) is not tuple:
 
@@ -38,25 +38,25 @@ def main(df):
   # convert to tuple if necessary
   #################################################
   if found_tuple['row']:
-    row_names = df['mat'].index.tolist()
+    row_names = df.index.tolist()
     row_names = [make_tuple(x) for x in row_names]
-    df['mat'].index = row_names
+    df.index = row_names
 
   if found_tuple['col']:
-    col_names = df['mat'].columns.tolist()
+    col_names = df.columns.tolist()
     col_names = [make_tuple(x) for x in col_names]
-    df['mat'].columns = col_names
+    df.columns = col_names
 
   # convert numbers to string if necessary
   #################################################
   if found_number['row']:
-    row_names = df['mat'].index.tolist()
+    row_names = df.index.tolist()
     row_names = [str(x) for x in row_names]
-    df['mat'].index = row_names
+    df.index = row_names
 
   if found_number['col']:
-    col_names = df['mat'].columns.tolist()
+    col_names = df.columns.tolist()
     col_names = [str(x) for x in col_names]
-    df['mat'].columns = col_names
+    df.columns = col_names
 
   return df
