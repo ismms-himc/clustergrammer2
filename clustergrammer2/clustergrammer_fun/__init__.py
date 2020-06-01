@@ -118,24 +118,24 @@ class Network(object):
     '''
     self.dat['mat'][np.isnan(self.dat['mat'])] = 0
 
-  def load_df(self, df, meta_col=None, meta_row=None):
+  def load_df(self, df_ini, meta_col=None, meta_row=None):
     '''
     Load Pandas DataFrame.
     '''
     # self.__init__()
     self.reset()
 
-    df_dict = {}
-    df_dict['mat'] = deepcopy(df)
+    df = {}
+    df['mat'] = deepcopy(df_ini)
     # always define category colors if applicable when loading a df
-    data_formats.df_to_dat(self, df_dict, define_cat_colors=True)
+    data_formats.df_to_dat(self, df, define_cat_colors=True)
 
   def export_df(self):
     '''
     Export Pandas DataFrame/
     '''
-    df_dict = data_formats.dat_to_df(self)
-    return df_dict['mat']
+    df = data_formats.dat_to_df(self)
+    return df['mat']
 
   def df_to_dat(self, df, define_cat_colors=False):
     '''
