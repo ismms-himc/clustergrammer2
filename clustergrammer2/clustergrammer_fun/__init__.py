@@ -131,12 +131,10 @@ class Network(object):
 
     # load metadata
     if isinstance(meta_col, pd.DataFrame):
-      print('loading meta_col')
       self.meta_col = meta_col
       self.meta_cat = True
 
     if isinstance(meta_row, pd.DataFrame):
-      print('loading meta_row')
       self.meta_row = meta_row
       self.meta_cat = True
 
