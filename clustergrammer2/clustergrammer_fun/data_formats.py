@@ -16,27 +16,28 @@ def df_to_dat(net, df, define_cat_colors=False):
 
   # parse categories from tuple
   ##################################
-  for axis in ['row', 'col']:
+  if net.meta_cat == False:
+    for axis in ['row', 'col']:
 
-    inst_nodes = net.dat['nodes'][axis]
-    if type(inst_nodes[0]) is tuple:
-      # get the number of categories from the length of the tuple
-      # subtract 1 because the name is the first element of the tuple
-      num_cat = len(inst_nodes[0]) - 1
+      inst_nodes = net.dat['nodes'][axis]
+      if type(inst_nodes[0]) is tuple:
+        # get the number of categories from the length of the tuple
+        # subtract 1 because the name is the first element of the tuple
+        num_cat = len(inst_nodes[0]) - 1
 
-      if axis == 'row':
-        net.dat['node_info'][axis]['full_names'] = df.index.tolist()
-      elif axis == 'col':
-        net.dat['node_info'][axis]['full_names'] = df.columns.tolist()
+        if axis == 'row':
+          net.dat['node_info'][axis]['full_names'] = df.index.tolist()
+        elif axis == 'col':
+          net.dat['node_info'][axis]['full_names'] = df.columns.tolist()
 
-      for inst_cat in range(num_cat):
-        cat_name = 'cat-' + str(inst_cat)
-        cat_index = inst_cat + 1
-        cat_value = [x[cat_index] for x in inst_nodes]
-        net.dat['node_info'][axis][cat_name] = cat_value
+        for inst_cat in range(num_cat):
+          cat_name = 'cat-' + str(inst_cat)
+          cat_index = inst_cat + 1
+          cat_value = [x[cat_index] for x in inst_nodes]
+          net.dat['node_info'][axis][cat_name] = cat_value
 
-      # clean up nodes after parsing categories
-      net.dat['nodes'][axis] = [x[0] for x in inst_nodes]
+        # clean up nodes after parsing categories
+        net.dat['nodes'][axis] = [x[0] for x in inst_nodes]
 
   categories.dict_cat(net, define_cat_colors=define_cat_colors)
 
