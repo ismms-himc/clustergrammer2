@@ -129,7 +129,7 @@ class Network(object):
     # load dataframe
     df = deepcopy(df_ini)
 
-    if hasattr(self, 'meta_col') == False or hasattr(self, 'meta_row') == False:
+    if hasattr(self, 'meta_col') == False and hasattr(self, 'meta_row') == False:
       self.meta_cat = False
 
     if is_downsampled:

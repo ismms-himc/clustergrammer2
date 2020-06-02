@@ -7,6 +7,8 @@ super_string = ': '
 def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100,
          random_state=1000, ds_name='Downsample', ds_cluster_name='cluster'):
 
+  # print('is meta cat 1 ??', net.meta_cat)
+
   if df is None:
     df = net.export_df()
   net.ds_name = ds_name
@@ -42,10 +44,14 @@ def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100,
     ds_df.index = [x[0] for x in ds_df.index.tolist()]
     net.dat['nodes']['row'] = ds_df.index.tolist()
 
+  # print('is meta cat 1 ??', net.meta_cat)
+
   # load downsampled dataframe into net
   # print('setting is_downsampled to True')
   # print('load downsampled dataframe into net!!!!!!!!!!!!!!')
   net.load_df(ds_df, is_downsampled=True)
+
+  # print('is meta cat 3 ??', net.meta_cat)
 
   if net.meta_cat:
     if axis == 'row':
@@ -54,6 +60,8 @@ def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100,
       net.meta_col[ds_name] = ser_ds
   else:
     return ser_ds
+
+
 
 def meta_cat_to_tuple(net, axis, orig_labels, inst_cats):
   tuple_labels = []

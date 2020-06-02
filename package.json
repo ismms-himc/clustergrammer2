@@ -1,6 +1,6 @@
 {
   "name": "clustergrammer2",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "description": "A custom Jupyter widget library built using the widget-ts-cookiecutter library'",
   "keywords": [
     "jupyter",
@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@jupyter-widgets/base": "^1 || ^2 || ^3",
-    "clustergrammer-gl": "0.20.3",
+    "clustergrammer-gl": "0.20.5",
     "d3": "5.15.0"
   },
   "devDependencies": {

@@ -63,12 +63,15 @@ def df_to_dat(net, df, define_cat_colors=False):
       elif axis == 'col':
         net.dat['node_info'][axis]['full_names'] = df.columns.tolist()
 
+      inst_cats = []
       if axis == 'row':
         # inst_cats = net.meta_row.columns.tolist()
-        inst_cats = net.row_cats
+        if hasattr(net, 'row_cats'):
+          inst_cats = net.row_cats
       else:
         # inst_cats = net.meta_col.columns.tolist()
-        inst_cats = net.col_cats
+        if hasattr(net, 'col_cats'):
+          inst_cats = net.col_cats
 
       num_cats = len(inst_cats)
 
@@ -77,37 +80,38 @@ def df_to_dat(net, df, define_cat_colors=False):
       # elif axis == 'col':
       #   num_cats = len(net.col_cats)
 
-      for inst_cat in range(num_cats):
-        cat_name = 'cat-' + str(inst_cat)
-        cat_index = inst_cat + 1
+      if num_cats > 0:
+        for inst_cat in range(num_cats):
+          cat_name = 'cat-' + str(inst_cat)
+          cat_index = inst_cat + 1
 
-        cat_title = inst_cats[inst_cat]
-        if axis == 'row':
-          # cat_values = net.meta_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
-          if net.is_downsampled:
-            if hasattr(net, 'meta_ds_row'):
-              cat_values = net.meta_ds_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+          cat_title = inst_cats[inst_cat]
+          if axis == 'row':
+            # cat_values = net.meta_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+            if net.is_downsampled:
+              if hasattr(net, 'meta_ds_row'):
+                cat_values = net.meta_ds_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+              else:
+                cat_values = net.meta_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+
+            # detault with no downsampling
             else:
               cat_values = net.meta_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
-
-          # detault with no downsampling
           else:
-            cat_values = net.meta_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
-        else:
-          # cat_values = net.meta_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
-          if net.is_downsampled:
-            if hasattr(net, 'meta_ds_col'):
-              # print(inst_nodes)
+            # cat_values = net.meta_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+            if net.is_downsampled:
+              if hasattr(net, 'meta_ds_col'):
+                # print(inst_nodes)
 
-              cat_values = net.meta_ds_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+                cat_values = net.meta_ds_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+              else:
+                cat_values = net.meta_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+
+            # detault with no downsampling
             else:
               cat_values = net.meta_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
 
-          # detault with no downsampling
-          else:
-            cat_values = net.meta_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
-
-        net.dat['node_info'][axis][cat_name] = cat_values
+          net.dat['node_info'][axis][cat_name] = cat_values
 
   categories.dict_cat(net, define_cat_colors=define_cat_colors)
 
