@@ -12,14 +12,31 @@ def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100, random_sta
   # # run downsampling
   # random_state = 1000
 
-  ds_df, ds_data = run_kmeans_mini_batch(df, num_samples, axis, random_state)
+  ds_df, ds_data = run_kmeans_mini_batch(net, df, num_samples, axis, random_state)
 
   net.load_df(ds_df)
 
   return ds_data
 
-def run_kmeans_mini_batch(df, num_samples=100, axis='row', random_state=1000):
+def meta_cat_to_tuple(net, axis, orig_labels, inst_cats):
+  tuple_labels = []
+  for inst_label in orig_labels:
+      new_label = [inst_label]
 
+      for inst_cat_type in inst_cats:
+          if axis == 'col':
+              inst_cat = inst_cat_type + ': ' + net.meta_col.loc[inst_label, inst_cat_type]
+          else:
+              inst_cat = inst_cat_type + ': ' + net.meta_row.loc[inst_label, inst_cat_type]
+          new_label.append(inst_cat)
+
+      new_label = tuple(new_label)
+      tuple_labels.append(new_label)
+
+  return tuple_labels
+
+
+def run_kmeans_mini_batch(net, df, num_samples=100, axis='row', random_state=1000):
 
   # gather downsampled axis information
   if axis == 'row':
@@ -27,10 +44,17 @@ def run_kmeans_mini_batch(df, num_samples=100, axis='row', random_state=1000):
     orig_labels = df.index.tolist()
     non_ds_labels = df.columns.tolist()
 
+    # print(orig_labels)
+    if net.meta_cat:
+      orig_labels = meta_cat_to_tuple(net, axis, orig_labels, net.row_cats)
+
   else:
     X = df.transpose()
     orig_labels = df.columns.tolist()
     non_ds_labels = df.index.tolist()
+
+    if net.meta_cat:
+      orig_labels = meta_cat_to_tuple(net, axis, orig_labels, net.col_cats)
 
   cat_index = 1
 
@@ -76,7 +100,7 @@ def run_kmeans_mini_batch(df, num_samples=100, axis='row', random_state=1000):
         max_cat_name = cat_data['types'][max_index]
 
         # add category title if available
-        cat_name_string = 'Majority-'+ cat_data['title'] +': ' + max_cat_name
+        cat_name_string = cat_data['title'] +': ' + max_cat_name
 
         inst_tuple = inst_tuple + (cat_name_string,)
 

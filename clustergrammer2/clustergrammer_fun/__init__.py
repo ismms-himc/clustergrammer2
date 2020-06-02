@@ -1131,6 +1131,8 @@ class Network(object):
       try:
         export_dict = {}
 
+        inst_nodes = self.dat['nodes'][axis]
+
         cat_title = self.dat['manual_category'][axis]
 
         # Category Names
@@ -1142,11 +1144,11 @@ class Network(object):
 
             if axis == 'row':
               # print('saving to self')
-              self.meta_row[cat_title] = export_dict[cat_title]
+              self.meta_row.loc[inst_nodes, cat_title] = export_dict[cat_title]
 
             elif axis == 'col':
               # print('saving to self')
-              self.meta_col[cat_title] = export_dict[cat_title]
+              self.meta_col.loc[inst_nodes, cat_title] = export_dict[cat_title]
 
         except:
           # print('unable to load category, please check title')
