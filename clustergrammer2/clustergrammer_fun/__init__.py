@@ -118,7 +118,8 @@ class Network(object):
     '''
     self.dat['mat'][np.isnan(self.dat['mat'])] = 0
 
-  def load_df(self, df_ini, meta_col=None, meta_row=None):
+  def load_df(self, df_ini, meta_col=None, meta_row=None,
+              col_cats=None, row_cats=None):
     '''
     Load Pandas DataFrame.
     '''
@@ -132,10 +133,22 @@ class Network(object):
     # load metadata
     if isinstance(meta_col, pd.DataFrame):
       self.meta_col = meta_col
+
+      if col_cats is None:
+        self.col_cats = meta_col.columns.tolist()
+      else:
+        self.col_cats = col_cats
+
       self.meta_cat = True
 
     if isinstance(meta_row, pd.DataFrame):
       self.meta_row = meta_row
+
+      if row_cats is None:
+        self.row_cats = meta_row.columns.tolist()
+      else:
+        self.row_cats = row_cats
+
       self.meta_cat = True
 
     data_formats.df_to_dat(self, df, define_cat_colors=True)
@@ -1124,15 +1137,16 @@ class Network(object):
         if hasattr(self, 'meta_cat') == True:
 
           if axis == 'row':
-            print('saving to self')
+            # print('saving to self')
             self.meta_row[cat_title] = export_dict[cat_title]
 
           elif axis == 'col':
-            print('saving to self')
+            # print('saving to self')
             self.meta_col[cat_title] = export_dict[cat_title]
 
       except:
-        print('unable to load category, please check title')
+        # print('unable to load category, please check title')
+        pass
 
       # Category Colors
       #######################
