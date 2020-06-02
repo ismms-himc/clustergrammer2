@@ -163,6 +163,12 @@ class Network(object):
     Export Pandas DataFrame/
     '''
     df = data_formats.dat_to_df(self)
+
+    # drop tuple categories if downsampling
+    if self.is_downsampled:
+      df.columns = self.dat['nodes']['col']
+      df.index = self.dat['nodes']['row']
+
     return df
 
   def df_to_dat(self, df, define_cat_colors=False):
@@ -366,12 +372,13 @@ class Network(object):
     '''
     normalize_fun.run_norm(self, df, norm_type, axis)
 
-  def downsample(self, df=None, ds_type='kmeans', axis='row', num_samples=100, random_state=1000, ds_name='Downsample'):
+  def downsample(self, df=None, ds_type='kmeans', axis='row', num_samples=100,
+                 random_state=1000, ds_name='Downsample',
+                 ds_cluster_name='cluster'):
     '''
     Downsample the matrix rows or columns (currently supporting kmeans only). Users can optionally pass in a DataFrame to be downsampled (and this will be incorporated into the network object).
     '''
-
-    return downsample_fun.main(self, df, ds_type, axis, num_samples, random_state, ds_name)
+    return downsample_fun.main(self, df, ds_type, axis, num_samples, random_state, ds_name, ds_cluster_name)
 
   def random_sample(self, num_samples, df=None, replace=False, weights=None, random_state=100, axis='row'):
     '''

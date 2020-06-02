@@ -4,7 +4,10 @@ from sklearn.cluster import MiniBatchKMeans
 # string used to format titles
 super_string = ': '
 
-def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100, random_state=1000, ds_name='Downsample'):
+def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100,
+         random_state=1000, ds_name='Downsample', ds_cluster_name='cluster'):
+
+  print(ds_cluster_name)
 
   if df is None:
     df = net.export_df()
@@ -14,9 +17,10 @@ def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100, random_sta
 
   net.ds_name = ds_name
 
-  ds_df, ds_data = run_kmeans_mini_batch(net, df, num_samples, axis, random_state)
+  ds_df, ds_data = run_kmeans_mini_batch(net, df, num_samples, axis,
+                                         random_state, ds_cluster_name)
 
-  ds_data = [ 'cluster-' + str(x + 1) for x in ds_data]
+  ds_data = [ds_cluster_name + '-' + str(x + 1) for x in ds_data]
 
   if axis == 'row':
     labels = df.index.tolist()
@@ -61,7 +65,8 @@ def meta_cat_to_tuple(net, axis, orig_labels, inst_cats):
 
   return tuple_labels
 
-def run_kmeans_mini_batch(net, df, num_samples=100, axis='row', random_state=1000):
+def run_kmeans_mini_batch(net, df, num_samples=100, axis='row',
+                          random_state=1000, ds_cluster_name='cluster'):
 
   # gather downsampled axis information
   if axis == 'row':
@@ -94,7 +99,7 @@ def run_kmeans_mini_batch(net, df, num_samples=100, axis='row', random_state=100
     random_state = random_state + random_state
 
   clust_numbers = range(num_returned_clusters)
-  clust_labels = ['cluster-' + str(i + 1) for i in clust_numbers]
+  clust_labels = [ds_cluster_name + '-' + str(i + 1) for i in clust_numbers]
 
   if type(orig_labels[0]) is tuple:
     found_cats = True
