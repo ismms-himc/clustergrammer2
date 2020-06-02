@@ -1157,60 +1157,61 @@ class Network(object):
 
     for axis in ['col']:
 
-      # try:
-      # #############################
+      try:
+      ###########################################################
 
-      export_dict = {}
+        export_dict = {}
 
-      inst_nodes = self.dat['nodes'][axis]
+        inst_nodes = self.dat['nodes'][axis]
 
-      cat_title = self.dat['manual_category'][axis]
+        cat_title = self.dat['manual_category'][axis]
 
-      # Category Names
-      #######################
-      # try:
-
-      export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.custom_cat)[axis][cat_title])
+        # Category Names
+        try:
+        ###########################################################
 
 
-      if hasattr(self, 'meta_cat') == True:
+          export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.custom_cat)[axis][cat_title])
 
-        if axis == 'row':
-          if self.is_downsampled == False:
-            self.meta_row.loc[inst_nodes, cat_title] = export_dict[cat_title]
+
+          if hasattr(self, 'meta_cat') == True:
+
+            if axis == 'row':
+              if self.is_downsampled == False:
+                self.meta_row.loc[inst_nodes, cat_title] = export_dict[cat_title]
+              else:
+                self.meta_ds_row.loc[inst_nodes, cat_title] = export_dict[cat_title]
+                self.ds_to_original_meta(axis)
+
+            elif axis == 'col':
+              if self.is_downsampled == False:
+                self.meta_col.loc[inst_nodes, cat_title] = export_dict[cat_title]
+              else:
+                self.meta_ds_col.loc[inst_nodes, cat_title] = export_dict[cat_title]
+                self.ds_to_original_meta(axis)
+
+
+        except:
+          pass
+          # print('unable to load', axis ,' category, please check title')
+
+        # Category Colors
+        #######################
+        ini_new_colors = json.loads(self.widget_instance.custom_cat)[axis + '_cat_colors']
+        # drop title from category colors
+        export_dict['cat_colors'] = {}
+        for inst_cat in ini_new_colors:
+          if (': ' in inst_cat):
+            export_dict['cat_colors'][inst_cat.split(': ')[1]] = ini_new_colors[inst_cat]
           else:
-            self.meta_ds_row.loc[inst_nodes, cat_title] = export_dict[cat_title]
-            self.ds_to_original_meta(axis)
+            export_dict['cat_colors'][inst_cat] = ini_new_colors[inst_cat]
 
-        elif axis == 'col':
-          if self.is_downsampled == False:
-            self.meta_col.loc[inst_nodes, cat_title] = export_dict[cat_title]
-          else:
-            self.meta_ds_col.loc[inst_nodes, cat_title] = export_dict[cat_title]
-            self.ds_to_original_meta(axis)
+        if hasattr(self, 'meta_cat') == False:
+          return export_dict
 
-
-      # except:
-      #   print('unable to load', axis ,' category, please check title')
-      #   # pass
-
-      # Category Colors
-      #######################
-      ini_new_colors = json.loads(self.widget_instance.custom_cat)[axis + '_cat_colors']
-      # drop title from category colors
-      export_dict['cat_colors'] = {}
-      for inst_cat in ini_new_colors:
-        if (': ' in inst_cat):
-          export_dict['cat_colors'][inst_cat.split(': ')[1]] = ini_new_colors[inst_cat]
-        else:
-          export_dict['cat_colors'][inst_cat] = ini_new_colors[inst_cat]
-
-      if hasattr(self, 'meta_cat') == False:
-        return export_dict
-
-      # except:
-      #     # print('please set custom category')
-      #     pass
+      except:
+          # print('please set custom category')
+          pass
 
 
   @staticmethod
