@@ -14,9 +14,23 @@ def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100, random_sta
 
   ds_df, ds_data = run_kmeans_mini_batch(net, df, num_samples, axis, random_state)
 
-  net.load_df(ds_df)
 
-  return ds_data
+  print('downsampling')
+  # generate downsampled metadata
+  if axis == 'col':
+    net.meta_ds_col = net.make_df_from_cols(ds_df.columns.tolist())
+  else:
+    net.meta_ds_row = net.make_df_from_cols(ds_df.index.tolist())
+
+  # load downsampled dataframe into net
+  print('setting is_downsampled to True')
+  net.load_df(ds_df, is_downsampled=True)
+
+  print('here!!!!!!')
+  if net.meta_cat:
+    print(ds_data)
+  else:
+    return ds_data
 
 def meta_cat_to_tuple(net, axis, orig_labels, inst_cats):
   tuple_labels = []
@@ -34,7 +48,6 @@ def meta_cat_to_tuple(net, axis, orig_labels, inst_cats):
       tuple_labels.append(new_label)
 
   return tuple_labels
-
 
 def run_kmeans_mini_batch(net, df, num_samples=100, axis='row', random_state=1000):
 
@@ -69,7 +82,7 @@ def run_kmeans_mini_batch(net, df, num_samples=100, axis='row', random_state=100
     random_state = random_state + random_state
 
   clust_numbers = range(num_returned_clusters)
-  clust_labels = [ 'cluster-' + str(i) for i in clust_numbers]
+  clust_labels = ['cluster-' + str(i + 1) for i in clust_numbers]
 
   if type(orig_labels[0]) is tuple:
     found_cats = True
@@ -87,7 +100,7 @@ def run_kmeans_mini_batch(net, df, num_samples=100, axis='row', random_state=100
   cluster_labels = []
   for i in range(num_returned_clusters):
 
-    inst_name = 'Cluster: ' + clust_labels[i]
+    inst_name = clust_labels[i]
     num_in_clust_string =  'number in clust: '+ str(cluster_pop[i])
 
     inst_tuple = (inst_name,)

@@ -119,7 +119,7 @@ class Network(object):
     self.dat['mat'][np.isnan(self.dat['mat'])] = 0
 
   def load_df(self, df_ini, meta_col=None, meta_row=None,
-              col_cats=None, row_cats=None):
+              col_cats=None, row_cats=None, is_downsampled=False):
     '''
     Load Pandas DataFrame.
     '''
@@ -128,7 +128,12 @@ class Network(object):
     # load dataframe
     df = deepcopy(df_ini)
 
-    self.meta_cat = False
+    if hasattr(self, 'meta_col') == False or hasattr(self, 'meta_row') == False:
+      self.meta_cat = False
+
+    # define downsampled status
+    self.is_downsampled = is_downsampled
+    print('load_df: is_downsampled', is_downsampled)
 
     # load metadata
     if isinstance(meta_col, pd.DataFrame):

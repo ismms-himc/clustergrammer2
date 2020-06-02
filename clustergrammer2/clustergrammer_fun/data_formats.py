@@ -14,7 +14,14 @@ def df_to_dat(net, df, define_cat_colors=False):
   net.dat['nodes']['row'] = df.index.tolist()
   net.dat['nodes']['col'] = df.columns.tolist()
 
-  if net.meta_cat == False:
+  print('checking ds status')
+  print('is_downsampled', net.is_downsampled)
+  print('meta_cat', net.meta_cat)
+  print(hasattr(net, 'meta_ds_col'))
+  print(hasattr(net, 'meta_ds_row'))
+
+  # if net.meta_cat == False or hasattr(net, 'meta_ds_col') or hasattr(net, 'meta_ds_row'):
+  if net.meta_cat == False or net.is_downsampled:
 
     # tuple cats
     ##################################
