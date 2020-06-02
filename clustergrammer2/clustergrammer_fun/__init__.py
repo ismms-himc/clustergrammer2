@@ -118,8 +118,9 @@ class Network(object):
     '''
     self.dat['mat'][np.isnan(self.dat['mat'])] = 0
 
-  def load_df(self, df_ini, meta_col=None, meta_row=None,
-              col_cats=None, row_cats=None, is_downsampled=False):
+  def load_df(self, df_ini, meta_col=None, meta_row=None, col_cats=None,
+              row_cats=None, is_downsampled=False, meta_ds_row=None,
+              meta_ds_col=None):
     '''
     Load Pandas DataFrame.
     '''
@@ -130,6 +131,12 @@ class Network(object):
 
     if hasattr(self, 'meta_col') == False or hasattr(self, 'meta_row') == False:
       self.meta_cat = False
+
+    if is_downsampled:
+      if meta_ds_col is not None:
+        self.meta_ds_col = meta_ds_col
+      if meta_ds_row is not None:
+        self.meta_ds_row = meta_ds_row
 
     # define downsampled status
     self.is_downsampled = is_downsampled

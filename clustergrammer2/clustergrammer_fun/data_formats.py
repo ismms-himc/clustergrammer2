@@ -20,8 +20,8 @@ def df_to_dat(net, df, define_cat_colors=False):
   # print(hasattr(net, 'meta_ds_col'))
   # print(hasattr(net, 'meta_ds_row'))
 
-  # if net.meta_cat == False or hasattr(net, 'meta_ds_col') or hasattr(net, 'meta_ds_row'):
-  if net.meta_cat == False or net.is_downsampled:
+  # if net.meta_cat == False or net.is_downsampled:
+  if net.meta_cat == False:
 
     # tuple cats
     ##################################
@@ -83,9 +83,29 @@ def df_to_dat(net, df, define_cat_colors=False):
 
         cat_title = inst_cats[inst_cat]
         if axis == 'row':
-          cat_values = net.meta_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+          # cat_values = net.meta_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+          if net.is_downsampled:
+            if hasattr(net, 'meta_ds_row'):
+              cat_values = net.meta_ds_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+            else:
+              cat_values = net.meta_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+
+          # detault with no downsampling
+          else:
+            cat_values = net.meta_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
         else:
-          cat_values = net.meta_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+          # cat_values = net.meta_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+          if net.is_downsampled:
+            if hasattr(net, 'meta_ds_col'):
+              # print(inst_nodes)
+
+              cat_values = net.meta_ds_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+            else:
+              cat_values = net.meta_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+
+          # detault with no downsampling
+          else:
+            cat_values = net.meta_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
 
         net.dat['node_info'][axis][cat_name] = cat_values
 

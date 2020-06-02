@@ -7,16 +7,11 @@ super_string = ': '
 def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100,
          random_state=1000, ds_name='Downsample', ds_cluster_name='cluster'):
 
-  print(ds_cluster_name)
-
   if df is None:
     df = net.export_df()
-
-  # # run downsampling
-  # random_state = 1000
-
   net.ds_name = ds_name
 
+  # print('run k-means!!!!!!!!!!!!!')
   ds_df, ds_data = run_kmeans_mini_batch(net, df, num_samples, axis,
                                          random_state, ds_cluster_name)
 
@@ -29,18 +24,30 @@ def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100,
 
   ser_ds = pd.Series(ds_data, index=labels)
 
-  # generate downsampled metadata
+  # generate downsampled metadata from tuples
   if axis == 'col':
     net.meta_ds_col = net.make_df_from_cols(ds_df.columns.tolist())
   else:
     net.meta_ds_row = net.make_df_from_cols(ds_df.index.tolist())
 
+  # strip tuples
+  # print('strip tuples!!!!!!!!!!!!!!!!!!!!1')
+  if axis == 'col':
+    ds_df.columns = [x[0] for x in ds_df.columns.tolist()]
+    # print('after stripping col tuples')
+    # print(ds_df.columns.tolist())
+    net.dat['nodes']['col'] = ds_df.columns.tolist()
+
+  else:
+    ds_df.index = [x[0] for x in ds_df.index.tolist()]
+    net.dat['nodes']['row'] = ds_df.index.tolist()
+
   # load downsampled dataframe into net
   # print('setting is_downsampled to True')
+  # print('load downsampled dataframe into net!!!!!!!!!!!!!!')
   net.load_df(ds_df, is_downsampled=True)
 
   if net.meta_cat:
-    # print(ser_ds)
     if axis == 'row':
       net.meta_row[ds_name] = ser_ds
     else:
