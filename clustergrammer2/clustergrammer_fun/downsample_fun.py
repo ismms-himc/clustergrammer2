@@ -4,7 +4,7 @@ from sklearn.cluster import MiniBatchKMeans
 # string used to format titles
 super_string = ': '
 
-def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100, random_state=1000):
+def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100, random_state=1000, ds_name='Downsample'):
 
   if df is None:
     df = net.export_df()
@@ -12,10 +12,19 @@ def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100, random_sta
   # # run downsampling
   # random_state = 1000
 
+  net.ds_name = ds_name
+
   ds_df, ds_data = run_kmeans_mini_batch(net, df, num_samples, axis, random_state)
 
+  ds_data = [ 'cluster-' + str(x + 1) for x in ds_data]
 
-  print('downsampling')
+  if axis == 'row':
+    labels = df.index.tolist()
+  else:
+    labels = df.columns.tolist()
+
+  ser_ds = pd.Series(ds_data, index=labels)
+
   # generate downsampled metadata
   if axis == 'col':
     net.meta_ds_col = net.make_df_from_cols(ds_df.columns.tolist())
@@ -23,14 +32,17 @@ def main(net, df=None, ds_type='kmeans', axis='row', num_samples=100, random_sta
     net.meta_ds_row = net.make_df_from_cols(ds_df.index.tolist())
 
   # load downsampled dataframe into net
-  print('setting is_downsampled to True')
+  # print('setting is_downsampled to True')
   net.load_df(ds_df, is_downsampled=True)
 
-  print('here!!!!!!')
   if net.meta_cat:
-    print(ds_data)
+    # print(ser_ds)
+    if axis == 'row':
+      net.meta_row[ds_name] = ser_ds
+    else:
+      net.meta_col[ds_name] = ser_ds
   else:
-    return ds_data
+    return ser_ds
 
 def meta_cat_to_tuple(net, axis, orig_labels, inst_cats):
   tuple_labels = []

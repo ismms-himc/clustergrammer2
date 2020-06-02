@@ -133,7 +133,7 @@ class Network(object):
 
     # define downsampled status
     self.is_downsampled = is_downsampled
-    print('load_df: is_downsampled', is_downsampled)
+    # print('load_df: is_downsampled', is_downsampled)
 
     # load metadata
     if isinstance(meta_col, pd.DataFrame):
@@ -366,12 +366,12 @@ class Network(object):
     '''
     normalize_fun.run_norm(self, df, norm_type, axis)
 
-  def downsample(self, df=None, ds_type='kmeans', axis='row', num_samples=100, random_state=1000):
+  def downsample(self, df=None, ds_type='kmeans', axis='row', num_samples=100, random_state=1000, ds_name='Downsample'):
     '''
     Downsample the matrix rows or columns (currently supporting kmeans only). Users can optionally pass in a DataFrame to be downsampled (and this will be incorporated into the network object).
     '''
 
-    return downsample_fun.main(self, df, ds_type, axis, num_samples, random_state)
+    return downsample_fun.main(self, df, ds_type, axis, num_samples, random_state, ds_name)
 
   def random_sample(self, num_samples, df=None, replace=False, weights=None, random_state=100, axis='row'):
     '''
@@ -1130,51 +1130,80 @@ class Network(object):
     self.dat['manual_category']['col'] = col
     self.dat['manual_category']['row'] = row
 
+  def ds_to_original_meta(self, axis):
+    clusters = self.meta_ds_col.index.tolist()
+
+    man_cat_title = self.dat['manual_category'][axis]
+
+    for inst_cluster in clusters:
+
+        # get the manual category from the downsampled data
+        inst_man_cat = self.meta_ds_col.loc[inst_cluster, man_cat_title]
+
+        # find original labels that are assigned to this cluster
+        found_labels = self.meta_col[self.meta_col[self.ds_name] == inst_cluster].index.tolist()
+
+        # update manual category
+        self.meta_col.loc[found_labels, man_cat_title] = inst_man_cat
+
   def get_manual_category(self):
 
-    for axis in ['row', 'col']:
-      try:
-        export_dict = {}
+    for axis in ['col']:
 
-        inst_nodes = self.dat['nodes'][axis]
+      # try:
+      # #############################
 
-        cat_title = self.dat['manual_category'][axis]
+      export_dict = {}
 
-        # Category Names
-        #######################
-        try:
-          export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.custom_cat)[axis][cat_title])
+      inst_nodes = self.dat['nodes'][axis]
 
-          if hasattr(self, 'meta_cat') == True:
+      cat_title = self.dat['manual_category'][axis]
 
-            if axis == 'row':
-              # print('saving to self')
-              self.meta_row.loc[inst_nodes, cat_title] = export_dict[cat_title]
+      # Category Names
+      #######################
+      # try:
 
-            elif axis == 'col':
-              # print('saving to self')
-              self.meta_col.loc[inst_nodes, cat_title] = export_dict[cat_title]
+      export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.custom_cat)[axis][cat_title])
 
-        except:
-          # print('unable to load category, please check title')
-          pass
 
-        # Category Colors
-        #######################
-        ini_new_colors = json.loads(self.widget_instance.custom_cat)[axis + '_cat_colors']
-        # drop title from category colors
-        export_dict['cat_colors'] = {}
-        for inst_cat in ini_new_colors:
-          if (': ' in inst_cat):
-            export_dict['cat_colors'][inst_cat.split(': ')[1]] = ini_new_colors[inst_cat]
+      if hasattr(self, 'meta_cat') == True:
+
+        if axis == 'row':
+          if self.is_downsampled == False:
+            self.meta_row.loc[inst_nodes, cat_title] = export_dict[cat_title]
           else:
-            export_dict['cat_colors'][inst_cat] = ini_new_colors[inst_cat]
+            self.meta_ds_row.loc[inst_nodes, cat_title] = export_dict[cat_title]
+            self.ds_to_original_meta(axis)
 
-        if hasattr(self, 'meta_cat') == False:
-          return export_dict
-      except:
-          # print('please set custom category')
-          pass
+        elif axis == 'col':
+          if self.is_downsampled == False:
+            self.meta_col.loc[inst_nodes, cat_title] = export_dict[cat_title]
+          else:
+            self.meta_ds_col.loc[inst_nodes, cat_title] = export_dict[cat_title]
+            self.ds_to_original_meta(axis)
+
+
+      # except:
+      #   print('unable to load', axis ,' category, please check title')
+      #   # pass
+
+      # Category Colors
+      #######################
+      ini_new_colors = json.loads(self.widget_instance.custom_cat)[axis + '_cat_colors']
+      # drop title from category colors
+      export_dict['cat_colors'] = {}
+      for inst_cat in ini_new_colors:
+        if (': ' in inst_cat):
+          export_dict['cat_colors'][inst_cat.split(': ')[1]] = ini_new_colors[inst_cat]
+        else:
+          export_dict['cat_colors'][inst_cat] = ini_new_colors[inst_cat]
+
+      if hasattr(self, 'meta_cat') == False:
+        return export_dict
+
+      # except:
+      #     # print('please set custom category')
+      #     pass
 
 
   @staticmethod
