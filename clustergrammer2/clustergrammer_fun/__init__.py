@@ -1114,7 +1114,7 @@ class Network(object):
           inst_color = cat_colors[inst_ct]
           self.set_cat_color(axis=axis, cat_index=cat_index, cat_name=cat_name, inst_color=inst_color)
 
-  def manual_category(self, col=None, row=None):
+  def set_manual_category(self, col=None, row=None):
     '''
     This method is used to tell Clustergrammer2 that the user wants to define
     a manual category interactively using the dendrogram.
@@ -1125,44 +1125,49 @@ class Network(object):
     self.dat['manual_category']['col'] = col
     self.dat['manual_category']['row'] = row
 
-  def get_manual_category(self, axis, cat_title):
-    try:
-      export_dict = {}
+  def get_manual_category(self):
 
-      # Category Names
-      #######################
+    for axis in ['row', 'col']:
       try:
-        export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.custom_cat)[axis][cat_title])
+        export_dict = {}
 
-        if hasattr(self, 'meta_cat') == True:
+        cat_title = self.dat['manual_category'][axis]
 
-          if axis == 'row':
-            # print('saving to self')
-            self.meta_row[cat_title] = export_dict[cat_title]
+        # Category Names
+        #######################
+        try:
+          export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.custom_cat)[axis][cat_title])
 
-          elif axis == 'col':
-            # print('saving to self')
-            self.meta_col[cat_title] = export_dict[cat_title]
+          if hasattr(self, 'meta_cat') == True:
 
+            if axis == 'row':
+              # print('saving to self')
+              self.meta_row[cat_title] = export_dict[cat_title]
+
+            elif axis == 'col':
+              # print('saving to self')
+              self.meta_col[cat_title] = export_dict[cat_title]
+
+        except:
+          # print('unable to load category, please check title')
+          pass
+
+        # Category Colors
+        #######################
+        ini_new_colors = json.loads(self.widget_instance.custom_cat)[axis + '_cat_colors']
+        # drop title from category colors
+        export_dict['cat_colors'] = {}
+        for inst_cat in ini_new_colors:
+          if (': ' in inst_cat):
+            export_dict['cat_colors'][inst_cat.split(': ')[1]] = ini_new_colors[inst_cat]
+          else:
+            export_dict['cat_colors'][inst_cat] = ini_new_colors[inst_cat]
+
+        if hasattr(self, 'meta_cat') == False:
+          return export_dict
       except:
-        # print('unable to load category, please check title')
-        pass
-
-      # Category Colors
-      #######################
-      ini_new_colors = json.loads(self.widget_instance.custom_cat)[axis + '_cat_colors']
-      # drop title from category colors
-      export_dict['cat_colors'] = {}
-      for inst_cat in ini_new_colors:
-        if (': ' in inst_cat):
-          export_dict['cat_colors'][inst_cat.split(': ')[1]] = ini_new_colors[inst_cat]
-        else:
-          export_dict['cat_colors'][inst_cat] = ini_new_colors[inst_cat]
-
-      if hasattr(self, 'meta_cat') == False:
-        return export_dict
-    except:
-        print('please set custom category')
+          # print('please set custom category')
+          pass
 
 
   @staticmethod

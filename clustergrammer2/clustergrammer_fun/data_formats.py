@@ -14,9 +14,11 @@ def df_to_dat(net, df, define_cat_colors=False):
   net.dat['nodes']['row'] = df.index.tolist()
   net.dat['nodes']['col'] = df.columns.tolist()
 
-  # parse categories from tuple
-  ##################################
   if net.meta_cat == False:
+
+    # tuple cats
+    ##################################
+
     for axis in ['row', 'col']:
 
       inst_nodes = net.dat['nodes'][axis]
@@ -44,6 +46,7 @@ def df_to_dat(net, df, define_cat_colors=False):
 
     # meta_cats
     ##########################
+
     for axis in ['row', 'col']:
 
       inst_nodes = net.dat['nodes'][axis]
@@ -61,6 +64,7 @@ def df_to_dat(net, df, define_cat_colors=False):
         inst_cats = net.col_cats
 
       num_cats = len(inst_cats)
+
       # if axis == 'row':
       #   num_cats = len(net.row_cats)
       # elif axis == 'col':
@@ -70,12 +74,11 @@ def df_to_dat(net, df, define_cat_colors=False):
         cat_name = 'cat-' + str(inst_cat)
         cat_index = inst_cat + 1
 
-
         cat_title = inst_cats[inst_cat]
         if axis == 'row':
-          cat_values = net.meta_row[cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+          cat_values = net.meta_row.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
         else:
-          cat_values = net.meta_col[cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
+          cat_values = net.meta_col.loc[inst_nodes, cat_title].apply(lambda x: cat_title + ': ' + x).values.tolist()
 
         net.dat['node_info'][axis][cat_name] = cat_values
 
