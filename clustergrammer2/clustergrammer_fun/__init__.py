@@ -1133,16 +1133,29 @@ class Network(object):
           inst_color = cat_colors[inst_ct]
           self.set_cat_color(axis=axis, cat_index=cat_index, cat_name=cat_name, inst_color=inst_color)
 
-  def set_manual_category(self, col=None, row=None):
+  def set_manual_category(self, col=None, row=None, preferred_cats=None):
     '''
     This method is used to tell Clustergrammer2 that the user wants to define
     a manual category interactively using the dendrogram.
     '''
 
     self.dat['manual_category'] = {}
-
     self.dat['manual_category']['col'] = col
     self.dat['manual_category']['row'] = row
+
+    if preferred_cats is not None:
+      pref_cats = []
+      for inst_row in preferred_cats.index.tolist():
+          inst_dict = {}
+          inst_dict['name'] = inst_row
+          inst_dict['color'] = preferred_cats.loc[inst_row, 'color']
+          pref_cats.append(inst_dict)
+
+      if col is not None:
+        self.dat['manual_category']['col_cats'] = pref_cats
+
+      if row is not None:
+        self.dat['manual_category']['row_cats'] = pref_cats
 
   def ds_to_original_meta(self, axis):
     clusters = self.meta_ds_col.index.tolist()
