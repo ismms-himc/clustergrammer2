@@ -70,30 +70,3 @@ def viz_json(net, dendro=True, links=False):
 
   else:
     net.viz['mat'] = net.dat['mat'].tolist()
-
-
-  # meta_cat_col
-
-  net.viz['manual_category'] = {}
-  net.viz['manual_category']['col_cats'] = [
-    {
-      'name':'Cat',
-      'color':'red'
-    },
-    {
-      'name': 'Dog',
-      'color': 'yellow'
-    },
-    {
-      'name': 'Shark',
-      'color': 'black'
-    },
-    {
-      'name': 'Snake',
-      'color': 'blue'
-    },
-    {
-      'name': 'Lizard',
-      'color': 'green'
-    }
-  ]

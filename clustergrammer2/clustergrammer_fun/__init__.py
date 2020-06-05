@@ -118,6 +118,65 @@ class Network(object):
     '''
     self.dat['mat'][np.isnan(self.dat['mat'])] = 0
 
+  # # alternative approach
+  # ########################
+  # def load_meta(self, col=None, row=None,
+  #   col_cats=None, row_cats=None,
+  #   is_downsampled=False,
+  #   ds_row=None, ds_col=None):
+
+  #   if is_downsampled:
+  #     if meta_ds_col is not None:
+  #       self.meta_ds_col = meta_ds_col
+  #     if meta_ds_row is not None:
+  #       self.meta_ds_row = meta_ds_row
+
+  #   # define downsampled status
+  #   self.is_downsampled = is_downsampled
+  #   # print('load_df: is_downsampled', is_downsampled)
+
+  #   if hasattr(self, 'meta_col') == False and hasattr(self, 'meta_row') == False:
+  #     self.meta_cat = False
+
+  #   # load metadata
+  #   if isinstance(col, pd.DataFrame):
+  #     self.meta_col = col
+
+  #     if col_cats is None:
+  #       self.col_cats = col.columns.tolist()
+  #     else:
+  #       self.col_cats = col_cats
+
+  #     self.meta_cat = True
+
+  #   if isinstance(row, pd.DataFrame):
+  #     self.meta_row = row
+
+  #     if row_cats is None:
+  #       self.row_cats = row.columns.tolist()
+  #     else:
+  #       self.row_cats = row_cats
+
+  #     self.meta_cat = True
+
+  # def load_df(self, df_ini, col_cats=None, row_cats=None):
+  #   '''
+  #   Load Pandas DataFrame and assign categories
+  #   '''
+  #   self.reset()
+
+  #   # load dataframe
+  #   df = deepcopy(df_ini)
+
+  #   # load specify categories for visualization
+  #   if col_cats is not None:
+  #     self.col_cats = col_cats
+
+  #   if row_cats is not None:
+  #     self.row_cats = row_cats
+
+  #   data_formats.df_to_dat(self, df, define_cat_colors=True)
+
   def load_df(self, df_ini, meta_col=None, meta_row=None, col_cats=None,
               row_cats=None, is_downsampled=False, meta_ds_row=None,
               meta_ds_col=None):
@@ -129,8 +188,6 @@ class Network(object):
     # load dataframe
     df = deepcopy(df_ini)
 
-    if hasattr(self, 'meta_col') == False and hasattr(self, 'meta_row') == False:
-      self.meta_cat = False
 
     if is_downsampled:
       if meta_ds_col is not None:
@@ -141,6 +198,9 @@ class Network(object):
     # define downsampled status
     self.is_downsampled = is_downsampled
     # print('load_df: is_downsampled', is_downsampled)
+
+    if hasattr(self, 'meta_col') == False and hasattr(self, 'meta_row') == False:
+      self.meta_cat = False
 
     # load metadata
     if isinstance(meta_col, pd.DataFrame):
@@ -246,6 +306,9 @@ class Network(object):
         self.viz['pre_zscore'] = self.dat['pre_zscore']
 
     self.widget_instance = self.widget_class(network = self.export_viz_to_widget(which_viz))
+
+    if 'manual_category' in self.dat:
+      self.widget_instance.observe(self.get_manual_category, names='custom_cat')
 
     return self.widget_instance
 
@@ -706,6 +769,9 @@ class Network(object):
                           num_top_dims=False, verbose=True, equal_var=False):
 
       ''' Generate signatures for column categories '''
+
+      # change this to use category name and set caetgory level to 1 always
+      ###################################
 
       df_t = df_ini.transpose()
 
@@ -1173,7 +1239,7 @@ class Network(object):
         # update manual category
         self.meta_col.loc[found_labels, man_cat_title] = inst_man_cat
 
-  def get_manual_category(self):
+  def get_manual_category(self, tmp):
 
     for axis in ['col']:
 
