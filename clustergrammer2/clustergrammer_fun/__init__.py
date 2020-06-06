@@ -39,8 +39,6 @@ class Network(object):
   '''
 
   def __init__(self, widget=None):
-
-    # print('INITIALIZING')
     initialize_net.main(self, widget)
 
   def reset(self):
@@ -308,7 +306,7 @@ class Network(object):
     self.widget_instance = self.widget_class(network = self.export_viz_to_widget(which_viz))
 
     if 'manual_category' in self.dat:
-      self.widget_instance.observe(self.get_manual_category, names='custom_cat')
+      self.widget_instance.observe(self.get_manual_category, names='manual_cat')
 
     return self.widget_instance
 
@@ -1257,7 +1255,7 @@ class Network(object):
         ###########################################################
 
 
-          export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.custom_cat)[axis][cat_title])
+          export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.manual_cat)[axis][cat_title])
 
 
           if hasattr(self, 'meta_cat') == True:
@@ -1283,7 +1281,7 @@ class Network(object):
 
         # Category Colors
         #######################
-        ini_new_colors = json.loads(self.widget_instance.custom_cat)[axis + '_cat_colors']
+        ini_new_colors = json.loads(self.widget_instance.manual_cat)[axis + '_cat_colors']
         # drop title from category colors
         export_dict['cat_colors'] = {}
         for inst_cat in ini_new_colors:

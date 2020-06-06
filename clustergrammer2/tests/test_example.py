@@ -6,13 +6,13 @@
 
 import pytest
 
-from clustergrammer2.tests.expected_values import expected_columns, expected_rows, expected_content
+from CGM2.tests.expected_values import expected_columns, expected_rows, expected_content
 
-from ..example import ExampleWidget
-from clustergrammer2 import net
+from ..example import CGM2
+from CGM2 import net
 
 def test_example_creation_blank():
-    w = ExampleWidget()
+    w = CGM2()
     assert w.value == 'Hello World'
 
 def test_load_file():

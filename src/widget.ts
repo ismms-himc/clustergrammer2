@@ -28,7 +28,7 @@ class ExampleModel extends DOMWidgetModel {
       _view_module: ExampleModel.view_module,
       _view_module_version: ExampleModel.view_module_version,
       value : 'javascript set value!!!',
-      custom_cat: '{"col":"JS", "row":"JS"}',
+      manual_cat: '{"col":"JS", "row":"JS"}',
       network: ''
     };
   }
@@ -231,7 +231,7 @@ var my_widget_callback = function(external_model){
 
     console.log('>>>>>>>>>>>>>>> manual_update_cats!!!!!!')
     let json_string = JSON.stringify(export_dict)
-    external_model.model.set('custom_cat', json_string);
+    external_model.model.set('manual_cat', json_string);
     external_model.touch();
   }
 }
