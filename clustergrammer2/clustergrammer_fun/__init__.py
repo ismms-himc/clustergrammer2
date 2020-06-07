@@ -305,7 +305,19 @@ class Network(object):
 
     self.widget_instance = self.widget_class(network = self.export_viz_to_widget(which_viz))
 
+    # initialize manual category
     if 'manual_category' in self.dat:
+      manual_cat = {}
+      axis = 'col'
+      manual_cat[axis] = {}
+      manual_cat[axis]['col_cat_colors'] = self.viz['cat_colors'][axis]['cat-0']
+
+      man_cat_name = self.dat['manual_category'][axis]
+      if axis == 'col':
+        manual_cat[axis][man_cat_name] = self.meta_col[man_cat_name].to_dict()
+
+      self.widget_instance.manual_cat = json.dumps(manual_cat)
+
       self.widget_instance.observe(self.get_manual_category, names='manual_cat')
 
     return self.widget_instance
