@@ -210,10 +210,20 @@ class ExampleView extends DOMWidgetView {
     console.log('* manual update to cat from backend')
     console.log('***********************************************');
 
-    let manual_cat = this.model.get('manual_cat')
+    let manual_cat = JSON.parse(this.model.get('manual_cat'))
 
 
     console.log(manual_cat)
+
+    console.log('getting col from manual_cat')
+    console.log(manual_cat['col'])
+
+    let new_cat_dict = manual_cat['col']['Category']
+
+    console.log(new_cat_dict)
+
+    this['cgm']['update_all_cats'](this['cgm'], 'col', 'Category', new_cat_dict)
+
 
     // console.log(this['cgm']);
 
