@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from copy import deepcopy
 
-def run_norm(net, df=None, norm_type='zscore', axis='row'):
+def run_norm(net, df=None, norm_type='zscore', axis='row', z_clip=None):
   '''
   A dataframe can be passed to run_norm and a normalization will be run (
   e.g. zscore) on either the rows or columns
@@ -12,7 +12,7 @@ def run_norm(net, df=None, norm_type='zscore', axis='row'):
     df = net.dat_to_df()
 
   if norm_type == 'zscore':
-    df, ser_mean, ser_std = zscore_df(df, axis)
+    df, ser_mean, ser_std = zscore_df(df, axis, z_clip=z_clip)
 
     net.dat['pre_zscore'] = {}
     net.dat['pre_zscore']['mean'] = ser_mean.values.tolist()
@@ -20,6 +20,9 @@ def run_norm(net, df=None, norm_type='zscore', axis='row'):
 
   if norm_type == 'qn':
     df = qn_df(df, axis)
+
+  if norm_type == 'umi':
+    df = umi_norm(df)
 
   net.df_to_dat(df)
 
@@ -125,7 +128,7 @@ def calc_common_dist(df):
 
   return common_dist
 
-def zscore_df(df, axis='row'):
+def zscore_df(df, axis='row', z_clip=None):
   '''
   take the zscore of a dataframe dictionary, does not write to net (self)
   '''
@@ -141,4 +144,22 @@ def zscore_df(df, axis='row'):
   if axis == 'row':
     df_z = df_z.transpose()
 
+  if z_clip is not None:
+    df_z = z_clip_fun(df_z, lower=-z_clip, upper=z_clip)
+
   return df_z, ser_mean, ser_std
+
+def umi_norm(df):
+    # umi norm
+    barcode_umi_sum = df.sum()
+    df_umi = df.div(barcode_umi_sum)
+    return df_umi
+
+
+def z_clip_fun(df_z, lower=None, upper=None):
+  '''
+  Trim values at input thresholds using pandas function
+  '''
+  df_z = df_z.clip(lower=lower, upper=upper)
+
+  return df_z
