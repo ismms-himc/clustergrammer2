@@ -213,36 +213,24 @@ class ExampleView extends DOMWidgetView {
 
   manual_cat_update() {
 
-    // console.log('-----------------------------------------------------')
-    // console.log(this['cgm']['params']['self_update'])
-    // console.log('-----------------------------------------------------')
-
-    // if (this['cgm']['params']['self_update'] === false){
-
-
       console.log('***********************************************');
       console.log('* manual update to cat from backend')
       console.log('***********************************************');
 
       let manual_cat = JSON.parse(this.model.get('manual_cat'))
 
+      let manual_category_name = this['cgm']['params']['network']['manual_category']['col']
 
       console.log(manual_cat)
 
       console.log('getting col from manual_cat')
       console.log(manual_cat['col'])
 
-      let new_cat_dict = manual_cat['col']['Category']
+      let new_cat_dict = manual_cat['col'][manual_category_name]
 
       console.log(new_cat_dict)
 
-      this['cgm']['update_all_cats'](this['cgm'], 'col', 'Category', new_cat_dict)
-
-    // } else {
-    //   this['cgm']['params']['self_update'] === false
-    // }
-
-
+      this['cgm']['update_all_cats'](this['cgm'], 'col', manual_category_name, new_cat_dict)
 
 
     // console.log(this['cgm']);
