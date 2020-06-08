@@ -23,6 +23,7 @@ import random
 from itertools import combinations
 import matplotlib.pyplot as plt
 import json
+import ipywidgets as widgets
 
 
 class Network(object):
@@ -285,7 +286,7 @@ class Network(object):
 
     return export_data.export_net_json(self, which_viz, 'no-indent')
 
-  def widget(self, which_viz='viz'):
+  def widget(self, which_viz='viz', link_net=None):
     '''
     Generate a widget visualization using the widget. The export_viz_to_widget
     method passes the visualization JSON to the instantiated widget, which is
@@ -319,6 +320,14 @@ class Network(object):
       self.widget_instance.manual_cat = json.dumps(manual_cat)
 
       self.widget_instance.observe(self.get_manual_category, names='manual_cat')
+
+    # add link
+    if link_net is not None:
+      inst_link = widgets.link(
+                                (self.widget_instance, 'manual_cat'),
+                                (link_net.widget_instance, 'manual_cat')
+                               )
+      self.widget_instance.link = inst_link
 
     return self.widget_instance
 

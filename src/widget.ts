@@ -143,7 +143,6 @@ var my_widget_callback = function(external_model){
   if (params.int.manual_update_cats){
 
     let export_dict = {}
-    // let inst_dict = {}
 
       // transfer manual categories
     if ('col' in params.cat_data.manual_cat_dict){
@@ -161,6 +160,14 @@ var my_widget_callback = function(external_model){
     let json_string = JSON.stringify(export_dict)
     external_model.model.set('manual_cat', json_string);
     external_model.touch();
+
+    // notify manual_cat_update that update is not necessary
+    params.self_update = true
+
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('setting self_update to true')
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+
   }
 }
 
@@ -206,23 +213,36 @@ class ExampleView extends DOMWidgetView {
 
   manual_cat_update() {
 
-    console.log('***********************************************');
-    console.log('* manual update to cat from backend')
-    console.log('***********************************************');
+    // console.log('-----------------------------------------------------')
+    // console.log(this['cgm']['params']['self_update'])
+    // console.log('-----------------------------------------------------')
 
-    let manual_cat = JSON.parse(this.model.get('manual_cat'))
+    // if (this['cgm']['params']['self_update'] === false){
 
 
-    console.log(manual_cat)
+      console.log('***********************************************');
+      console.log('* manual update to cat from backend')
+      console.log('***********************************************');
 
-    console.log('getting col from manual_cat')
-    console.log(manual_cat['col'])
+      let manual_cat = JSON.parse(this.model.get('manual_cat'))
 
-    let new_cat_dict = manual_cat['col']['Category']
 
-    console.log(new_cat_dict)
+      console.log(manual_cat)
 
-    this['cgm']['update_all_cats'](this['cgm'], 'col', 'Category', new_cat_dict)
+      console.log('getting col from manual_cat')
+      console.log(manual_cat['col'])
+
+      let new_cat_dict = manual_cat['col']['Category']
+
+      console.log(new_cat_dict)
+
+      this['cgm']['update_all_cats'](this['cgm'], 'col', 'Category', new_cat_dict)
+
+    // } else {
+    //   this['cgm']['params']['self_update'] === false
+    // }
+
+
 
 
     // console.log(this['cgm']);
