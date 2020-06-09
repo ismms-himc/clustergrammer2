@@ -249,6 +249,13 @@ class Network(object):
     self.viz['matrix_colors']['pos'] = pos
     self.viz['matrix_colors']['neg'] = neg
 
+  def set_global_cat_colors(self, df_meta):
+
+    for inst_name in df_meta.index.tolist():
+      inst_color = df_meta.loc[inst_name, 'color']
+
+      self.viz['global_cat_colors'][inst_name] = inst_color
+
   def set_cat_color(self, axis, cat_index, cat_name, inst_color):
 
     if axis == 0:
@@ -1318,14 +1325,15 @@ class Network(object):
 
         # Category Colors
         #######################
-        ini_new_colors = json.loads(self.widget_instance.manual_cat)[axis + '_cat_colors']
-        # drop title from category colors
-        export_dict['cat_colors'] = {}
-        for inst_cat in ini_new_colors:
-          if (': ' in inst_cat):
-            export_dict['cat_colors'][inst_cat.split(': ')[1]] = ini_new_colors[inst_cat]
-          else:
-            export_dict['cat_colors'][inst_cat] = ini_new_colors[inst_cat]
+        export_dict['cat_colors'] = json.loads(self.widget_instance.manual_cat)['global_cat_colors']
+
+        # # drop title from category colors
+        # export_dict['cat_colors'] = {}
+        # for inst_cat in ini_new_colors:
+        #   if (': ' in inst_cat):
+        #     export_dict['cat_colors'][inst_cat.split(': ')[1]] = ini_new_colors[inst_cat]
+        #   else:
+        #     export_dict['cat_colors'][inst_cat] = ini_new_colors[inst_cat]
 
         # if hasattr(self, 'meta_cat') == False:
         #   return export_dict

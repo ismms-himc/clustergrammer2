@@ -148,14 +148,16 @@ var my_widget_callback = function(external_model){
     if ('col' in params.cat_data.manual_cat_dict){
 
       export_dict['col'] = params.cat_data.manual_cat_dict.col
-      export_dict['col_cat_colors'] = params.cat_colors.col['cat-0']
+      // export_dict['col_cat_colors'] = params.cat_colors.col['cat-0']
     }
 
     if ('row' in params.cat_data.manual_cat_dict){
 
       export_dict['row'] = params.cat_data.manual_cat_dict.row
-      export_dict['row_cat_colors'] = params.cat_colors.row['cat-0']
+      // export_dict['row_cat_colors'] = params.cat_colors.row['cat-0']
     }
+
+    export_dict['global_cat_colors'] = params.viz.global_cat_colors
 
     let json_string = JSON.stringify(export_dict)
     external_model.model.set('manual_cat', json_string);

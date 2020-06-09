@@ -135,7 +135,6 @@ def dict_cat(net, define_cat_colors=False):
 
                 global_cat_colors[inst_name] = inst_color
 
-    print('>>>>>>>>>>>>>>>>>>>>>')
     net.viz['global_cat_colors'] = global_cat_colors
 
 
