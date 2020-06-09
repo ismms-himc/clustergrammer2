@@ -110,10 +110,6 @@ def dict_cat(net, define_cat_colors=False):
             if 'Not ' in check_name:
               inst_color = '#eee'
 
-          # print('cat_colors')
-          # print('----------')
-          # print(cat_colors[inst_rc][cat_index])
-
           # do not overwrite old colors
           if tmp_name not in cat_colors[inst_rc][cat_index] and is_string_cat:
 
@@ -124,9 +120,24 @@ def dict_cat(net, define_cat_colors=False):
 
     net.viz['cat_colors'] = cat_colors
 
-    # print('after setting cat_colors')
-    # print(net.viz['cat_colors'])
-    # print('======================================\n\n')
+    net.viz['global_cat_colors'] = {}
+
+    global_cat_colors = {}
+    for axis in net.viz['cat_colors']:
+        for cat_index in net.viz['cat_colors'][axis]:
+
+            inst_dict = net.viz['cat_colors'][axis][cat_index]
+
+            for inst_full_name in inst_dict:
+
+                inst_name = inst_full_name.split(': ')[1]
+                inst_color = inst_dict[inst_full_name]
+
+                global_cat_colors[inst_name] = inst_color
+
+    print('>>>>>>>>>>>>>>>>>>>>>')
+    net.viz['global_cat_colors'] = global_cat_colors
+
 
 def calc_cat_clust_order(net, inst_rc):
   '''

@@ -26,6 +26,7 @@ def main(self, widget=None):
   else:
     found_cats = True
     inst_cat_colors = self.viz['cat_colors']
+    inst_global_cat_colors = self.viz['global_cat_colors']
 
   # initialize matrix colors
   ###########################
@@ -57,8 +58,10 @@ def main(self, widget=None):
     self.viz['cat_colors'] = {}
     self.viz['cat_colors']['row'] = {}
     self.viz['cat_colors']['col'] = {}
+    self.viz['global_cat_colors'] = {}
   else:
     self.viz['cat_colors'] = inst_cat_colors
+    self.viz['global_cat_colors'] = inst_global_cat_colors
 
   self.viz['matrix_colors'] = matrix_colors
 
@@ -69,6 +72,7 @@ def viz(self, reset_cat_colors=False):
 
   # keep track of old cat_colors
   old_cat_colors = self.viz['cat_colors']
+  old_global_cat_colors = self.viz['global_cat_colors']
 
   if 'matrix_colors' in self.viz:
     matrix_colors = self.viz['matrix_colors']
@@ -83,7 +87,9 @@ def viz(self, reset_cat_colors=False):
     self.viz['cat_colors'] = {}
     self.viz['cat_colors']['row'] = {}
     self.viz['cat_colors']['col'] = {}
+    self.viz['global_cat_colors'] = {}
   else:
     self.viz['cat_colors'] = old_cat_colors
+    self.viz['global_cat_colors'] = old_global_cat_colors
 
   self.viz['matrix_colors'] = matrix_colors
