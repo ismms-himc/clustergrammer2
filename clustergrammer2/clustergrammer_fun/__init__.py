@@ -1320,8 +1320,7 @@ class Network(object):
 
 
         except:
-          pass
-          # print('unable to load', axis ,' category, please check title')
+          print('unable to load', axis ,' category, please check title')
 
         # Category Colors
         #######################
@@ -1339,7 +1338,7 @@ class Network(object):
         #   return export_dict
 
       except:
-          # print('please set custom category')
+          # print('failed to parse manual_category')
           pass
 
 

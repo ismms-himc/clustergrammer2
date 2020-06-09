@@ -1,6 +1,6 @@
 {
   "name": "clustergrammer2",
-  "version": "0.13.2",
+  "version": "0.14.0",
   "description": "A custom Jupyter widget library built using the widget-ts-cookiecutter library'",
   "keywords": [
     "jupyter",

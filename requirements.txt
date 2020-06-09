@@ -4,4 +4,4 @@ scipy
 scikit-learn
 ipywidgets
 matplotlib
-clustergrammer2==0.13.2
+clustergrammer2==0.14.0
