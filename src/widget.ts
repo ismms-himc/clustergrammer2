@@ -217,18 +217,39 @@ class ExampleView extends DOMWidgetView {
       console.log('* manual update to cat from backend')
       console.log('***********************************************');
 
-      let manual_cat = JSON.parse(this.model.get('manual_cat'))
+      let dict_manual_cat = JSON.parse(this.model.get('manual_cat'))
+
+      // console.log(dict_manual_cat)
+      // console.log('getting col from manual_cat')
+      // console.log(dict_manual_cat['col'])
 
       let manual_category_name = this['cgm']['params']['network']['manual_category']['col']
+      let update_cat_dict = dict_manual_cat['col'][manual_category_name]
 
-      console.log(manual_cat)
+      // we don't want to have undefined categories
+      // console.log('for each coming up!')
+      let new_cat_dict = {}
+      this['cgm']['params']['network']['col_nodes']
+          .forEach(x => {
 
-      console.log('getting col from manual_cat')
-      console.log(manual_cat['col'])
+            // assuming no title in name
+            let inst_name = x['name']
+            let orig_cat = x['cat-0'].split(': ')[1]
 
-      let new_cat_dict = manual_cat['col'][manual_category_name]
+            // console.log(inst_name, orig_cat)
 
-      console.log(new_cat_dict)
+            if (inst_name in update_cat_dict){
+              new_cat_dict[inst_name] = update_cat_dict[inst_name]
+            } else {
+              new_cat_dict[inst_name] = orig_cat
+            }
+          });
+
+      // console.log('**********************************************')
+      // console.log('**********************************************')
+      // console.log('**********************************************')
+      // console.log('**********************************************')
+      // console.log(new_cat_dict)
 
       this['cgm']['update_all_cats'](this['cgm'], 'col', manual_category_name, new_cat_dict)
 

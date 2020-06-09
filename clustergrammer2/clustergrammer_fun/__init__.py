@@ -1260,6 +1260,7 @@ class Network(object):
 
   def get_manual_category(self, tmp):
 
+
     for axis in ['col']:
 
       try:
@@ -1268,6 +1269,7 @@ class Network(object):
         export_dict = {}
 
         inst_nodes = self.dat['nodes'][axis]
+        # print('get get_manual_category', len(inst_nodes))
 
         cat_title = self.dat['manual_category'][axis]
 
@@ -1275,9 +1277,7 @@ class Network(object):
         try:
         ###########################################################
 
-
           export_dict[cat_title] = pd.Series(json.loads(self.widget_instance.manual_cat)[axis][cat_title])
-
 
           if hasattr(self, 'meta_cat') == True:
 
@@ -1290,7 +1290,23 @@ class Network(object):
 
             elif axis == 'col':
               if self.is_downsampled == False:
-                self.meta_col.loc[inst_nodes, cat_title] = export_dict[cat_title]
+                # print('> > > > > > > > > > > ')
+                # print(export_dict[cat_title])
+
+                # print('.. .. .. .. .. .. .. .. .. .. .. .. ')
+                # print(self.meta_col)
+
+                # # for some reason this is breaking when trying to sync metadata
+                # # switching to slower row based syncing
+                # self.meta_col.loc[inst_nodes, cat_title] = export_dict[cat_title]
+
+                # manually looping through rows in metadata works
+                for inst_row in export_dict[cat_title].index.tolist():
+                  self.meta_col.loc[inst_row, cat_title] = export_dict[cat_title][inst_row]
+
+                # print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+                # print(self.meta_col)
+
               else:
                 self.meta_ds_col.loc[inst_nodes, cat_title] = export_dict[cat_title]
                 self.ds_to_original_meta(axis)
@@ -1311,8 +1327,8 @@ class Network(object):
           else:
             export_dict['cat_colors'][inst_cat] = ini_new_colors[inst_cat]
 
-        if hasattr(self, 'meta_cat') == False:
-          return export_dict
+        # if hasattr(self, 'meta_cat') == False:
+        #   return export_dict
 
       except:
           # print('please set custom category')
