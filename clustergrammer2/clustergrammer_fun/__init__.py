@@ -90,7 +90,8 @@ class Network(object):
   def cluster(self, dist_type='cosine', run_clustering=True,
                  dendro=True, views=[],
                  linkage_type='average', sim_mat=False, filter_sim=0.0,
-                 calc_cat_pval=False, run_enrichr=None, enrichrgram=None):
+                 calc_cat_pval=False, run_enrichr=None, enrichrgram=None,
+                 clust_library='scipy', min_samples=1, min_cluster_size=2):
     '''
     The main function performs hierarchical clustering, optionally generates
     filtered views (e.g. row-filtered views), and generates the :
@@ -109,7 +110,10 @@ class Network(object):
                                     filter_sim=filter_sim,
                                     calc_cat_pval=calc_cat_pval,
                                     run_enrichr=run_enrichr,
-                                    enrichrgram=enrichrgram)
+                                    enrichrgram=enrichrgram,
+                                    clust_library=clust_library,
+                                    min_samples=min_samples,
+                                    min_cluster_size=min_cluster_size)
 
   def swap_nan_for_zero(self):
     '''
@@ -293,7 +297,8 @@ class Network(object):
 
     return export_data.export_net_json(self, which_viz, 'no-indent')
 
-  def widget(self, which_viz='viz', link_net=None):
+  def widget(self, which_viz='viz', link_net=None, clust_library='scipy',
+    min_samples=1, min_cluster_size=2):
     '''
     Generate a widget visualization using the widget. The export_viz_to_widget
     method passes the visualization JSON to the instantiated widget, which is
@@ -301,7 +306,8 @@ class Network(object):
     '''
     # run clustering if necessary
     if len(self.viz['row_nodes']) == 0:
-      self.cluster()
+      self.cluster(clust_library=clust_library, min_samples=min_samples,
+                   min_cluster_size=min_cluster_size)
 
       # add manual_category to viz json
       if 'manual_category' in self.dat:

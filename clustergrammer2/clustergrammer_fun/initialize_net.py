@@ -67,6 +67,8 @@ def main(self, widget=None):
 
   self.sim = {}
 
+  self.umap = {}
+
 
 def viz(self, reset_cat_colors=False):
 

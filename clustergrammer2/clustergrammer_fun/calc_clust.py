@@ -1,9 +1,11 @@
 def cluster_row_and_col(net, dist_type='cosine', linkage_type='average',
                         dendro=True, run_clustering=True, run_rank=True,
-                        ignore_cat=False, calc_cat_pval=False, links=False):
+                        ignore_cat=False, calc_cat_pval=False, links=False,
+                        clust_library='scipy', min_samples=1, min_cluster_size=2):
   ''' cluster net.dat and make visualization json, net.viz.
   optionally leave out dendrogram colorbar groups with dendro argument '''
 
+  # import umap
   import scipy
   from copy import deepcopy
   from scipy.spatial.distance import pdist
@@ -12,19 +14,32 @@ def cluster_row_and_col(net, dist_type='cosine', linkage_type='average',
   dm = {}
   for axis in ['row', 'col']:
 
-    tmp_mat = deepcopy(net.dat['mat'])
-    dm[axis] = calc_distance_matrix(tmp_mat, axis, dist_type)
-
     # save directly to dat structure
     node_info = net.dat['node_info'][axis]
 
     node_info['ini'] = list(range( len(net.dat['nodes'][axis]), -1, -1))
 
+    tmp_mat = deepcopy(net.dat['mat'])
+
+    # calc distance matrix
+    if clust_library != 'hdbscan':
+      dm[axis] = calc_distance_matrix(tmp_mat, axis, dist_type)
+    else:
+      dm[axis] = None
+
+    # dm[axis] = calc_distance_matrix(tmp_mat, axis, dist_type)
+
     # cluster
     if run_clustering is True:
       node_info['clust'], node_info['Y'] = clust_and_group(net,
-                                                           dm[axis],
-                                                           linkage_type=linkage_type)
+                                                     dm[axis],
+                                                     axis,
+                                                     tmp_mat,
+                                                     dist_type=dist_type,
+                                                     linkage_type=linkage_type,
+                                                     clust_library=clust_library,
+                                                     min_samples=min_samples,
+                                                     min_cluster_size=min_cluster_size)
     else:
       dendro = False
       node_info['clust'] = node_info['ini']
@@ -62,9 +77,68 @@ def calc_distance_matrix(tmp_mat, axis, dist_type='cosine'):
 
   return inst_dm
 
-def clust_and_group(net, inst_dm, linkage_type='average'):
+def clust_and_group(net, inst_dm, axis, mat, dist_type='cosine', linkage_type='average',
+                    clust_library='scipy', min_samples=1, min_cluster_size=2):
+
+  # print(clust_library)
+
   import scipy.cluster.hierarchy as hier
-  Y = hier.linkage(inst_dm, method=linkage_type)
+  import pandas as pd
+
+  if clust_library == 'scipy':
+    Y = hier.linkage(inst_dm, method=linkage_type)
+
+  elif clust_library == 'fastcluster':
+    import fastcluster
+    Y = fastcluster.linkage(inst_dm, method=linkage_type)
+
+  elif clust_library == 'hdbscan':
+    # print('HDBSCAN!')
+    import hdbscan
+
+
+    # pca-umap-hdbscan using data (no pre-cal distance matrix)
+    ######################################################
+    from sklearn.decomposition import PCA
+    clusterer = hdbscan.HDBSCAN(min_samples=min_samples,
+                                min_cluster_size=min_cluster_size)
+
+    # rows are the data points, cols are dimensions
+    n_components = 50
+    if axis == 'row':
+      if mat.shape[1] > n_components:
+        low_d_mat = PCA(n_components=n_components).fit_transform(mat)
+      else:
+        low_d_mat = mat
+
+    elif axis == 'col':
+      if mat.shape[0] > n_components:
+        low_d_mat = PCA(n_components=n_components).fit_transform(mat.transpose())
+      else:
+        low_d_mat = mat.transpose()
+
+
+    # run UMAP on low_d_mat (after PCA)
+    # print('running umap!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    import umap
+    umap_mat = umap.UMAP(
+                          metric=dist_type,
+                          n_neighbors=5,
+                          min_dist=0.0,
+                          n_components=2,
+                          random_state=42,
+                          ).fit_transform(low_d_mat)
+
+    umap_df = pd.DataFrame(umap_mat.transpose(),
+                           index=['x','y'],
+                           columns=net.dat['nodes'][axis])
+
+    net.umap[axis] = umap_df
+    clusterer.fit(umap_mat)
+
+    Y = clusterer.single_linkage_tree_.to_numpy()
+    Z = hier.dendrogram(Y, no_plot=True)
+
   Z = hier.dendrogram(Y, no_plot=True)
   inst_clust_order = Z['leaves']
 
