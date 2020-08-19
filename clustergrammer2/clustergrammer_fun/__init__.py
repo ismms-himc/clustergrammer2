@@ -701,7 +701,7 @@ class Network(object):
     save_list_to_tsv(genes, inst_path + 'genes.tsv')
     save_list_to_tsv(barcodes, inst_path + 'barcodes.tsv')
 
-    mat_ge = df.get_values()
+    mat_ge = df.values
     mat_ge_sparse = sparse.coo_matrix(mat_ge)
 
     io.mmwrite( inst_path + 'matrix.mtx', mat_ge_sparse)
@@ -768,8 +768,8 @@ class Network(object):
           false_index = list(np.zeros(sim_dict['diff'].shape[0]))
           y_true = true_index + false_index
 
-          true_val = list(sim_dict['same'].get_values())
-          false_val = list(sim_dict['diff'].get_values())
+          true_val = list(sim_dict['same'].values)
+          false_val = list(sim_dict['diff'].values)
           y_score = true_val + false_val
 
           fpr, tpr, thresholds = roc_curve(y_true, y_score)
@@ -896,7 +896,7 @@ class Network(object):
       df_sim_top[unknown_cells] = 'Unknown'
 
       # add predicted category name to top list
-      top_list = df_sim_top.get_values()
+      top_list = df_sim_top.values
       top_list = [ predict_level + ': ' + x[0] if type(x) is tuple else predict_level + ': ' + x  for x in top_list]
 
       # add cell type category to input data
@@ -980,7 +980,7 @@ class Network(object):
 
           cols = df_data.columns.tolist()
           rows = df_data.index.tolist()
-          mat = df_data.get_values()
+          mat = df_data.values
 
           shuffled_cols = deepcopy(cols)
           random.shuffle(shuffled_cols)
