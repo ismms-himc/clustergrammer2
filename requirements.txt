@@ -5,4 +5,4 @@ scikit-learn
 ipywidgets
 matplotlib
 fastcluster
-clustergrammer2==0.15.0
+clustergrammer2==0.15.1

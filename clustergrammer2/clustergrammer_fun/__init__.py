@@ -1375,7 +1375,7 @@ class Network(object):
         clean_cols.append(tuple(inst_clean))
 
     df_ini = pd.DataFrame(data=clean_cols).set_index(0)
-    mat = df_ini.get_values()
+    mat = df_ini.values
     rows = df_ini.index.tolist()
 
     df_meta = pd.DataFrame(data=mat, index=rows, columns=cat_titles)
