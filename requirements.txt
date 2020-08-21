@@ -6,4 +6,4 @@ ipywidgets
 matplotlib
 fastcluster
 statsmodels==0.11.1
-clustergrammer2==0.15.2
+clustergrammer2==0.16.0

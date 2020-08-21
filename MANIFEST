@@ -31,7 +31,7 @@ clustergrammer2/clustergrammer_fun/make_viz.py
 clustergrammer2/clustergrammer_fun/normalize_fun.py
 clustergrammer2/clustergrammer_fun/proc_df_labels.py
 clustergrammer2/clustergrammer_fun/run_filter.py
-clustergrammer2/labextension/clustergrammer2-0.15.2.tgz
+clustergrammer2/labextension/clustergrammer2-0.16.0.tgz
 clustergrammer2/nbextension/.DS_Store
 clustergrammer2/nbextension/__init__.py
 clustergrammer2/nbextension/static/extension.js
@@ -59,10 +59,12 @@ examples/.DS_Store
 examples/Meta_GCT_broad_200605.xlsx
 examples/Meta_GCT_narrow_200605.xlsx
 examples/Papermill.ipynb
+examples/Signature_Examples.ipynb
 examples/dashboard-experiment.ipynb
 examples/enrichr_testing.ipynb
 examples/expected_columns.txt
 examples/expected_rows_all.txt
+examples/himc_helper_functions_v0_17_1.py
 examples/introduction_lab.ipynb
 examples/introduction_lab_tuple.ipynb
 examples/introduction_lab_widget_comm.ipynb
@@ -82,7 +84,7 @@ examples/two_cats_expected_rows.txt
 examples/two_cats_genders.txt
 examples/widget-dashboard.ipynb
 examples/.ipynb_checkpoints/Papermill-checkpoint.ipynb
-examples/.ipynb_checkpoints/Untitled-checkpoint.ipynb
+examples/.ipynb_checkpoints/Signature_Examples-checkpoint.ipynb
 examples/.ipynb_checkpoints/dashboard-experiment-checkpoint.ipynb
 examples/.ipynb_checkpoints/enrichr_testing-checkpoint.ipynb
 examples/.ipynb_checkpoints/introduction_lab-checkpoint.ipynb
