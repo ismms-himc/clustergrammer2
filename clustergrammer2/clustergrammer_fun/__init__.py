@@ -24,7 +24,7 @@ from itertools import combinations
 import matplotlib.pyplot as plt
 import json
 import ipywidgets as widgets
-
+import statsmodels.stats.multitest as smm
 
 class Network(object):
   '''
@@ -797,7 +797,105 @@ class Network(object):
 
       return sim_data
 
-  def generate_signatures(self, df_ini, category_level, pval_cutoff=0.05,
+  def generate_signatures(self, df_data, df_meta, category_name, pval_cutoff=0.05,
+                          num_top_dims=False, verbose=True, equal_var=False):
+
+      '''
+      Generate signatures for column categories
+      T-test is run for each category in a one-vs-all manner. The num_top_dims overrides
+      the P-value cutoff.
+      '''
+
+      df_t = df_data.transpose()
+
+      # remove columns (dimensions) with constant values
+      orig_num_cols = df_t.shape[1]
+      df_t = df_t.loc[:, (df_t != df_t.iloc[0]).any()]
+      if df_t.shape[1] < orig_num_cols:
+        print('dropped columns with constant values')
+
+      # make tuple rows
+      df_t.index = [(x, df_meta.loc[x, category_name]) for x in df_t.index.tolist()]
+      category_level = 1
+
+      df = self.row_tuple_to_multiindex(df_t)
+
+      cell_types = sorted(list(set(df.index.get_level_values(category_level).tolist())))
+
+      keep_genes = []
+      keep_genes_dict = {}
+      gene_pval_dict = {}
+      all_fold_info = {}
+
+      for inst_ct in cell_types:
+
+          inst_ct_mat = df.xs(key=inst_ct, level=category_level)
+          inst_other_mat = df.drop(inst_ct, level=category_level)
+
+          # save mean values and fold change
+          fold_info = {}
+          fold_info['cluster_mean'] = inst_ct_mat.mean()
+          fold_info['other_mean'] = inst_other_mat.mean()
+          fold_info['log2_fold'] = fold_info['cluster_mean']/fold_info['other_mean']
+          fold_info['log2_fold'] = fold_info['log2_fold'].apply(np.log2)
+          all_fold_info[inst_ct] = fold_info
+
+          inst_stats, inst_pvals = ttest_ind(inst_ct_mat, inst_other_mat, axis=0, equal_var=equal_var)
+
+          ser_pval = pd.Series(data=inst_pvals, index=df.columns.tolist()).sort_values()
+
+          if num_top_dims == False:
+              ser_pval_keep = ser_pval[ser_pval < pval_cutoff]
+          else:
+              ser_pval_keep = ser_pval[:num_top_dims]
+
+          gene_pval_dict[inst_ct] = ser_pval_keep
+
+          inst_keep = ser_pval_keep.index.tolist()
+          keep_genes.extend(inst_keep)
+          keep_genes_dict[inst_ct] = inst_keep
+
+      keep_genes = sorted(list(set(keep_genes)))
+
+      df_gbm = df.groupby(level=category_level).mean().transpose()
+      cols = df_gbm.columns.tolist()
+
+      df_sig = df_gbm.loc[keep_genes]
+
+      if len(keep_genes) == 0 and verbose:
+          print('found no informative dimensions')
+
+      df_gene_pval = pd.concat(gene_pval_dict, axis=1, sort=False)
+
+      df_diff = {}
+      for inst_col in df_gene_pval:
+
+          inst_pvals = df_gene_pval[inst_col]
+
+          # nans represent dimensions that did not meet pval or top threshold
+          inst_pvals = inst_pvals.dropna().sort_values()
+
+          inst_genes = inst_pvals.index.tolist()
+
+          # prevent failure if no cells have this category
+          if inst_pvals.shape[0] > 0:
+              rej, pval_corr = smm.multipletests(inst_pvals, 0.05, method='fdr_bh')[:2]
+
+              ser_pval = pd.Series(data=inst_pvals, index=inst_genes, name='P-values')
+              ser_bh_pval = pd.Series(data=pval_corr, index=inst_genes, name='BH P-values')
+              ser_log2_fold = all_fold_info[inst_col]['log2_fold'].loc[inst_genes]
+              ser_log2_fold.name = 'Log2 Fold Change'
+              ser_cluster_mean = all_fold_info[inst_col]['cluster_mean'].loc[inst_genes]
+              ser_cluster_mean.name = 'Cluster Mean'
+              ser_other_mean = all_fold_info[inst_col]['other_mean'].loc[inst_genes]
+              ser_other_mean.name = 'All Other Mean'
+              inst_df = pd.concat([ser_pval, ser_bh_pval, ser_log2_fold, ser_cluster_mean, ser_other_mean], axis=1)
+
+              df_diff[inst_col] = inst_df
+
+      return df_sig, df_diff
+
+  def old_generate_signatures(self, df_ini, category_level, pval_cutoff=0.05,
                           num_top_dims=False, verbose=True, equal_var=False):
 
       ''' Generate signatures for column categories '''
@@ -864,9 +962,72 @@ class Network(object):
 
       df_gene_pval = pd.concat(gene_pval_dict, axis=1, sort=False)
 
-      return df_sig, keep_genes_dict, df_gene_pval, all_fold_info
+      return df_sig, df_gene_pval, all_fold_info
 
   def predict_cats_from_sigs(self, df_data_ini, df_sig_ini, dist_type='cosine', predict_level='Predict Category',
+                             truth_level=1, unknown_thresh=-1):
+      ''' Predict category using signature '''
+
+      keep_rows = df_sig_ini.index.tolist()
+      data_rows = df_data_ini.index.tolist()
+
+      common_rows = list(set(data_rows).intersection(keep_rows))
+
+      df_data = deepcopy(df_data_ini.loc[common_rows])
+      df_sig = deepcopy(df_sig_ini.loc[common_rows])
+
+      # calculate sim_mat of df_data and df_sig
+      cell_types = df_sig.columns.tolist()
+      barcodes = df_data.columns.tolist()
+      sim_mat = 1 - pairwise_distances(df_sig.transpose(), df_data.transpose(), metric=dist_type)
+      df_sim = pd.DataFrame(data=sim_mat, index=cell_types, columns=barcodes).transpose()
+
+      # get the top column value (most similar signature)
+      df_sim_top = df_sim.idxmax(axis=1)
+
+      # get the maximum similarity of a cell to a cell type definition
+      max_sim = df_sim.max(axis=1)
+
+      unknown_cells = max_sim[max_sim < unknown_thresh].index.tolist()
+
+      # assign unknown cells (need category of same name)
+      df_sim_top[unknown_cells] = 'Unknown'
+
+      # add predicted category name to top list
+      top_list = df_sim_top.values
+      top_list = [ predict_level + ': ' + x[0] if type(x) is tuple else predict_level + ': ' + x  for x in top_list]
+
+      # add cell type category to input data
+      df_cat = deepcopy(df_data)
+      cols = df_cat.columns.tolist()
+      new_cols = []
+
+      # check whether the columns have the true category available
+      has_truth = False
+      if type(cols[0]) is tuple:
+          has_truth = True
+
+      if has_truth:
+          new_cols = [tuple(list(a) + [b]) for a,b in zip(cols, top_list)]
+      else:
+          new_cols = [tuple([a] + [b]) for a,b in zip(cols, top_list)]
+
+      # transfer new categories
+      df_cat.columns = new_cols
+
+      # keep track of true and predicted labels
+      y_info = {}
+      y_info['true'] = []
+      y_info['pred'] = []
+
+      if has_truth:
+          y_info['true'] = [x[truth_level].split(': ')[1] for x in cols]
+          y_info['pred'] = [x.split(': ')[1] for x in top_list]
+
+      return df_cat, df_sim.transpose(), y_info
+
+
+  def old_predict_cats_from_sigs(self, df_data_ini, df_sig_ini, dist_type='cosine', predict_level='Predict Category',
                              truth_level=1, unknown_thresh=-1):
       ''' Predict category using signature '''
 
