@@ -964,8 +964,9 @@ class Network(object):
 
       return df_sig, df_gene_pval, all_fold_info
 
-  def predict_cats_from_sigs(self, df_data_ini, df_sig_ini, dist_type='cosine', predict_level='Predict Category',
-                             truth_level=1, unknown_thresh=-1):
+  def predict_cats_from_sigs(self, df_data_ini, df_meta, df_sig_ini,
+                             predict='Predicted Category', dist_type='cosine',
+                             unknown_thresh=-1):
       ''' Predict category using signature '''
 
       keep_rows = df_sig_ini.index.tolist()
@@ -994,37 +995,12 @@ class Network(object):
       df_sim_top[unknown_cells] = 'Unknown'
 
       # add predicted category name to top list
-      top_list = df_sim_top.values
-      top_list = [ predict_level + ': ' + x[0] if type(x) is tuple else predict_level + ': ' + x  for x in top_list]
+      # top_list = df_sim_top.values
+      df_sim = df_sim.transpose()
 
-      # add cell type category to input data
-      df_cat = deepcopy(df_data)
-      cols = df_cat.columns.tolist()
-      new_cols = []
+      df_meta[predict] = df_sim_top
 
-      # check whether the columns have the true category available
-      has_truth = False
-      if type(cols[0]) is tuple:
-          has_truth = True
-
-      if has_truth:
-          new_cols = [tuple(list(a) + [b]) for a,b in zip(cols, top_list)]
-      else:
-          new_cols = [tuple([a] + [b]) for a,b in zip(cols, top_list)]
-
-      # transfer new categories
-      df_cat.columns = new_cols
-
-      # keep track of true and predicted labels
-      y_info = {}
-      y_info['true'] = []
-      y_info['pred'] = []
-
-      if has_truth:
-          y_info['true'] = [x[truth_level].split(': ')[1] for x in cols]
-          y_info['pred'] = [x.split(': ')[1] for x in top_list]
-
-      return df_cat, df_sim.transpose(), y_info
+      return df_sim
 
 
   def old_predict_cats_from_sigs(self, df_data_ini, df_sig_ini, dist_type='cosine', predict_level='Predict Category',
@@ -1089,7 +1065,44 @@ class Network(object):
 
       return df_cat, df_sim.transpose(), y_info
 
-  def confusion_matrix_and_correct_series(self, y_info):
+  def confusion_matrix_and_correct_series(self, df_meta, truth, pred):
+      ''' Generate confusion matrix from y_info '''
+
+      y_info = {}
+      y_info['true'] = df_meta[truth].values.tolist()
+      y_info['pred'] = df_meta[pred].values.tolist()
+
+      a = deepcopy(y_info['true'])
+      true_count = dict((i, a.count(i)) for i in set(a))
+
+      a = deepcopy(y_info['pred'])
+      pred_count = dict((i, a.count(i)) for i in set(a))
+
+      sorted_cats = sorted(list(set(y_info['true'] + y_info['pred'])))
+      conf_mat = confusion_matrix(y_info['true'], y_info['pred'], sorted_cats)
+      df_conf = pd.DataFrame(conf_mat, index=sorted_cats, columns=sorted_cats)
+
+      total_correct = np.trace(df_conf)
+      total_pred = df_conf.sum().sum()
+      fraction_correct = total_correct/float(total_pred)
+
+      # calculate ser_correct
+      correct_list = []
+      cat_counts = df_conf.sum(axis=1)
+      all_cols = df_conf.columns.tolist()
+      for inst_cat in all_cols:
+          inst_correct = df_conf[inst_cat].loc[inst_cat] / cat_counts[inst_cat]
+          correct_list.append(inst_correct)
+
+      ser_correct = pd.Series(data=correct_list, index=all_cols)
+
+      populations = {}
+      populations['true'] = true_count
+      populations['pred'] = pred_count
+
+      return df_conf, populations, ser_correct, fraction_correct
+
+  def old_confusion_matrix_and_correct_series(self, y_info):
       ''' Generate confusion matrix from y_info '''
 
 

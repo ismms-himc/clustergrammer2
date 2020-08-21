@@ -5,4 +5,5 @@ scikit-learn
 ipywidgets
 matplotlib
 fastcluster
+statsmodels==0.11.1
 clustergrammer2==0.15.2
