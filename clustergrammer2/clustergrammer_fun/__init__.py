@@ -1065,7 +1065,7 @@ class Network(object):
 
       return df_cat, df_sim.transpose(), y_info
 
-  def confusion_matrix_and_correct_series(self, df_meta, truth, pred):
+  def assess_prediction(self, df_meta, truth, pred):
       ''' Generate confusion matrix from y_info '''
 
       y_info = {}
