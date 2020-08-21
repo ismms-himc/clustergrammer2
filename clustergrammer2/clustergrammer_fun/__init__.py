@@ -1072,15 +1072,11 @@ class Network(object):
       y_info['true'] = df_meta[truth].values.tolist()
       y_info['pred'] = df_meta[pred].values.tolist()
 
-      a = deepcopy(y_info['true'])
-      true_count = dict((i, a.count(i)) for i in set(a))
-
-      a = deepcopy(y_info['pred'])
-      pred_count = dict((i, a.count(i)) for i in set(a))
-
       sorted_cats = sorted(list(set(y_info['true'] + y_info['pred'])))
-      conf_mat = confusion_matrix(y_info['true'], y_info['pred'], sorted_cats)
-      df_conf = pd.DataFrame(conf_mat, index=sorted_cats, columns=sorted_cats)
+      conf_mat = confusion_matrix(y_info['true'], y_info['pred'], labels=sorted_cats)
+
+      # true columns and pred rows
+      df_conf = pd.DataFrame(conf_mat, index=sorted_cats, columns=sorted_cats).transpose()
 
       total_correct = np.trace(df_conf)
       total_pred = df_conf.sum().sum()
@@ -1088,19 +1084,15 @@ class Network(object):
 
       # calculate ser_correct
       correct_list = []
-      cat_counts = df_conf.sum(axis=1)
+      cat_counts = df_conf.sum(axis=0)
       all_cols = df_conf.columns.tolist()
       for inst_cat in all_cols:
-          inst_correct = df_conf[inst_cat].loc[inst_cat] / cat_counts[inst_cat]
+          inst_correct = df_conf.loc[inst_cat, inst_cat] / cat_counts[inst_cat]
           correct_list.append(inst_correct)
 
       ser_correct = pd.Series(data=correct_list, index=all_cols)
 
-      populations = {}
-      populations['true'] = true_count
-      populations['pred'] = pred_count
-
-      return df_conf, populations, ser_correct, fraction_correct
+      return df_conf, ser_correct, fraction_correct
 
   def old_confusion_matrix_and_correct_series(self, y_info):
       ''' Generate confusion matrix from y_info '''
