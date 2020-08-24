@@ -297,7 +297,7 @@ class Network(object):
 
     return export_data.export_net_json(self, which_viz, 'no-indent')
 
-  def widget(self, which_viz='viz', link_net=None, clust_library='scipy',
+  def widget(self, which_viz='viz', link_net=None, link_net_js=None, clust_library='scipy',
     min_samples=1, min_cluster_size=2):
     '''
     Generate a widget visualization using the widget. The export_viz_to_widget
@@ -334,11 +334,20 @@ class Network(object):
 
       self.widget_instance.observe(self.get_manual_category, names='manual_cat')
 
-    # add link
+    # add link (python)
     if link_net is not None:
       inst_link = widgets.link(
                                 (self.widget_instance, 'manual_cat'),
                                 (link_net.widget_instance, 'manual_cat')
+                               )
+      self.widget_instance.link = inst_link
+
+    # add jslink (JavaScript)
+    if link_net_js is not None:
+
+      inst_link = widgets.jslink(
+                                (self.widget_instance, 'manual_cat'),
+                                (link_net_js.widget_instance, 'manual_cat')
                                )
       self.widget_instance.link = inst_link
 
