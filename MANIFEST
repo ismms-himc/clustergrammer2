@@ -31,7 +31,7 @@ clustergrammer2/clustergrammer_fun/make_viz.py
 clustergrammer2/clustergrammer_fun/normalize_fun.py
 clustergrammer2/clustergrammer_fun/proc_df_labels.py
 clustergrammer2/clustergrammer_fun/run_filter.py
-clustergrammer2/labextension/clustergrammer2-0.16.0.tgz
+clustergrammer2/labextension/clustergrammer2-0.17.0.tgz
 clustergrammer2/nbextension/.DS_Store
 clustergrammer2/nbextension/__init__.py
 clustergrammer2/nbextension/static/extension.js
@@ -69,9 +69,11 @@ examples/introduction_lab.ipynb
 examples/introduction_lab_tuple.ipynb
 examples/introduction_lab_widget_comm.ipynb
 examples/introduction_lab_widget_comm_single_net.ipynb
+examples/introduction_nb-Copy1.ipynb
 examples/introduction_nb.html
 examples/introduction_nb.ipynb
 examples/introduction_nb_widget_comm.ipynb
+examples/meta_cat_col.csv
 examples/meta_col.csv
 examples/meta_row.csv
 examples/old_introduction_lab.ipynb
@@ -91,6 +93,7 @@ examples/.ipynb_checkpoints/introduction_lab-checkpoint.ipynb
 examples/.ipynb_checkpoints/introduction_lab_tuple-checkpoint.ipynb
 examples/.ipynb_checkpoints/introduction_lab_widget_comm-checkpoint.ipynb
 examples/.ipynb_checkpoints/introduction_lab_widget_comm_single_net-checkpoint.ipynb
+examples/.ipynb_checkpoints/introduction_nb-Copy1-checkpoint.ipynb
 examples/.ipynb_checkpoints/introduction_nb-checkpoint.html
 examples/.ipynb_checkpoints/introduction_nb-checkpoint.ipynb
 examples/.ipynb_checkpoints/introduction_nb_widget_comm-checkpoint.ipynb
