@@ -1009,7 +1009,7 @@ class Network(object):
 
       df_meta[predict] = df_sim_top
 
-      return df_sim, df_meta_predict
+      return df_sim, df_meta
 
 
   def old_predict_cats_from_sigs(self, df_data_ini, df_sig_ini, dist_type='cosine', predict_level='Predict Category',
