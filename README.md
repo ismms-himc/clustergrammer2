@@ -39,6 +39,7 @@ A typical installation requires the following commands to be run:
 
 ```bash
 pip install clustergrammer2
+jupyter nbextension install --py --sys-prefix clustergrammer2
 jupyter nbextension enable --py --sys-prefix clustergrammer2
 ```
 
