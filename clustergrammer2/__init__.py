@@ -2,7 +2,6 @@
 # coding: utf-8
 
 # Copyright (c) Nicolas Fernandez.
-# Distributed under the terms of the Modified BSD License.
 
 from .example import CGM2
 from ._version import __version__, version_info

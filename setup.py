@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
+# Distributed under the terms of the MIT License
 
 from __future__ import print_function
 from glob import glob
@@ -69,13 +69,13 @@ setup_args = dict(
     author          = 'Nicolas Fernandez',
     author_email    = 'nicolas.fernandez@mssm.edu',
     url             = 'https://github.com/ismms-himc/clustergrammer2',
-    license         = 'BSD',
+    license         = 'MIT',
     platforms       = "Linux, Mac OS X, Windows",
     keywords        = ['Jupyter', 'Widgets', 'IPython'],
     classifiers     = [
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',

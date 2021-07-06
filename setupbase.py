@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
-
 """
 This file originates from the 'jupyter-packaging' package, and
 contains a set of useful utilities for including npm packages
