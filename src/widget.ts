@@ -14,7 +14,7 @@ import cgm_fun from 'clustergrammer-gl';
 import * as d3 from 'd3';
 
 console.log('*********************************************')
-console.log('** clustergrammer2 frontend version 0.17.2 **')
+console.log('** clustergrammer2 frontend version 0.17.3 **')
 console.log('*********************************************')
 
 export

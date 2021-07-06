@@ -1,6 +1,6 @@
 {
   "name": "clustergrammer2",
-  "version": "0.17.2",
+  "version": "0.17.3",
   "description": "A custom Jupyter widget library built using the widget-ts-cookiecutter library'",
   "keywords": [
     "jupyter",
@@ -47,7 +47,8 @@
   "dependencies": {
     "@jupyter-widgets/base": "^1 || ^2 || ^3",
     "clustergrammer-gl": "0.22.0",
-    "d3": "5.15.0"
+    "d3": "5.15.0",
+    "@jupyterlab/application": "^3.0.0"
   },
   "devDependencies": {
     "@phosphor/application": "^1.6.0",
@@ -76,6 +77,12 @@
     "webpack-cli": "^3.3.11"
   },
   "jupyterlab": {
-    "extension": "lib/plugin"
+    "extension": "lib/plugin",
+    "sharedPackages": {
+      "@jupyter-widgets/base": {
+        "bundled": false,
+        "singleton": true
+      }
+    }
   }
 }
