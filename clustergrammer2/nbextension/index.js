@@ -108749,11 +108749,11 @@ const base_1 = __webpack_require__(/*! @jupyter-widgets/base */ "@jupyter-widget
 const version_1 = __webpack_require__(/*! ./version */ "./src/version.ts");
 const clustergrammer_gl_1 = __importDefault(__webpack_require__(/*! clustergrammer-gl */ "./node_modules/clustergrammer-gl/clustergrammer-gl.node.js"));
 const d3 = __importStar(__webpack_require__(/*! d3 */ "./node_modules/d3/index.js"));
-console.log(clustergrammer_gl_1.default);
-console.log(d3);
-console.log('*********************************************');
-console.log('** clustergrammer2 frontend version 0.18.0 **');
-console.log('*********************************************');
+// console.log(cgm_fun)
+// console.log(d3)
+console.log('***************************************************');
+console.log('** clustergrammer2 frontend version 0.18.0 Lab 3 **');
+console.log('***************************************************');
 // Import the CSS
 __webpack_require__(/*! ../css/widget.css */ "./css/widget.css");
 class ExampleModel extends base_1.DOMWidgetModel {
@@ -108833,7 +108833,6 @@ var my_widget_callback = function (external_model) {
             index_list.push(real_index);
         }
         var index_list_string = String(index_list);
-        console.log('interaciting!!!!!!!!!s');
         inst_value = params.tooltip.tooltip_type + ' -> ' + index_list_string;
         external_model.model.set('value', inst_value);
         external_model.touch();

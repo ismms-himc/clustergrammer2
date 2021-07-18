@@ -12,12 +12,12 @@ import { MODULE_NAME, MODULE_VERSION } from './version';
 import cgm_fun from 'clustergrammer-gl';
 import * as d3 from 'd3';
 
-console.log(cgm_fun)
-console.log(d3)
+// console.log(cgm_fun)
+// console.log(d3)
 
-console.log('*********************************************')
-console.log('** clustergrammer2 frontend version 0.18.0 **')
-console.log('*********************************************')
+console.log('***************************************************')
+console.log('** clustergrammer2 frontend version 0.18.0 Lab 3 **')
+console.log('***************************************************')
 
 // Import the CSS
 import '../css/widget.css';
@@ -136,8 +136,6 @@ var my_widget_callback = function(external_model){
 
 
       var index_list_string = String(index_list)
-
-      console.log('interaciting!!!!!!!!!s')
 
       inst_value = params.tooltip.tooltip_type + ' -> ' + index_list_string
       external_model.model.set('value', inst_value);

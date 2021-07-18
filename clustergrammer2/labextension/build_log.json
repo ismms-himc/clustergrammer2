@@ -68,26 +68,26 @@
     },
     "resolve": {
       "alias": {
-        "@phosphor/algorithm$": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/algorithm/dist/index.js",
-        "@phosphor/application$": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/application/dist/index.js",
-        "@phosphor/commands$": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/commands/dist/index.js",
-        "@phosphor/coreutils$": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/coreutils/dist/index.js",
-        "@phosphor/disposable$": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/disposable/dist/index.js",
-        "@phosphor/domutils$": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/domutils/dist/index.js",
-        "@phosphor/dragdrop$": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/dragdrop/dist/index.js",
-        "@phosphor/dragdrop/style": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/widgets/style",
-        "@phosphor/messaging$": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/messaging/dist/index.js",
-        "@phosphor/properties$": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/properties/dist/index.js",
-        "@phosphor/signaling": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/signaling/dist/index.js",
-        "@phosphor/widgets/style": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/widgets/style",
-        "@phosphor/virtualdom$": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/virtualdom/dist/index.js",
-        "@phosphor/widgets$": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/@lumino/widgets/dist/index.js"
+        "@phosphor/algorithm$": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/algorithm/dist/index.js",
+        "@phosphor/application$": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/application/dist/index.js",
+        "@phosphor/commands$": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/commands/dist/index.js",
+        "@phosphor/coreutils$": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/coreutils/dist/index.js",
+        "@phosphor/disposable$": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/disposable/dist/index.js",
+        "@phosphor/domutils$": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/domutils/dist/index.js",
+        "@phosphor/dragdrop$": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/dragdrop/dist/index.js",
+        "@phosphor/dragdrop/style": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/widgets/style",
+        "@phosphor/messaging$": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/messaging/dist/index.js",
+        "@phosphor/properties$": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/properties/dist/index.js",
+        "@phosphor/signaling": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/signaling/dist/index.js",
+        "@phosphor/widgets/style": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/widgets/style",
+        "@phosphor/virtualdom$": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/virtualdom/dist/index.js",
+        "@phosphor/widgets$": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/@lumino/widgets/dist/index.js"
       },
       "fallback": {
         "url": false,
         "buffer": false,
-        "path": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/path-browserify/index.js",
-        "process": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/node_modules/process/browser.js"
+        "path": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/path-browserify/index.js",
+        "process": "/Users/nickfernandez/Documents/clustergrammer2/node_modules/process/browser.js"
       }
     },
     "watchOptions": {
@@ -112,8 +112,8 @@
           },
           "filename": "remoteEntry.[contenthash].js",
           "exposes": {
-            "./index": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/lib/index.js",
-            "./extension": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/lib/plugin"
+            "./index": "/Users/nickfernandez/Documents/clustergrammer2/lib/index.js",
+            "./extension": "/Users/nickfernandez/Documents/clustergrammer2/lib/plugin"
           },
           "shared": {
             "@jupyterlab/application": {
@@ -578,7 +578,7 @@
             "clustergrammer2": {
               "version": "0.18.0",
               "singleton": true,
-              "import": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/lib/index.js"
+              "import": "/Users/nickfernandez/Documents/clustergrammer2/lib/index.js"
             }
           }
         }
@@ -590,7 +590,7 @@
     "entry": {},
     "output": {
       "filename": "[name].[contenthash].js",
-      "path": "/Users/nickfernandez/Documents/clustergrammer2_cookiecutter_ts/clustergrammer2/labextension/static",
+      "path": "/Users/nickfernandez/Documents/clustergrammer2/clustergrammer2/labextension/static",
       "publicPath": "auto"
     }
   }
