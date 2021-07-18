@@ -1,14 +1,15 @@
+const path = require('path');
+const version = require('./package.json').version;
+
 // Custom webpack rules
 const rules = [
   { test: /\.ts$/, loader: 'ts-loader' },
   { test: /\.js$/, loader: 'source-map-loader' },
+  { test: /\.css$/, use: ['style-loader', 'css-loader']}
 ];
 
 // Packages that shouldn't be bundled but loaded at runtime
-const externals = ['@jupyter-widgets/base', 'three', 'jupyter-threejs'];
-const version = require('./package.json').version;
-const path = require('path');
-
+const externals = ['@jupyter-widgets/base'];
 
 const resolve = {
   // Add '.ts' and '.tsx' as resolvable extensions.
@@ -16,24 +17,62 @@ const resolve = {
 };
 
 module.exports = [
+  /**
+   * Notebook extension
+   *
+   * This bundle only contains the part of the JavaScript that is run on load of
+   * the notebook.
+   */
   {
-    // Notebook extension
     entry: './src/extension.ts',
     output: {
       filename: 'index.js',
-      path: path.resolve(__dirname, 'clustergrammer2', 'nbextension', 'static'),
-      libraryTarget: 'amd'
+      path: path.resolve(__dirname, 'clustergrammer2', 'nbextension'),
+      libraryTarget: 'amd',
+      publicPath: '',
     },
     module: {
       rules: rules
     },
     devtool: 'source-map',
-    externals: ['@jupyter-widgets/base'],
+    externals,
     resolve,
   },
 
+  /**
+   * Embeddable clustergrammer2 bundle
+   *
+   * This bundle is almost identical to the notebook extension bundle. The only
+   * difference is in the configuration of the webpack public path for the
+   * static assets.
+   *
+   * The target bundle is always `dist/index.js`, which is the path required by
+   * the custom widget embedder.
+   */
   {
-    // embeddable bundle (e.g. for docs)
+    entry: './src/index.ts',
+    output: {
+        filename: 'index.js',
+        path: path.resolve(__dirname, 'dist'),
+        libraryTarget: 'amd',
+        library: "clustergrammer2",
+        publicPath: 'https://unpkg.com/clustergrammer2@' + version + '/dist/'
+    },
+    devtool: 'source-map',
+    module: {
+        rules: rules
+    },
+    externals,
+    resolve,
+  },
+
+
+  /**
+   * Documentation widget bundle
+   *
+   * This bundle is used to embed widgets in the package documentation.
+   */
+  {
     entry: './src/index.ts',
     output: {
       filename: 'embed-bundle.js',
@@ -45,36 +84,8 @@ module.exports = [
       rules: rules
     },
     devtool: 'source-map',
-    externals: ['@jupyter-widgets/base'],
-    resolve,
-  },
-  {// Embeddable clustergrammer2 bundle
-    //
-    // This bundle is generally almost identical to the notebook bundle
-    // containing the custom widget views and models.
-    //
-    // The only difference is in the configuration of the webpack public path
-    // for the static assets.
-    //
-    // It will be automatically distributed by unpkg to work with the static
-    // widget embedder.
-    //
-    // The target bundle is always `dist/index.js`, which is the path required
-    // by the custom widget embedder.
-    //
-    entry: './src/index.ts',
-    output: {
-        filename: 'index.js',
-        path: path.resolve(__dirname, 'dist'),
-        libraryTarget: 'amd',
-        library: "clustergrammer2", 
-        publicPath: 'https://unpkg.com/clustergrammer2@' + version + '/dist/'
-    },
-    devtool: 'source-map',
-    module: {
-        rules: rules
-    },
-    externals: ['@jupyter-widgets/base'],
+    externals,
     resolve,
   }
+
 ];

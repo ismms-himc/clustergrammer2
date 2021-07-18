@@ -2,6 +2,7 @@
 # coding: utf-8
 
 # Copyright (c) Nicolas Fernandez.
+# Distributed under the terms of the Modified BSD License.
 
 
 def test_nbextension_path():

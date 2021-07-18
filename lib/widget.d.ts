@@ -1,4 +1,5 @@
 import { DOMWidgetModel, DOMWidgetView, ISerializers } from '@jupyter-widgets/base';
+import '../css/widget.css';
 export declare class ExampleModel extends DOMWidgetModel {
     defaults(): any;
     static serializers: ISerializers;

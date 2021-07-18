@@ -2,6 +2,7 @@
 # coding: utf-8
 
 # Copyright (c) Nicolas Fernandez.
+# Distributed under the terms of the Modified BSD License.
 
 """
 TODO: Add module docstring
@@ -22,11 +23,13 @@ class CGM2(DOMWidget):
     _view_module = Unicode(module_name).tag(sync=True)
     _view_module_version = Unicode(module_version).tag(sync=True)
 
-    value = Unicode('Hello World!').tag(sync=True)
+    value = Unicode('Hello World!!').tag(sync=True)
+
+
     manual_cat = Unicode('{"col":"", "row":""}').tag(sync=True)
 
     mat_string = Unicode('ini_mat_string').tag(sync=True)
 
-    print('>> clustergrammer2 backend version 0.17.3')
+    print('>> clustergrammer2 backend version 0.18.0')
 
     network = Unicode('').tag(sync=True)

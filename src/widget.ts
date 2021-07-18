@@ -1,26 +1,31 @@
-// Copyright (c) Nicolas Fernandez.
+// Copyright (c) Nicolas Fernandez
 // Distributed under the terms of the Modified BSD License.
 
 import {
-  DOMWidgetModel, DOMWidgetView, ISerializers
+  DOMWidgetModel,
+  DOMWidgetView,
+  ISerializers,
 } from '@jupyter-widgets/base';
 
-import {
-  MODULE_NAME, MODULE_VERSION
-} from './version';
+import { MODULE_NAME, MODULE_VERSION } from './version';
 
 import cgm_fun from 'clustergrammer-gl';
-
 import * as d3 from 'd3';
 
+console.log(cgm_fun)
+console.log(d3)
+
 console.log('*********************************************')
-console.log('** clustergrammer2 frontend version 0.17.3 **')
+console.log('** clustergrammer2 frontend version 0.18.0 **')
 console.log('*********************************************')
 
-export
-class ExampleModel extends DOMWidgetModel {
+// Import the CSS
+import '../css/widget.css';
+
+export class ExampleModel extends DOMWidgetModel {
   defaults() {
-    return {...super.defaults(),
+    return {
+      ...super.defaults(),
       _model_name: ExampleModel.model_name,
       _model_module: ExampleModel.model_module,
       _model_module_version: ExampleModel.model_module_version,
@@ -34,15 +39,15 @@ class ExampleModel extends DOMWidgetModel {
   }
 
   static serializers: ISerializers = {
-      ...DOMWidgetModel.serializers,
-      // Add any extra serializers here
-    }
+    ...DOMWidgetModel.serializers,
+    // Add any extra serializers here
+  };
 
   static model_name = 'ExampleModel';
   static model_module = MODULE_NAME;
   static model_module_version = MODULE_VERSION;
-  static view_name = 'ExampleView';   // Set to null if no view
-  static view_module = MODULE_NAME;   // Set to null if no view
+  static view_name = 'ExampleView'; // Set to null if no view
+  static view_module = MODULE_NAME; // Set to null if no view
   static view_module_version = MODULE_VERSION;
 }
 
@@ -173,9 +178,14 @@ var my_widget_callback = function(external_model){
   }
 }
 
-export
-class ExampleView extends DOMWidgetView {
+console.log(make_viz)
+console.log(my_widget_callback)
+
+export class ExampleView extends DOMWidgetView {
   render() {
+    this.el.classList.add('custom-widget');
+    // originally here
+    // this.value_changed();
 
     d3.select(this.el)
       .append('div')
@@ -196,10 +206,8 @@ class ExampleView extends DOMWidgetView {
 
     setTimeout(make_viz, 10, args, this);
 
+
     this.model.on('change:value', this.value_changed, this);
-
-    this.model.on('change:manual_cat', this.manual_cat_update, this);
-
   }
 
   value_changed() {
@@ -212,6 +220,10 @@ class ExampleView extends DOMWidgetView {
     }
 
   }
+
+  // value_changed() {
+  //   this.el.textContent = this.model.get('value');
+  // }
 
   manual_cat_update() {
 
@@ -256,32 +268,6 @@ class ExampleView extends DOMWidgetView {
       this['cgm']['update_all_cats'](this['cgm'], 'col', manual_category_name, new_cat_dict)
 
 
-    // console.log(this['cgm']);
-
-    // let axis = 'col';
-
-    // let cat_title = this['cgm'].params.network.manual_category.col;
-
-    // this['cgm'].params.network[axis + '_nodes']
-    //     .map(x => {
-
-    //        let new_cat = this['cgm'].params.cat_data.manual_cat_dict[axis];
-
-    //        let full_cat = cat_title + ': ' + new_cat;
-
-    //        let inst_name = x.name;
-
-    //        if ( inst_name.includes(': ') ){
-    //          inst_name = inst_name.split(': ')[1]
-    //        }
-
-    //        x['cat-0'] = full_cat
-
-    //      })
-
   }
 
 }
-
-
-

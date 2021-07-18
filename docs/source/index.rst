@@ -4,7 +4,7 @@ clustergrammer2
 
 Version: |release|
 
-A custom Jupyter widget library built using the widget-ts-cookiecutter library'
+A Custom Jupyter Widget Library
 
 
 Quickstart

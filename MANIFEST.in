@@ -5,6 +5,7 @@ include setupbase.py
 include pytest.ini
 include .coverage.rc
 
+include tsconfig.json
 include package.json
 include webpack.config.js
 include clustergrammer2/labextension/*.tgz
@@ -26,6 +27,7 @@ prune tests/build
 # Javascript files
 graft clustergrammer2/nbextension
 graft src
+graft css
 prune **/node_modules
 prune coverage
 prune lib
